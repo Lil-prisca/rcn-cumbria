@@ -1,8 +1,8 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/shared/Navbar";
 import setman from "../assets/pastors/AAO.jpg";
 import man1 from "../assets/pastors/pke.webp";
 import woman from "../assets/pastors/aab.png";
-import Footer from "../components/Footer";
+import Footer from "../components/shared/Footer";
 
 const TeamMember = [
   {
@@ -40,7 +40,7 @@ const TeamsPage = () => {
       <Navbar />
       <div className="w-full max-w-400 m-auto mt-3 mb-10">
         <h1 className="text-center text-primary text-[30px] ">Leadership</h1>
-        <div class="w-40 h-1 bg-secondary mb-5  m-auto"></div>
+        <div className="w-40 h-1 bg-secondary mb-5  m-auto"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15 max-w-7xl m-auto px-10">
           {TeamMember.map((member) => (
