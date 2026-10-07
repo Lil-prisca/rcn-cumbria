@@ -21,7 +21,7 @@ const Approuters = () => {
         {/* <Route path="/our-activities" element={<OurActivities />} /> */}
         <Route path="/team-members" element={<TeamsPage />} />
         <Route path="/iamnew" element={<IAmNewPage />} />
-        // <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/safeguarding" element={<SafeguardingPage />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
       </Routes>
