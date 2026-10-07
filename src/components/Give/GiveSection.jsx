@@ -64,7 +64,7 @@ const GiveSection = () => {
                     </span>
                     <div className="flex items-center gap-3">
                       <span className="text-black  text-[15px] font-semibold">
-                        13828492
+                        {/* 13828492 */}
                       </span>
                     </div>
                   </div>
@@ -75,7 +75,7 @@ const GiveSection = () => {
                       Sort code
                     </span>
                     <span className="text-black text-[15px] font-medium">
-                      20-51-08
+                      {/* 20-51-08 */}
                     </span>
                   </div>
 
@@ -85,7 +85,7 @@ const GiveSection = () => {
                       Country or region
                     </span>
                     <span className=" text-black text-[15px] text-right font-medium">
-                      United Kingdom
+                      {/* United Kingdom */}
                     </span>
                   </div>
 
@@ -95,7 +95,7 @@ const GiveSection = () => {
                       Currency
                     </span>
                     <span className=" text-black text-[15px] font-medium">
-                      GBP
+                      {/* GBP */}
                     </span>
                   </div>
                 </div>
