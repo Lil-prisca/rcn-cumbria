@@ -6,9 +6,9 @@ import Contact from "../pages/ContactPage";
 import TeamsPage from "../pages/TeamsPage";
 import GivePage from "../pages/GivePage";
 import IAmNewPage from "../pages/IamnewPage";
-// import SafeguardingPage from "../components/Safeguardingpage";
-// import TermsOfUse from "../pages/Termsofuse";
-// import PrivacyPolicy from "../pages/Privacypolicy";
+import SafeguardingPage from "../pages/Safeguardingpage";
+import TermsOfUse from "../pages/Termsofuse";
+import PrivacyPolicy from "../pages/Privacypolicy";
 
 const Approuters = () => {
   return (
@@ -21,9 +21,9 @@ const Approuters = () => {
         {/* <Route path="/our-activities" element={<OurActivities />} /> */}
         <Route path="/team-members" element={<TeamsPage />} />
         <Route path="/iamnew" element={<IAmNewPage />} />
-        {/* // <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
-        {/* <Route path="/safeguarding" element={<SafeguardingPage />} /> */}
-        {/* <Route path="/terms-of-use" element={<TermsOfUse />} /> */}
+        // <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/safeguarding" element={<SafeguardingPage />} />
+        <Route path="/terms-of-use" element={<TermsOfUse />} />
       </Routes>
     </>
   );
