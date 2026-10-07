@@ -1,0 +1,54 @@
+import { motion } from "framer-motion";
+import about from "../../assets/about/about-talk.webp";
+
+const AboutHero = () => {
+  return (
+    <section className="relative min-h-160 md:min-h-150 flex items-center overflow-hidden font-sans">
+      <div className="absolute inset-0 z-0">
+        <img
+          className="w-full h-full object-cover  object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+          alt="A cinematic, low-angle photograph of Cumbria's g"
+          src={about}
+        />
+        <div className="absolute inset-0 bg-primary/80"></div>
+      </div>
+
+      <div className="relative z-10 text-left px-5 md:px-20 max-w-4xl">
+        {/* <motion.span
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="inline-block text-tertiary font-label text-sm tracking-[0.2em] mb-6 font-bold uppercase"
+        >
+          THE APOSTOLIC MANDATE
+        </motion.span> */}
+
+        <motion.h1
+          initial={{ y: 60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4 mt-10 leading-tight text-on-primary text-6xl md:text-7xl font-extrabold tracking-[-0.04em]"
+        >
+          About Remnant <br className="hidden md:block" /> Christian Network{" "}
+          <span className="text-secondary">Cumbria</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="text-[18px] text-on-primary max-w-2xl"
+        >
+          Raising a generation of priests who will represent the government of
+          God in the heart of the United Kingdom.
+        </motion.p>
+      </div>
+
+      {/* Ambient Glows */}
+      <div className="absolute -bottom-1/4 -left-1/4 w-150 h-150 alchemist-glow blur-[100px] rounded-full"></div>
+      <div className="absolute top-1/4 -right-1/4 w-100 h-100 alchemist-glow blur-[100px] rounded-full opacity-50"></div>
+    </section>
+  );
+};
+
+export default AboutHero;

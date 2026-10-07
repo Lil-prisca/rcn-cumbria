@@ -1,0 +1,120 @@
+import { motion } from "framer-motion";
+import { FaCirclePlay } from "react-icons/fa6";
+// import { Link } from "react-router-dom";
+
+const LiveSection = () => {
+  return (
+    <>
+      <section className="relative flex min-h-[419px] w-full items-center justify-center px-4 text-center font-sans sm:px-8 lg:px-12">
+        <div className="absolute inset-0">
+          <img
+            className="h-full w-full object-cover"
+            alt="Epic, moody mountain peaks of the Lake District covered in soft morning mist, representing the presence of God in nature"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcC_tdqkXP-9t0HPzS16rtTyvBieyGGGaxJ8JN4tSq5L7t5WofCcXNc9IJx3DTE7Td2OsiRdv_7LUM3fdbGsLf6kflOt-qRK0pSzeXdMeJnfjnk9c5iYKipRo6PCxRYNzNxZInLQ8JY-RKpX1DzAt_LwW0mS7PNGBid_Tg1iKbNZMXA3Ak7cJhD0_clAVloLVy9H_2MQH-xoHBNqvTBwkO8SNFiWY_AT6KK3VXxM-9sKVp1wf2ee0ZFuL2IUI8ClTyablV6fyQamA"
+          />
+
+          <div className="absolute inset-0 bg-[#131318]/60 backdrop-blur-[2px]" />
+        </div>
+
+        <div className="relative z-10 max-w-4xl px-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mb-8 text-5xl italic text-white md:text-7xl"
+          >
+            The Presence
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-2xl font-light italic leading-relaxed text-white md:text-3xl"
+          >
+            "In His presence is fullness of joy; at His right hand there are
+            pleasures forevermore."
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mx-auto mt-12 h-0.5 w-32 bg-secondary"
+          />
+        </div>
+      </section>
+
+      {/* Live broadcast */}
+      <section className="relative py-20 bg-on-primary overflow-hidden font-sans">
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+          <div className="w-full h-full bg-linear-to-lq from-primary/30 to-transparent"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-12 flex flex-col md:flex-row items-center gap-20">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7 }}
+            className="w-full  md:w-1/2  order-2 md:order-1"
+          >
+            <h2 className="    text-5xl md:text-6xl text-primary">
+              Join the Moment.
+            </h2>
+            <p className="  text-on-surface-variant text-lg">
+              Can't make it to Cumbria? Engage with our live broadcast, wherever
+              you are.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="w-full md:w-1/2 order-1 md:order-2"
+          >
+            <div className="aspect-video relative rounded-xl overflow-hidden shadow-2xl border border-outline-variant/10">
+              <img
+                className="w-full h-full object-cover filter brightness-75"
+                alt="A cinematic stage silhouette of a speaker against a vibrant warm backdrop, capturing the energy of a live sermon"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSv5SgBeRAVJdXhMoeafRwVxyLqGCTMuPiqbdIzEZEB0kh3WeuspE6adS50w4mNY4zYRYlO3jAz9JLoNvZ2lgntDcg6-edK_YqQlo5f4N4eJjFqbubld1JI464iNuT2RqRosHwjCqAWppWgIDNRqZiYx2jJ4rWc3N-E3At7Ly641swAgY7cuLvflOjMgkvyl3RdqorFnPNHWoX-mzogDHvLklsC5eDrBmczSHNEHCT6UwoDACzTGzlKsPJnrR0dhCPxvptvT4LtPQ"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-2"
+              >
+                <div className="text-center justify-center mt-3">
+                  <p className="text-xl uppercase tracking-[0.25em] text-white mb-2">
+                    Join Us Online
+                  </p>
+                </div>
+                <a href="https://www.youtube.com/@RCNCarlisle">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center group cursor-pointer transition-transform"
+                  >
+                    <span className="text-4xl text-white">
+                      <FaCirclePlay />
+                    </span>
+                  </motion.div>
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default LiveSection;
