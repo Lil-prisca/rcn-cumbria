@@ -1,0 +1,66 @@
+import Navbar from "../components/Navbar";
+import setman from "../assets/pastors/AAO.jpg";
+import man1 from "../assets/pastors/pke.webp";
+import woman from "../assets/pastors/aab.png";
+import Footer from "../components/Footer";
+
+const TeamMember = [
+  {
+    img: setman,
+    name: "Apostle Arome Osayi",
+    position: "Set Man, Remnant Christian Network Global",
+  },
+
+  {
+    img: woman,
+    name: "Reverend Dinna Osayi",
+    position: "Co Pastor, Remnant Christian Network  Global",
+  },
+  {
+    img: man1,
+    name: "Rev. ??????",
+    position: "Point man, Remnant Christian Network Manchester",
+  },
+  // {
+  //   img: teensleader,
+  //   name: "Elijah Onyimi",
+  //   position: "Youth / Teen Minister, Remnant Christian Network Manchester",
+  // },
+  // {
+  //   img: childrenleader,
+  //   name: "Sarah George",
+  //   position:
+  //     " Head of Children's Department, Remnant Christian Network Manchester",
+  // },
+];
+
+const TeamsPage = () => {
+  return (
+    <>
+      <Navbar />
+      <div className="w-full max-w-400 m-auto mt-3 mb-10">
+        <h1 className="text-center text-primary text-[30px] ">Leadership</h1>
+        <div class="w-40 h-1 bg-secondary mb-5  m-auto"></div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15 max-w-7xl m-auto px-10">
+          {TeamMember.map((member) => (
+            <div className="  rounded-2xl w-80 md:w-92 h-100" key={member.name}>
+              <img
+                src={member.img}
+                alt={member.name}
+                className="w-full h-80 object-cover  object-top rounded-t-2xl mb-2"
+              />
+              <h3 className="text-[24px] text-secondary pl-5  mb-2">
+                {member.name}
+              </h3>
+              <p className="  text-[15px] pl-5  ">{member.position}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default TeamsPage;
