@@ -2,7 +2,7 @@ import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 
 const INTRO = [
-  "Welcome to the website of **Remnant Christian Network Manchester (“RCN Manchester”, “we”, “us” or “our”)**.",
+  "Welcome to the website of **Remnant Christian Network Cumbria (“RCN Cumbria”, “we”, “us” or “our”)**.",
   "These Terms of Use explain the conditions that apply when you access or use our website.",
   "By using this website, you agree to these Terms. If you do not agree with them, please do not use the website.",
 ];
@@ -14,7 +14,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "Remnant Christian Network Manchester is a Christian ministry operating in the United Kingdom.",
+        text: "Remnant Christian Network Cumbria is a Christian ministry operating in the United Kingdom.",
       },
       {
         type: "p",
@@ -24,7 +24,7 @@ const SECTIONS = [
         type: "p",
         text: "If you have questions about these Terms, you can contact us at:",
       },
-      { type: "p", text: "**Email:** rcnmanchester2024@gmail.com" },
+      { type: "p", text: "**Email:** rcnCumbria2024@gmail.com" },
     ],
   },
   {
@@ -112,7 +112,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "Submitting a prayer request does not guarantee a particular response, outcome or timeframe. Prayer and spiritual support offered through RCN Manchester should not be treated as a substitute for emergency, medical, mental-health or other professional services where these are required.",
+        text: "Submitting a prayer request does not guarantee a particular response, outcome or timeframe. Prayer and spiritual support offered through RCN Cumbria should not be treated as a substitute for emergency, medical, mental-health or other professional services where these are required.",
       },
       {
         type: "p",
@@ -142,7 +142,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "Anyone attending an RCN Manchester activity is expected to behave respectfully and to comply with reasonable venue, safety and safeguarding requirements.",
+        text: "Anyone attending an RCN Cumbria activity is expected to behave respectfully and to comply with reasonable venue, safety and safeguarding requirements.",
       },
       {
         type: "p",
@@ -156,7 +156,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "RCN Manchester is committed to providing an appropriate and safe environment for children, young people and vulnerable individuals participating in our activities.",
+        text: "RCN Cumbria is committed to providing an appropriate and safe environment for children, young people and vulnerable individuals participating in our activities.",
       },
       {
         type: "p",
@@ -164,7 +164,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "Information provided through this website should not be used to bypass any safeguarding procedures or requirements applicable to an RCN Manchester activity.",
+        text: "Information provided through this website should not be used to bypass any safeguarding procedures or requirements applicable to an RCN Cumbria activity.",
       },
     ],
   },
@@ -174,7 +174,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "Unless otherwise stated, the content created for this website, including original text, graphics, photographs, logos, branding and website materials, belongs to RCN Manchester, Remnant Christian Network, or the relevant copyright owner and is protected by applicable intellectual property laws.",
+        text: "Unless otherwise stated, the content created for this website, including original text, graphics, photographs, logos, branding and website materials, belongs to RCN Cumbria, Remnant Christian Network, or the relevant copyright owner and is protected by applicable intellectual property laws.",
       },
       {
         type: "p",
@@ -191,7 +191,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "Nothing in these Terms transfers ownership of third-party intellectual property to RCN Manchester.",
+        text: "Nothing in these Terms transfers ownership of third-party intellectual property to RCN Cumbria.",
       },
     ],
   },
@@ -270,7 +270,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "To the extent permitted by law, RCN Manchester will not be responsible for losses that were not reasonably foreseeable as a result of your use of this website or for losses arising from circumstances outside our reasonable control.",
+        text: "To the extent permitted by law, RCN Cumbria will not be responsible for losses that were not reasonably foreseeable as a result of your use of this website or for losses arising from circumstances outside our reasonable control.",
       },
       {
         type: "p",
@@ -338,7 +338,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "**Remnant Christian Network Manchester**\n**Email:** rcnmanchester2024@gmail.com",
+        text: "**Remnant Christian Network Cumbria**\n**Email:** rcnCumbria2024@gmail.com",
       },
     ],
   },

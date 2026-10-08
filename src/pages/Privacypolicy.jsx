@@ -2,8 +2,8 @@ import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 
 const INTRO = [
-  "Remnant Christian Network Manchester (“RCN Manchester”, “we”, “us” or “our”) respects your privacy and is committed to protecting your personal information.",
-  "This Privacy Policy explains how we collect, use, store and protect personal data when you visit our website, contact us, sign up to receive information, attend or express an interest in our activities, submit a prayer request, or otherwise interact with RCN Manchester.",
+  "Remnant Christian Network Cumbria (“RCN Cumbria”, “we”, “us” or “our”) respects your privacy and is committed to protecting your personal information.",
+  "This Privacy Policy explains how we collect, use, store and protect personal data when you visit our website, contact us, sign up to receive information, attend or express an interest in our activities, submit a prayer request, or otherwise interact with RCN Cumbria.",
   "This policy should be read alongside any additional privacy information we may provide when collecting personal data for a specific purpose.",
 ];
 
@@ -14,17 +14,17 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "Remnant Christian Network Manchester is a Christian ministry operating in the United Kingdom.",
+        text: "Remnant Christian Network Cumbria is a Christian ministry operating in the United Kingdom.",
       },
       {
         type: "p",
-        text: "For the purposes of UK data protection law, RCN Manchester is responsible for the personal data covered by this Privacy Policy where we determine how and why that information is processed.",
+        text: "For the purposes of UK data protection law, RCN Cumbria is responsible for the personal data covered by this Privacy Policy where we determine how and why that information is processed.",
       },
       {
         type: "p",
         text: "If you have any questions about this policy or how we use your personal data, please contact:",
       },
-      { type: "p", text: "**Email:** rcnmanchester2024@gmail.com" },
+      { type: "p", text: "**Email:** rcnCumbria2024@gmail.com" },
     ],
   },
   {
@@ -111,7 +111,7 @@ const SECTIONS = [
           "Manage our relationship with members, attendees, volunteers and supporters",
           "Maintain the security and proper operation of our website",
           "Comply with legal and regulatory obligations",
-          "Protect the rights, safety and legitimate interests of RCN Manchester and those who interact with us",
+          "Protect the rights, safety and legitimate interests of RCN Cumbria and those who interact with us",
         ],
       },
       {
@@ -154,7 +154,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "If you sign up to receive ministry news or updates, we may use the contact details you provide to send you information about relevant meetings, Bible studies, prayer gatherings, outreach activities and other RCN Manchester activities.",
+        text: "If you sign up to receive ministry news or updates, we may use the contact details you provide to send you information about relevant meetings, Bible studies, prayer gatherings, outreach activities and other RCN Cumbria activities.",
       },
       {
         type: "p",
@@ -162,7 +162,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "You may unsubscribe or change your communication preferences at any time by using any unsubscribe facility provided or by contacting us at **rcnmanchester2024@gmail.com**.",
+        text: "You may unsubscribe or change your communication preferences at any time by using any unsubscribe facility provided or by contacting us at **rcnCumbria2024@gmail.com**.",
       },
     ],
   },
@@ -194,7 +194,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "Photographs or video recordings may occasionally be taken during RCN Manchester gatherings and events for ministry communications, historical records or appropriate promotional purposes.",
+        text: "Photographs or video recordings may occasionally be taken during RCN Cumbria gatherings and events for ministry communications, historical records or appropriate promotional purposes.",
       },
       {
         type: "p",
@@ -216,7 +216,7 @@ const SECTIONS = [
     blocks: [
       {
         type: "p",
-        text: "Some RCN Manchester activities may involve children and young people.",
+        text: "Some RCN Cumbria activities may involve children and young people.",
       },
       {
         type: "p",
@@ -240,7 +240,7 @@ const SECTIONS = [
       {
         type: "ul",
         items: [
-          "Authorised RCN Manchester leaders, volunteers or ministry personnel who require access for their responsibilities",
+          "Authorised RCN Cumbria leaders, volunteers or ministry personnel who require access for their responsibilities",
           "Trusted service providers that help us operate our website, communications, registration systems or other administrative functions",
           "Professional advisers where necessary",
           "Government authorities, regulators, courts or law-enforcement bodies where disclosure is required by law or is otherwise legally permitted",
@@ -354,7 +354,7 @@ const SECTIONS = [
       { type: "p", text: "Not all rights apply in every circumstance." },
       {
         type: "p",
-        text: "To exercise any of these rights, please contact us at **rcnmanchester2024@gmail.com**.",
+        text: "To exercise any of these rights, please contact us at **rcnCumbria2024@gmail.com**.",
       },
       {
         type: "p",
@@ -404,7 +404,7 @@ const SECTIONS = [
       },
       {
         type: "p",
-        text: "**Remnant Christian Network Manchester**\n**Email:** rcnmanchester2024@gmail.com",
+        text: "**Remnant Christian Network Cumbria**\n**Email:** rcnCumbria2024@gmail.com",
       },
     ],
   },

@@ -7,7 +7,7 @@ import policy from "../assets/Documents/policy.pdf";
 const SAFEGUARDING_POLICY_URL = policy;
 
 /**
- * Safeguarding page — RCN Manchester
+ * Safeguarding page — RCN Cumbria
  *
  * Assumptions (adjust to match your actual project setup):
  * - React + Tailwind, no external UI library
@@ -30,7 +30,7 @@ const COMMITMENTS = [
 
 export default function SafeguardingPage() {
   useEffect(() => {
-    document.title = "Safeguarding — RCN Manchester";
+    document.title = "Safeguarding — RCN Cumbria";
   }, []);
 
   return (
@@ -59,7 +59,7 @@ export default function SafeguardingPage() {
             className="text-sm font-medium mb-3"
             style={{ color: "var(--sg-accent)" }}
           >
-            RCN Manchester
+            RCN Cumbria
           </p>
           <h1 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-6">
             Safeguarding
@@ -68,9 +68,9 @@ export default function SafeguardingPage() {
             className="leading-relaxed"
             style={{ color: "var(--sg-ink-soft)" }}
           >
-            At RCN Manchester, we are committed to creating a safe, welcoming
-            and caring environment for everyone who attends our services,
-            programmes and activities.
+            At RCN Cumbria, we are committed to creating a safe, welcoming and
+            caring environment for everyone who attends our services, programmes
+            and activities.
           </p>
           <p
             className="leading-relaxed mt-4"
@@ -121,8 +121,8 @@ export default function SafeguardingPage() {
             className="leading-relaxed mb-5"
             style={{ color: "var(--sg-ink-soft)" }}
           >
-            RCN Manchester is committed to safeguarding children, young people
-            and adults at risk. We seek to:
+            RCN Cumbria is committed to safeguarding children, young people and
+            adults at risk. We seek to:
           </p>
           <ul className="space-y-3">
             {COMMITMENTS.map((item) => (
@@ -148,7 +148,7 @@ export default function SafeguardingPage() {
           >
             If you are concerned about the safety or wellbeing of a child, young
             person or adult at risk, or about something that has happened within
-            an RCN Manchester activity, please contact our safeguarding team.
+            an RCN Cumbria activity, please contact our safeguarding team.
           </p>
 
           <div
@@ -178,7 +178,7 @@ export default function SafeguardingPage() {
               </p>
               {/* TODO: fill in once Bro Layò sends the safeguarding email */}
               <p style={{ color: "var(--sg-ink-soft)" }}>
-                safeguarding.rcnmanchester@gmail.com
+                safeguarding.rcnCumbria@gmail.com
               </p>
             </div>
           </div>

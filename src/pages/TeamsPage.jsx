@@ -19,18 +19,18 @@ const TeamMember = [
   {
     img: man1,
     name: "Rev. ??????",
-    position: "Point man, Remnant Christian Network Manchester",
+    position: "Point man, Remnant Christian Network Cumbria",
   },
   // {
   //   img: teensleader,
   //   name: "Elijah Onyimi",
-  //   position: "Youth / Teen Minister, Remnant Christian Network Manchester",
+  //   position: "Youth / Teen Minister, Remnant Christian Network Cumbria",
   // },
   // {
   //   img: childrenleader,
   //   name: "Sarah George",
   //   position:
-  //     " Head of Children's Department, Remnant Christian Network Manchester",
+  //     " Head of Children's Department, Remnant Christian Network Cumbria",
   // },
 ];
 
