@@ -1,7 +1,7 @@
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 import Activity from "../components/Activity/Activity";
-// import Gallery from "../components/Activity/Gallery";
+import Gallery from "../components/Activity/Gallery";
 import ActivityHero from "../components/Activity/ActivityHero";
 import ActivityExplained from "../components/Activity/ActivityExplained";
 
@@ -13,7 +13,7 @@ const OurActivitiesPage = () => {
         <ActivityHero />
         <Activity />
         <ActivityExplained />
-        {/* <Gallery /> */}
+        <Gallery />
       </div>
       <Footer />
     </div>
