@@ -15,6 +15,7 @@ import RequireAdmin from "../Admin/RequireAdmin";
 const AdminLogin = lazy(() => import("../Admin/AdminLogin"));
 const AdminHome = lazy(() => import("../Admin/AdminHome"));
 const AdminPage = lazy(() => import("../Admin/AdminPage"));
+const AdminLayout = lazy(() => import("../Admin/AdminLayout"));
 
 const guard = (el) => (
   <RequireAdmin>
@@ -44,8 +45,11 @@ const Approuters = () => {
           </Suspense>
         }
       />
-      <Route path="/admin" element={guard(<AdminHome />)} />
-      <Route path="/admin/:page" element={guard(<AdminPage />)} />
+
+      <Route path="/admin" element={guard(<AdminLayout />)}>
+        <Route index element={<AdminHome />} />
+        <Route path=":page" element={<AdminPage />} />
+      </Route>
     </Routes>
   );
 };

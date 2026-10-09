@@ -100,4 +100,28 @@ export const defaults = {
       alt: "",
     })),
   },
+
+  // give
+  "give.banner": {
+    heading: "Partner With Us",
+    description:
+      "Whether you are reaching out for support or choosing to give back, you are an essential part of the RCN Cumbria story.",
+    image: "/images/give/hero.jpg",
+    imageAlt: "",
+  },
+  "give.info": {
+    heading: "Generosity as Worship",
+    description:
+      "We believe that giving is a spiritual act of worship. Your tithes and offerings directly support our mission to spread the Gospel and serve the Cumbria community.",
+    featureTitle: "Transparent Allocation",
+    featureText:
+      "100% of your donations are audited and allocated to ministry operations, community outreach, and global missions.",
+  },
+  "give.bank": {
+    cardHeading: "What are you Giving to",
+    accountNumber: "",
+    sortCode: "",
+    country: "",
+    currency: "",
+  },
 };

@@ -64,4 +64,44 @@ export const adminPages = {
       },
     ],
   },
+  give: {
+    title: "Giving",
+    sections: [
+      {
+        key: "give.banner",
+        label: "Welcome banner",
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          { name: "description", label: "Description", type: "textarea" },
+          { name: "image", label: "Background image", type: "image" },
+          {
+            name: "imageAlt",
+            label: "Image description (for accessibility)",
+            type: "text",
+          },
+        ],
+      },
+      {
+        key: "give.info",
+        label: "Giving information",
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          { name: "description", label: "Description", type: "textarea" },
+          { name: "featureTitle", label: "Highlight – title", type: "text" },
+          { name: "featureText", label: "Highlight – text", type: "textarea" },
+        ],
+      },
+      {
+        key: "give.bank",
+        label: "Bank details",
+        fields: [
+          { name: "cardHeading", label: "Card heading", type: "text" },
+          { name: "accountNumber", label: "Account number", type: "text" },
+          { name: "sortCode", label: "Sort code", type: "text" },
+          { name: "country", label: "Country or region", type: "text" },
+          { name: "currency", label: "Currency", type: "text" },
+        ],
+      },
+    ],
+  },
 };
