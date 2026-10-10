@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 import { useSection } from "../../content/useSection";
 import { socialIcons } from "../../content/socialIcons";
 import { safeHref } from "../../content/safeHref";
