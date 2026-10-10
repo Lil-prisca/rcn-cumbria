@@ -3,11 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // import emailjs from "@emailjs/browser";
 
-// import churchimg from "../assets/P1011283.jpg";
-import churchimg from "../assets/IamNew/weAreGlad2.jpg";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
-import { FaCross, FaUsers, FaShirt, FaClock, FaHeart } from "react-icons/fa6";
+import { useSection } from "../content/useSection";
+import { valueIcons } from "../content/valueIcons";
 
 // EmailJS config — from your EmailJS dashboard
 const EMAILJS_SERVICE_ID = "service_piy6fyu";
@@ -15,46 +14,11 @@ const EMAILJS_TEMPLATE_ID = "template_78i6cab";
 const EMAILJS_PUBLIC_KEY = "Lb_ogUAd-BxtvtjuV";
 const NOTIFY_EMAIL = "layodemo2@gmail.com"; // where you want submissions delivered
 
-const faqs = [
-  {
-    icon: <FaShirt />,
-    question: "What should I wear?",
-    answer:
-      "Come as you are. There's no dress code here — whether you're in jeans or a suit, you're welcome. Many people dress casually, others smart-casual. What matters most is your heart, not your outfit.",
-  },
-  {
-    icon: <FaClock />,
-    question: "How long is the service?",
-    answer:
-      "Depending on the service youre attending, our services run for about 1hr and above. We never want you to feel rushed in God's presence.",
-  },
-  {
-    icon: <FaUsers />,
-    question: "Will I be put on the spot?",
-    answer:
-      "Never. You're free to simply observe, worship, and listen at your own pace. We won't single you out or ask you to do anything you're not comfortable with.",
-  },
-];
-
-const expectations = [
-  {
-    icon: <FaHeart />,
-    title: "A warm welcome",
-    desc: "Our welcome team will greet you at the door, help you find a seat, and answer any questions you have.",
-  },
-  {
-    icon: <FaUsers />,
-    title: "Genuine community",
-    desc: "You'll be surrounded by people who are genuinely glad you came — no pressure, just authentic connection.",
-  },
-  {
-    icon: <FaCross />,
-    title: "Powerful worship & word",
-    desc: "Expect passionate worship and Spirit-filled teaching that speaks directly to where you are in life.",
-  },
-];
-
 const IAmNewPage = () => {
+  const banner = useSection("iamnew.banner");
+  const expect = useSection("iamnew.expect");
+  const faq = useSection("iamnew.faq");
+
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -103,8 +67,8 @@ const IAmNewPage = () => {
         <div className="absolute inset-0 z-0">
           <img
             className="w-full h-full object-cover object-center opacity-30"
-            alt="Welcoming church gathering"
-            src={churchimg}
+            alt={banner.imageAlt || ""}
+            src={banner.image}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#19143E] via-[#19143E]/70 to-[#19143E]/20" />
         </div>
@@ -116,25 +80,22 @@ const IAmNewPage = () => {
             transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="text-5xl md:text-7xl   font-extrabold tracking-[-0.03em] leading-[1.05] mb-6"
           >
-            We're So Glad
-            <span className="block text-secondary">You're Here</span>
+            {banner.line1}
+            <span className="block text-secondary">{banner.accent}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
-            className="text-white/70 text-lg max-w-xl mx-auto leading-relaxed"
+            className="text-white/70 text-lg max-w-xl mx-auto leading-relaxed whitespace-pre-line"
           >
-            Whatever brought you here today, you're welcome exactly as you are.
-            Here's everything you need to know before you visit.
+            {banner.description}
           </motion.p>
         </div>
       </section>
+
       {/* What to expect */}
-      <div
-        className="w-100% bg-on-primary
-      "
-      >
+      <div className="w-100% bg-on-primary">
         <section className=" bg-background text-black py-20 max-w-7xl mx-auto px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -144,17 +105,17 @@ const IAmNewPage = () => {
             className="text-center mb-14"
           >
             <span className="inline-block text-tertiary font-label text-sm tracking-[0.2em] mb-4 font-bold uppercase">
-              WHAT TO EXPECT
+              {expect.eyebrow}
             </span>
             <h2 className="text-4xl md:text-5xl   font-bold">
-              Your First Visit
+              {expect.heading}
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {expectations.map((item, i) => (
+            {(expect.items || []).map((item, i) => (
               <motion.div
-                key={item.title}
+                key={item.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
@@ -162,7 +123,7 @@ const IAmNewPage = () => {
                 className=" border  rounded-2xl p-8 text-center bg-black/10 border-primary text-black transition-colors"
               >
                 <div className="w-14 h-14 rounded-full flex items-center justify-center text-secondary text-2xl mx-auto mb-6">
-                  {item.icon}
+                  {valueIcons[item.icon] ?? valueIcons.heart}
                 </div>
                 <h3 className="text-xl  font-bold mb-3">{item.title}</h3>
                 <p className=" leading-relaxed">{item.desc}</p>
@@ -171,41 +132,7 @@ const IAmNewPage = () => {
           </div>
         </section>
       </div>
-      {/* Service times */}
-      {/* <section className=" bg-black/20 py-16 relative overflow-hidden">
-        <div className="  max-w-7xl mx-auto px-6 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.6 }}
-            className="bg-secondary/10 border border-secondary/20 rounded-3xl p-10 lg:p-14 text-center text-black"
-          >
-            <h2 className="text-3xl md:text-4xl   font-bold mb-8">
-              Join Us This Sunday
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-md mx-auto">
-              <div className="bg-black/5 rounded-2xl p-6 border border-white/10 ">
-                <div className="text-secondary text-3xl font-bold mb-1">
-                  10:30 AM
-                </div>
-                <div className="text-black/50 text-sm">Morning Service</div>
-              </div>
-              <div className="bg-black/5 rounded-2xl p-6 border border-white/10">
-                <div className="text-secondary text-3xl font-bold mb-1">
-                  6:30 PM
-                </div>
-                <div className="text-black/50 text-sm text-black">
-                  Evening Service
-                </div>
-              </div>
-            </div>
-            <p className="text-black/50 text-sm mt-8">
-              Arrive 15 minutes early for a smoother start and a warm welcome.
-            </p>
-          </motion.div>
-        </div>
-      </section> */}
+
       <div className="bg-primary max-w-8xl">
         {/* FAQ */}
         <section className=" bg-primary  py-10 max-w-4xl mx-auto px-6 lg:px-10">
@@ -217,17 +144,15 @@ const IAmNewPage = () => {
             className="text-center mb-14"
           >
             <span className="inline-block text-tertiary font-label text-sm tracking-[0.2em] mb-4 font-bold uppercase">
-              COMMON QUESTIONS
+              {faq.eyebrow}
             </span>
-            <h2 className="text-4xl md:text-5xl   font-bold">
-              Before You Visit
-            </h2>
+            <h2 className="text-4xl md:text-5xl   font-bold">{faq.heading}</h2>
           </motion.div>
 
           <div className="space-y-4">
-            {faqs.map((faq, i) => (
+            {(faq.items || []).map((item, i) => (
               <motion.div
-                key={faq.question}
+                key={item.id}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
@@ -235,16 +160,19 @@ const IAmNewPage = () => {
                 className="bg-white/5 border border-white/10 rounded-2xl p-6 flex gap-5"
               >
                 <div className="w-10 h-10 rounded-full bg-secondary/20 border border-secondary/30 flex items-center justify-center text-secondary flex-shrink-0">
-                  {faq.icon}
+                  {valueIcons[item.icon] ?? valueIcons.heart}
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-2">{faq.question}</h4>
-                  <p className="text-white/60 leading-relaxed">{faq.answer}</p>
+                  <h4 className="font-bold text-lg mb-2">{item.question}</h4>
+                  <p className="text-white/60 leading-relaxed whitespace-pre-line">
+                    {item.answer}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
+
         {/* Connect card form */}
         <section className="py-10 max-w-3xl mx-auto px-6 lg:px-10">
           <motion.div
@@ -432,6 +360,7 @@ const IAmNewPage = () => {
             )}
           </motion.div>
         </section>
+
         {/* Bottom CTA */}
         <section className="pb-5 text-center px-6">
           <p className="text-white/50 mb-4">

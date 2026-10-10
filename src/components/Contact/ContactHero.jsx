@@ -1,40 +1,39 @@
-import map from "../../assets/contact/curchmembers.webp";
-// import people from "../assets/Aactivities/img21.jpg";
 import { motion } from "framer-motion";
+import { useSection } from "../../content/useSection";
 
 const ContactHero = () => {
+  const { line1, accent, description, image, imageAlt } =
+    useSection("contact.banner");
+
   return (
-    <section className="relative  md:min-h-90 flex items-center overflow-hidden font-sans">
+    <section className="relative md:min-h-90 flex items-center overflow-hidden font-sans">
       <div className="absolute inset-0 z-0">
         <img
           className="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
-          alt="A cinematic, low-angle photograph of Cumbria's g"
-          src={map}
+          alt={imageAlt || ""}
+          src={image}
         />
-        <div className="absolute  inset-0 bg-primary/80 "></div>
+        <div className="absolute inset-0 bg-primary/80"></div>
       </div>
       <div className="flex pt-10">
-        <div className=" h-fit justify-content relative z-10 text-left px-5 py-30  md:px-20 md:py-50 max-w-4xl">
+        <div className="h-fit justify-content relative z-10 text-left px-5 py-30 md:px-20 md:py-50 max-w-4xl">
           <motion.h1
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mb-1 leading-tight text-on-primary text-5xl md:text-7xl font-extrabold tracking-[-0.04em]"
           >
-            Reach Out <br />
-            <span className="text-secondary"> Anytime</span>
+            {line1} <br />
+            <span className="text-secondary">{accent}</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="text-[18px] text-on-primary max-w-2xl leading-relaxed"
+            className="text-[18px] text-on-primary max-w-2xl leading-relaxed whitespace-pre-line"
           >
-            Whether you have a question, need prayer, want more information
-            about our church, or would like to speak with a member of our team,
-            we'd love to hear from you. Contact us through any of the channels
-            below, and we'll get back to you as soon as possible.
+            {description}
           </motion.p>
         </div>
         <motion.div
@@ -42,10 +41,8 @@ const ContactHero = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className=" hidden md:flex relative z-10   top-30 left-20 w-100 h-100"
-        >
-          {/* <img src={people} alt="" className="rounded-2xl cover" /> */}
-        </motion.div>
+          className="hidden md:flex relative z-10 top-30 left-20 w-100 h-100"
+        />
       </div>
     </section>
   );

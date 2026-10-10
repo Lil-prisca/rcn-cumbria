@@ -1,7 +1,16 @@
 import { motion } from "framer-motion";
-import img16 from "../../assets/pastors/preaching-point-man.jpg";
+import { useSection } from "../../content/useSection";
+import Inline from "../../content/Inline";
+import { safeHref } from "../../content/safeHref";
 
 const MissionSection = () => {
+  const {
+    image,
+    imageAlt,
+    intro = [],
+    blocks = [],
+  } = useSection("about.story");
+
   return (
     <section className="py-10 md:py-10 bg-surface">
       <div className="container mx-auto px-8">
@@ -18,8 +27,8 @@ const MissionSection = () => {
             <div className="relative group">
               <img
                 className="relative z-10 w-full asymmetric-border object-cover rounded-2xl h-100 shadow-2xl"
-                data-alt="RCN Cumbria gathered in worship and prayer"
-                src={img16}
+                alt={imageAlt || ""}
+                src={image}
               />
             </div>
           </motion.div>
@@ -39,17 +48,11 @@ const MissionSection = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="space-y-6 text-on-surface-variant text-lg leading-relaxed max-w-2xl"
             >
-              <p>
-                RCN Cumbria is an extension of Remnant Christian Network (RCN),
-                a global apostolic movement committed to the restoration of the
-                apostolic and prophetic foundations of the Church and the
-                raising of believers who are deeply rooted in Christ.
-              </p>
-              <p>
-                Our mission is simple: to witness the transformation of lives
-                through the pure Word of God, intense prayer, discipleship and a
-                vibrant community that reflects the heart of the Father.
-              </p>
+              {intro.map((p, i) => (
+                <p key={i}>
+                  <Inline text={p} />
+                </p>
+              ))}
             </motion.div>
 
             <motion.div
@@ -59,76 +62,39 @@ const MissionSection = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="mt-10 space-y-8 max-w-2xl"
             >
-              <div>
-                <h3 className="text-primary text-xl md:text-2xl   font-bold mb-2">
-                  A Community of Prayer and the Word
-                </h3>
-                <p className="text-on-surface-variant text-lg leading-relaxed mb-2">
-                  Prayer and the Word of God are central to who we are.
-                </p>
-                <p className="text-on-surface-variant text-lg leading-relaxed mb-2">
-                  Through our gatherings, we seek to create an environment where
-                  people can encounter God, grow in spiritual maturity and be
-                  equipped to live out His purposes wherever He has placed them.
-                </p>
-                <p className="text-on-surface-variant text-lg leading-relaxed">
-                  We are a family of believers from different backgrounds and
-                  stages of life, united by our love for Jesus and a desire to
-                  see His purposes established in our lives, our communities and
-                  our generation.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-primary text-xl md:text-2xl   font-bold mb-2">
-                  A Place to Belong and Grow
-                </h3>
-                <p className="text-on-surface-variant text-lg leading-relaxed mb-2">
-                  Whether you are exploring the Christian faith, returning to
-                  fellowship, new to Cumbria, or simply looking for a community
-                  in which to grow, you are welcome.
-                </p>
-                <p className="text-on-surface-variant text-lg leading-relaxed">
-                  Come worship, pray and fellowship with us. Let's grow together
-                  as a family.{" "}
-                  <strong className="text-primary font-semibold">
-                    We'd love to have you with us.
-                  </strong>
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-primary text-xl md:text-2xl   font-bold mb-2">
-                  Our Commitment to Safeguarding
-                </h3>
-                <p className="text-on-surface-variant text-lg leading-relaxed mb-2">
-                  We are committed to creating a safe, welcoming and caring
-                  environment for everyone who participates in the life of RCN
-                  Cumbria, with particular regard for the safeguarding of
-                  children, young people and adults at risk.
-                </p>
-                <a
-                  href="/safeguarding"
-                  className="inline-block text-secondary font-bold underline underline-offset-2"
-                >
-                  View Safeguarding
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-primary text-xl md:text-2xl   font-bold mb-2">
-                  Part of a Wider Family
-                </h3>
-                <p className="text-on-surface-variant text-lg leading-relaxed mb-2">
-                  As part of the wider Remnant Christian Network family, we
-                  share a common burden to see Christ formed in people and a
-                  praying, spiritually equipped Church raised to advance the
-                  purposes of God.
-                </p>
-                <p className="text-primary font-semibold text-lg leading-relaxed">
-                  We invite you to journey with us as we pursue Jesus together.
-                </p>
-              </div>
+              {blocks.map((b) => {
+                const href = safeHref(b.linkUrl);
+                return (
+                  <div key={b.id}>
+                    <h3 className="text-primary text-xl md:text-2xl font-bold mb-2">
+                      {b.heading}
+                    </h3>
+                    <div className="space-y-2">
+                      {(b.paragraphs || []).map((p, i) => (
+                        <p
+                          key={i}
+                          className="text-on-surface-variant text-lg leading-relaxed"
+                        >
+                          <Inline text={p} />
+                        </p>
+                      ))}
+                    </div>
+                    {b.highlight && (
+                      <p className="text-primary font-semibold text-lg leading-relaxed mt-2">
+                        {b.highlight}
+                      </p>
+                    )}
+                    {b.linkLabel && href && (
+                      <a
+                        href={href}
+                        className="inline-block mt-2 text-secondary font-bold underline underline-offset-2"
+                      >
+                        {b.linkLabel}
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </div>

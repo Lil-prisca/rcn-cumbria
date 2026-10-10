@@ -1,11 +1,8 @@
 import { useState } from "react";
 // import emailjs from "@emailjs/browser";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { useSection } from "../../content/useSection";
+import { socialIcons } from "../../content/socialIcons";
+import { safeHref } from "../../content/safeHref";
 
 const EMAILJS_SERVICE_ID = "service_piy6fyu";
 const EMAILJS_CONTACT_TEMPLATE_ID = "template_zkg3vgk";
@@ -13,6 +10,10 @@ const EMAILJS_PUBLIC_KEY = "Lb_ogUAd-BxtvtjuV";
 const NOTIFY_EMAIL = "layodemo2@gmail.com"; //
 
 const ContactInfo = () => {
+  const touch = useSection("contact.touch");
+  const place = useSection("contact.location");
+  const social = useSection("contact.social");
+
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -59,10 +60,9 @@ const ContactInfo = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* <!-- Form Area --> */}
         <div className="lg:col-span-7">
-          <h2 className="text-4xl font-bold text-navy mb-2">Get in Touch</h2>
-          <p className="text-on-surface-variant mb-12 text-lg">
-            Have questions? We'd love to hear from you. Send us a message and
-            our team will get back to you within 24 hours.
+          <h2 className="text-4xl font-bold text-navy mb-2">{touch.heading}</h2>
+          <p className="text-on-surface-variant mb-12 text-lg whitespace-pre-line">
+            {touch.intro}
           </p>
 
           {submitted ? (
@@ -241,15 +241,20 @@ const ContactInfo = () => {
             </form>
           )}
         </div>
+
         {/* <!-- Info Area & Map --> */}
         <div className="lg:col-span-5 flex flex-col gap-8">
           <div className="bg-surface-container-high rounded-3xl p-8 overflow-hidden relative group">
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-navy mb-4">Location</h3>
+              <h3 className="text-2xl font-bold text-navy mb-4">
+                {place.heading}
+              </h3>
               <p className="text-on-surface-variant mb-6">
-                St Thomas Centre,
-                <br />
-                Ardwick Green North Cumbria M12 6FZ
+                {(place.address || []).map((line, i) => (
+                  <span key={i} className="block">
+                    {line}
+                  </span>
+                ))}
               </p>
               {/* <div className="flex items-center gap-4 text-primary font-semibold group-hover:translate-x-2 transition-transform">
                 <span className="material-symbols-outlined">directions</span>
@@ -261,61 +266,33 @@ const ContactInfo = () => {
               <img
                 alt="Map location"
                 className="w-full h-full object-cover"
-                // data-location="Cumbria"
+                // swap for "/images/contact/map.jpg" once you've saved the image into public/
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmydlBtb2oiWTblwFpCZeIo5ReGJPIBom_-q1BcHgThWiOYVGUBYgQey2cDImIFuKN7mEXnI6ClB0bylUPV3RagjTpKWTFkugK7Dcsz09crqLuAPsgGMLdU1uhCYAqK_kPhrad4HdPz6A6nEEQNG4nRDNYQRXPbMZxJh9lshDHgMYR16ohSePgwxeHsF3DFwxBxKMyosNDzhuW-v4ERW8cFM2mWxJEWNmyWEjILQXNvFApuOFHVrowBd5WbLYJ1zFs4QwuonhEcRw"
               />
             </div>
           </div>
+
           <div className="bg-navy rounded-3xl p-8 text-primary flex-1">
             <h3 className="text-2xl font-bold mb-6 text-secondary">
-              Connect with Us
+              {social.heading}
             </h3>
             <div className="space-y-6">
-              <a
-                className="flex items-center gap-4 hover:opacity-70 transition-opacity"
-                href="https://www.youtube.com/@RCNCarlisle"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <span className="">
-                    <FaYoutube />
-                  </span>
-                </div>
-                <span className="font-bold">YouTube — Watch Live</span>
-              </a>
-
-              <a
-                className="flex items-center gap-4 hover:opacity-70 transition-opacity"
-                href="https://www.facebook.com/rcncarlisle"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <span className="">
-                    <FaFacebookF />
-                  </span>
-                </div>
-                <span className="font-bold">Facebook — Community Updates</span>
-              </a>
-              <a
-                className="flex items-center gap-4 hover:opacity-70 transition-opacity"
-                href="https://whatsapp.com/channel/0029VbC2WZW5vKAHVkYWha1m"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <span className="">
-                    <FaWhatsapp />
-                  </span>
-                </div>
-                <span className="font-bold">WhatsApp — Daily Updates</span>
-              </a>
-              <a
-                className="flex items-center gap-4 hover:opacity-70 transition-opacity"
-                href="https://www.instagram.com/rcncarlisle/"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <span className="">
-                    <FaInstagram />
-                  </span>
-                </div>
-                <span className="font-bold">Instagram </span>
-              </a>
+              {(social.links || []).map((l) => {
+                const href = safeHref(l.url);
+                if (!href) return null;
+                return (
+                  <a
+                    key={l.id}
+                    className="flex items-center gap-4 hover:opacity-70 transition-opacity"
+                    href={href}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                      <span>{socialIcons[l.platform]}</span>
+                    </div>
+                    <span className="font-bold">{l.label}</span>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>

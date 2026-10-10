@@ -1,18 +1,22 @@
 import { motion } from "framer-motion";
 import { FaCirclePlay } from "react-icons/fa6";
-// import { Link } from "react-router-dom";
+import { useSection } from "../../content/useSection";
+import { safeHref } from "../../content/safeHref";
 
 const LiveSection = () => {
+  const presence = useSection("home.presence");
+  const live = useSection("home.live");
+  const liveHref = safeHref(live.linkUrl);
+
   return (
     <>
       <section className="relative flex min-h-[419px] w-full items-center justify-center px-4 text-center font-sans sm:px-8 lg:px-12">
         <div className="absolute inset-0">
           <img
             className="h-full w-full object-cover"
-            alt="Epic, moody mountain peaks of the Lake District covered in soft morning mist, representing the presence of God in nature"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcC_tdqkXP-9t0HPzS16rtTyvBieyGGGaxJ8JN4tSq5L7t5WofCcXNc9IJx3DTE7Td2OsiRdv_7LUM3fdbGsLf6kflOt-qRK0pSzeXdMeJnfjnk9c5iYKipRo6PCxRYNzNxZInLQ8JY-RKpX1DzAt_LwW0mS7PNGBid_Tg1iKbNZMXA3Ak7cJhD0_clAVloLVy9H_2MQH-xoHBNqvTBwkO8SNFiWY_AT6KK3VXxM-9sKVp1wf2ee0ZFuL2IUI8ClTyablV6fyQamA"
+            alt={presence.imageAlt || ""}
+            src={presence.image}
           />
-
           <div className="absolute inset-0 bg-[#131318]/60 backdrop-blur-[2px]" />
         </div>
 
@@ -21,13 +25,10 @@ const LiveSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mb-8 text-5xl italic text-white md:text-7xl"
           >
-            The Presence
+            {presence.heading}
           </motion.h2>
 
           <motion.p
@@ -37,8 +38,7 @@ const LiveSection = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-2xl font-light italic leading-relaxed text-white md:text-3xl"
           >
-            "In His presence is fullness of joy; at His right hand there are
-            pleasures forevermore."
+            &quot;{presence.quote}&quot;
           </motion.p>
 
           <motion.div
@@ -62,14 +62,13 @@ const LiveSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7 }}
-            className="w-full  md:w-1/2  order-2 md:order-1"
+            className="w-full md:w-1/2 order-2 md:order-1"
           >
-            <h2 className="    text-5xl md:text-6xl text-primary">
-              Join the Moment.
+            <h2 className="text-5xl md:text-6xl text-primary">
+              {live.heading}
             </h2>
-            <p className="  text-on-surface-variant text-lg">
-              Can't make it to Cumbria? Engage with our live broadcast, wherever
-              you are.
+            <p className="text-on-surface-variant text-lg whitespace-pre-line">
+              {live.description}
             </p>
           </motion.div>
 
@@ -83,8 +82,8 @@ const LiveSection = () => {
             <div className="aspect-video relative rounded-xl overflow-hidden shadow-2xl border border-outline-variant/10">
               <img
                 className="w-full h-full object-cover filter brightness-75"
-                alt="A cinematic stage silhouette of a speaker against a vibrant warm backdrop, capturing the energy of a live sermon"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSv5SgBeRAVJdXhMoeafRwVxyLqGCTMuPiqbdIzEZEB0kh3WeuspE6adS50w4mNY4zYRYlO3jAz9JLoNvZ2lgntDcg6-edK_YqQlo5f4N4eJjFqbubld1JI464iNuT2RqRosHwjCqAWppWgIDNRqZiYx2jJ4rWc3N-E3At7Ly641swAgY7cuLvflOjMgkvyl3RdqorFnPNHWoX-mzogDHvLklsC5eDrBmczSHNEHCT6UwoDACzTGzlKsPJnrR0dhCPxvptvT4LtPQ"
+                alt={live.imageAlt || ""}
+                src={live.image}
               />
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -95,10 +94,10 @@ const LiveSection = () => {
               >
                 <div className="text-center justify-center mt-3">
                   <p className="text-xl uppercase tracking-[0.25em] text-white mb-2">
-                    Join Us Online
+                    {live.linkLabel}
                   </p>
                 </div>
-                <a href="https://www.youtube.com/@RCNCarlisle">
+                <a href={liveHref || undefined} aria-label={live.linkLabel}>
                   <motion.div
                     whileHover={{ scale: 1.1 }}
                     className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center group cursor-pointer transition-transform"

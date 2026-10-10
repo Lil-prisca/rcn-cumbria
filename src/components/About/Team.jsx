@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-
-import setman2 from "../../assets/pastors/AAO.jpg";
-import man1 from "../../assets/pastors/pke.webp";
-import woman from "../../assets/pastors/aab.png";
-// import childrenleader from "../assets/children dept.jpg";
-// import teensleader from "../assets/teens pastor.jpeg";
-
-const leaderImages = [setman2, woman, man1];
+import { useSection } from "../../content/useSection";
 
 const Team = () => {
+  const oversight = useSection("about.oversight");
+  const team = useSection("about.team");
+  const photos = team.photos || [];
   const [currentImg, setCurrentImg] = useState(0);
 
   useEffect(() => {
+    if (photos.length < 2) return;
     const interval = setInterval(() => {
-      setCurrentImg((prev) => (prev + 1) % leaderImages.length);
+      setCurrentImg((prev) => (prev + 1) % photos.length);
     }, 3000); // change every 3 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [photos.length]);
+
+  const photo = photos.length ? photos[currentImg % photos.length] : null;
+
   return (
-    <section className=" px-0 py-5 pb-10 bg-primary/30">
+    <section className="px-0 py-5 pb-10 bg-primary/30">
       <div className="px-5 md:px-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,8 +29,8 @@ const Team = () => {
           transition={{ duration: 0.6 }}
           className="mb-10 mt-4"
         >
-          <h2 className=" -lg font-sans text-3xl font-bold text-headline-lg">
-            Spiritual Oversight
+          <h2 className="font-sans text-3xl font-bold text-headline-lg">
+            {oversight.heading}
           </h2>
           <div className="w-20 h-1 bg-primary mt-1"></div>
         </motion.div>
@@ -47,21 +47,17 @@ const Team = () => {
             <div className="md:w-1/2 aspect-4/5">
               <img
                 className="w-full md:h-full h-100 object-cover"
-                alt="A professional, high-contrast portrait of a male pastor in a sophisticated dark suit."
-                src={setman2}
+                alt={oversight.imageAlt || ""}
+                src={oversight.image}
               />
             </div>
             <div className="md:w-1/2 p-12 flex flex-col justify-center">
               <span className="font-label-sm text-[24px] text-primary mb-2">
-                Apostle Arome Osayi
+                {oversight.name}
               </span>
-              <h3 className=" -md text-[10px] mb-4">
-                Set Man, Remnant Christian Network
-              </h3>
+              <h3 className="text-[10px] mb-4">{oversight.role}</h3>
               <p className="font-body-md text-on-surface-variant mb-6 italic">
-                "Called to restore apostolic Christianity and prepare the church
-                for Christ's return through powerful teaching and international
-                missions.."
+                &quot;{oversight.quote}&quot;
               </p>
             </div>
           </motion.div>
@@ -72,32 +68,31 @@ const Team = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="bg-primary w-[90%] mx-auto  px-10 py-8 rounded-2xl text-white flex flex-col justify-center md:justify-end"
+            className="bg-primary w-[90%] mx-auto px-10 py-8 rounded-2xl text-white flex flex-col justify-center md:justify-end"
           >
             <div className="h-50 w-50 m-auto relative mb-2">
               <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentImg}
-                  src={leaderImages[currentImg]}
-                  alt="resident pastor"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="h-50 w-50 rounded-2xl object-cover absolute top-0 left-0   object-top rounded-t-2xl "
-                />
+                {photo && (
+                  <motion.img
+                    key={currentImg}
+                    src={photo.image}
+                    alt={photo.alt || ""}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="h-50 w-50 rounded-2xl object-cover absolute top-0 left-0 object-top rounded-t-2xl"
+                  />
+                )}
               </AnimatePresence>
             </div>
-            <h3 className=" -md text-headline-md mb-4">
-              Cumbria Leadership Team
-            </h3>
+            <h3 className="text-headline-md mb-4">{team.title}</h3>
             <p className="font-body-md text-on-primary-container opacity-90 mb-8">
-              Guided by a plurality of elders and dedicated ministry leads
-              focused on administration, youth, and community outreach.
+              {team.description}
             </p>
             <Link to="/team-members">
               <button className="border border-white/30 px-6 py-3 rounded-2xl font-label-sm text-label-sm hover:bg-white hover:text-primary transition-all">
-                View Full Team
+                {team.buttonLabel}
               </button>
             </Link>
           </motion.div>

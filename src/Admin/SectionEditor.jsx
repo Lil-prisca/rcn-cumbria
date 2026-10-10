@@ -5,21 +5,24 @@ import { invalidateContent } from "../content/useSection";
 import { Field, ListField } from "./fields";
 
 function clean(content, section) {
-  if (!section.list) return content;
-  const { name, itemFields } = section.list;
-  return {
-    ...content,
-    [name]: (content[name] || []).map((item) => {
+  const trim = (arr) => (arr || []).map((s) => s.trim()).filter(Boolean);
+  const out = { ...content };
+
+  (section.fields || []).forEach((f) => {
+    if (f.type === "lines") out[f.name] = trim(out[f.name]);
+  });
+
+  if (section.list) {
+    const { name, itemFields } = section.list;
+    out[name] = (out[name] || []).map((item) => {
       const copy = { ...item };
       itemFields.forEach((f) => {
-        if (f.type === "lines")
-          copy[f.name] = (copy[f.name] || [])
-            .map((s) => s.trim())
-            .filter(Boolean);
+        if (f.type === "lines") copy[f.name] = trim(copy[f.name]);
       });
       return copy;
-    }),
-  };
+    });
+  }
+  return out;
 }
 
 export default function SectionEditor({ section }) {
