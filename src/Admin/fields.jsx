@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { validateImage, uploadImage } from "./uploadImage";
+import {
+  validateImage,
+  uploadImage,
+  validatePdf,
+  uploadPdf,
+} from "./uploadImage";
 
 const inputCls =
   "w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-neutral-900";
@@ -72,9 +77,22 @@ export function Field({ def, value, onChange, folder, compact }) {
       />
     );
   }
+  if (def.type === "pdf") {
+    return (
+      <FileField
+        label={def.label}
+        value={value}
+        onChange={onChange}
+        folder={folder}
+      />
+    );
+  }
   return (
     <label className="block">
       <span className={labelCls}>{def.label}</span>
+      {def.help && (
+        <span className="block text-xs text-neutral-500 mb-1">{def.help}</span>
+      )}
       {def.type === "text" && (
         <input
           className={inputCls}
@@ -84,7 +102,7 @@ export function Field({ def, value, onChange, folder, compact }) {
       )}
       {def.type === "textarea" && (
         <textarea
-          rows={4}
+          rows={def.rows || 4}
           className={inputCls}
           value={value ?? ""}
           onChange={(e) => onChange(e.target.value)}
@@ -97,6 +115,19 @@ export function Field({ def, value, onChange, folder, compact }) {
           value={(value ?? []).join("\n")}
           onChange={(e) => onChange(e.target.value.split("\n"))}
         />
+      )}
+      {def.type === "select" && (
+        <select
+          className={inputCls}
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          {def.options.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
       )}
     </label>
   );
@@ -232,6 +263,62 @@ export function ListField({ def, items = [], onChange, folder }) {
       </div>
       {error && (
         <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+export function FileField({ label, value, onChange, folder }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function pick(e) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    const problem = validatePdf(file);
+    if (problem) return setError(problem);
+    setBusy(true);
+    setError("");
+    try {
+      onChange(await uploadPdf(file, folder));
+    } catch {
+      setError("Upload failed. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div>
+      <span className={labelCls}>{label}</span>
+      {value && (
+        <p className="text-sm mb-2">
+          <a
+            href={value}
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
+            View current file
+          </a>
+        </p>
+      )}
+      <label
+        className={`${btnCls} inline-block cursor-pointer ${busy ? "opacity-60" : ""}`}
+      >
+        {busy ? "Uploading…" : value ? "Replace PDF" : "Choose PDF"}
+        <input
+          type="file"
+          accept="application/pdf"
+          className="hidden"
+          onChange={pick}
+          disabled={busy}
+        />
+      </label>
+      {error && (
+        <p role="alert" className="text-sm text-red-600 mt-1">
           {error}
         </p>
       )}

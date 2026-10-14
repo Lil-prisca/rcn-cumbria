@@ -1,5 +1,7 @@
 import { socialOptions } from "../content/socialIcons";
 import { iconOptions } from "../content/valueIcons";
+const bodyHelp =
+  "Leave a blank line between paragraphs. Start a line with “- ” for a bullet point or “### ” for a sub-heading. Wrap words in **double asterisks** for bold. Use [link text](https://…) for links; email addresses become links automatically.";
 
 const alt = (name = "alt") => ({
   name,
@@ -484,6 +486,194 @@ export const adminPages = {
             { name: "answer", label: "Answer", type: "textarea" },
           ],
         },
+      },
+    ],
+  },
+  team: {
+    title: "Leadership",
+    sections: [
+      {
+        key: "team.page",
+        label: "Team members",
+        fields: [{ name: "heading", label: "Page heading", type: "text" }],
+        list: {
+          name: "members",
+          itemLabel: "Member",
+          titleField: "name",
+          itemFields: [
+            { name: "name", label: "Name", type: "text" },
+            { name: "position", label: "Role", type: "text" },
+            { name: "image", label: "Portrait", type: "image" },
+          ],
+        },
+      },
+    ],
+  },
+  legal: {
+    title: "Legal & policies",
+    notice:
+      "These pages can have legal effect. Every save is recorded in the version history and any earlier version can be loaded back, but please take care and have changes checked before saving.",
+    sections: [
+      {
+        key: "legal.privacy",
+        label: "Privacy policy",
+        stamp: "lastUpdated",
+        history: true,
+        fields: [
+          { name: "title", label: "Page title", type: "text" },
+          {
+            name: "intro",
+            label: "Opening paragraphs (one per line)",
+            type: "lines",
+          },
+        ],
+        list: {
+          name: "sections",
+          itemLabel: "Section",
+          titleField: "title",
+          itemFields: [
+            {
+              name: "title",
+              label: "Section title (numbered automatically)",
+              type: "text",
+            },
+            {
+              name: "body",
+              label: "Text",
+              type: "textarea",
+              rows: 12,
+              help: bodyHelp,
+            },
+          ],
+        },
+      },
+      {
+        key: "legal.terms",
+        label: "Website terms of use",
+        stamp: "lastUpdated",
+        history: true,
+        fields: [
+          { name: "title", label: "Page title", type: "text" },
+          {
+            name: "intro",
+            label: "Opening paragraphs (one per line)",
+            type: "lines",
+          },
+        ],
+        list: {
+          name: "sections",
+          itemLabel: "Section",
+          titleField: "title",
+          itemFields: [
+            {
+              name: "title",
+              label: "Section title (numbered automatically)",
+              type: "text",
+            },
+            {
+              name: "body",
+              label: "Text",
+              type: "textarea",
+              rows: 12,
+              help: bodyHelp,
+            },
+          ],
+        },
+      },
+      {
+        key: "safeguarding.intro",
+        label: "Safeguarding – introduction",
+        history: true,
+        fields: [
+          {
+            name: "eyebrow",
+            label: "Small label above the title",
+            type: "text",
+          },
+          { name: "title", label: "Page title", type: "text" },
+          {
+            name: "intro",
+            label: "Opening paragraphs (one per line)",
+            type: "lines",
+          },
+        ],
+      },
+      {
+        key: "safeguarding.urgent",
+        label: "Safeguarding – immediate danger box",
+        history: true,
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          {
+            name: "text",
+            label: "Text",
+            type: "textarea",
+            help: "Use [999](tel:999) to keep the phone link.",
+          },
+        ],
+      },
+      {
+        key: "safeguarding.commitments",
+        label: "Safeguarding – our commitments",
+        history: true,
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          { name: "intro", label: "Introduction", type: "textarea" },
+        ],
+        list: {
+          name: "items",
+          itemLabel: "Commitment",
+          itemFields: [{ name: "text", label: "Commitment", type: "textarea" }],
+        },
+      },
+      {
+        key: "safeguarding.report",
+        label: "Safeguarding – reporting a concern",
+        history: true,
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          { name: "intro", label: "Introduction", type: "textarea" },
+          { name: "teamLabel", label: "Team label", type: "text" },
+          {
+            name: "team",
+            label: "Safeguarding team names (one per line)",
+            type: "lines",
+          },
+          { name: "emailLabel", label: "Email label", type: "text" },
+          { name: "email", label: "Safeguarding email address", type: "text" },
+          { name: "note", label: "Note below the box", type: "textarea" },
+        ],
+      },
+      {
+        key: "safeguarding.more",
+        label: "Safeguarding – other sections",
+        history: true,
+        list: {
+          name: "items",
+          itemLabel: "Section",
+          titleField: "title",
+          itemFields: [
+            { name: "title", label: "Heading", type: "text" },
+            {
+              name: "body",
+              label: "Text",
+              type: "textarea",
+              rows: 8,
+              help: bodyHelp,
+            },
+          ],
+        },
+      },
+      {
+        key: "safeguarding.policy",
+        label: "Safeguarding – policy document",
+        history: true,
+        fields: [
+          { name: "heading", label: "Heading", type: "text" },
+          { name: "text", label: "Text", type: "textarea" },
+          { name: "buttonLabel", label: "Button label", type: "text" },
+          { name: "file", label: "Policy document (PDF)", type: "pdf" },
+        ],
       },
     ],
   },

@@ -17,3 +17,23 @@ export async function uploadImage(file, folder) {
   if (error) throw error;
   return supabase.storage.from("site-images").getPublicUrl(path).data.publicUrl;
 }
+
+const PDF_MAX_BYTES = 10 * 1024 * 1024;
+
+export function validatePdf(file) {
+  if (file.type !== "application/pdf") return "Please choose a PDF file.";
+  if (file.size > PDF_MAX_BYTES) return "The PDF is larger than 10 MB.";
+  return null;
+}
+
+export async function uploadPdf(file, folder) {
+  const path = `${folder}/${crypto.randomUUID()}.pdf`;
+  const { error } = await supabase.storage
+    .from("site-images")
+    .upload(path, file, {
+      cacheControl: "31536000",
+      contentType: "application/pdf",
+    });
+  if (error) throw error;
+  return supabase.storage.from("site-images").getPublicUrl(path).data.publicUrl;
+}

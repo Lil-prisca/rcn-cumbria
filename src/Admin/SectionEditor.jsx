@@ -25,15 +25,20 @@ function clean(content, section) {
   return out;
 }
 
+const stampNow = () =>
+  new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+
 export default function SectionEditor({ section }) {
-  const { key, label, fields = [], list } = section;
+  const { key, label, fields = [], list, stamp, history } = section;
   const base = defaults[key];
-  const folder = key.replace(".", "/");
+  const folder = key.replace(/\./g, "/");
 
   const [open, setOpen] = useState(false);
   const [original, setOriginal] = useState(null);
   const [draft, setDraft] = useState(null);
   const [status, setStatus] = useState({ type: "loading" });
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [versions, setVersions] = useState(null); // null = loading | "error" | array
 
   useEffect(() => {
     supabase
@@ -60,6 +65,7 @@ export default function SectionEditor({ section }) {
   async function save() {
     setStatus({ type: "saving" });
     const content = clean(draft, section);
+    if (stamp) content[stamp] = stampNow();
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -77,6 +83,8 @@ export default function SectionEditor({ section }) {
     invalidateContent();
     setOriginal(content);
     setDraft(content);
+    setHistoryOpen(false);
+    setVersions(null);
     setStatus({ type: "saved" });
   }
 
@@ -103,6 +111,42 @@ export default function SectionEditor({ section }) {
     setStatus({ type: "saved" });
   }
 
+  async function toggleHistory() {
+    const next = !historyOpen;
+    setHistoryOpen(next);
+    if (!next) return;
+    setVersions(null);
+    const { data, error } = await supabase
+      .from("site_content_history")
+      .select("id, saved_at")
+      .eq("section_key", key)
+      .order("saved_at", { ascending: false })
+      .limit(20);
+    setVersions(error ? "error" : data);
+  }
+
+  async function loadVersion(id) {
+    if (
+      !window.confirm(
+        "Load this earlier version into the editor? Nothing is published until you press Save and publish.",
+      )
+    )
+      return;
+    const { data, error } = await supabase
+      .from("site_content_history")
+      .select("content")
+      .eq("id", id)
+      .single();
+    if (error)
+      return setStatus({
+        type: "error",
+        message: "Could not load that version.",
+      });
+    setDraft({ ...base, ...data.content });
+    setHistoryOpen(false);
+    setStatus({ type: "idle" });
+  }
+
   return (
     <section className="rounded-xl bg-white shadow-sm border border-neutral-200">
       <button
@@ -123,6 +167,13 @@ export default function SectionEditor({ section }) {
 
           {draft && (
             <>
+              {stamp && draft[stamp] && (
+                <p className="text-xs text-neutral-500">
+                  “Last updated” on the website: {draft[stamp]} (changes
+                  automatically when you save)
+                </p>
+              )}
+
               {fields.map((f) => (
                 <Field
                   key={f.name}
@@ -169,6 +220,57 @@ export default function SectionEditor({ section }) {
                   Restore original
                 </button>
               </div>
+
+              {history && (
+                <div className="border-t border-neutral-100 pt-3">
+                  <button
+                    type="button"
+                    onClick={toggleHistory}
+                    className="text-sm underline"
+                  >
+                    {historyOpen ? "Hide version history" : "Version history"}
+                  </button>
+                  {historyOpen && (
+                    <div className="mt-2 space-y-1">
+                      {versions === null && (
+                        <p className="text-sm text-neutral-500">Loading…</p>
+                      )}
+                      {versions === "error" && (
+                        <p role="alert" className="text-sm text-red-600">
+                          Could not load the history.
+                        </p>
+                      )}
+                      {Array.isArray(versions) && versions.length === 0 && (
+                        <p className="text-sm text-neutral-500">
+                          No earlier saves yet. Every save from now on will be
+                          listed here.
+                        </p>
+                      )}
+                      {Array.isArray(versions) &&
+                        versions.map((v) => (
+                          <div
+                            key={v.id}
+                            className="flex items-center justify-between gap-3 text-sm"
+                          >
+                            <span>
+                              {new Date(v.saved_at).toLocaleString("en-GB", {
+                                dateStyle: "medium",
+                                timeStyle: "short",
+                              })}
+                            </span>
+                            <button
+                              type="button"
+                              className="underline"
+                              onClick={() => loadVersion(v.id)}
+                            >
+                              Load this version
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
 

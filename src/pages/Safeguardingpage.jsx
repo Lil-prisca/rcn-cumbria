@@ -1,42 +1,61 @@
 import { useEffect } from "react";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
+import { useSection } from "../content/useSection";
+import { parseBody } from "../content/legalBlocks";
+import RichText from "../content/RichText";
+import { safeHref } from "../content/safeHref";
 
-import policy from "../assets/Documents/policy.pdf";
+const soft = { color: "var(--sg-ink-soft)" };
 
-const SAFEGUARDING_POLICY_URL = policy;
-
-/**
- * Safeguarding page — RCN Cumbria
- *
- * Assumptions (adjust to match your actual project setup):
- * - React + Tailwind, no external UI library
- * - Drop into your pages/routes folder and wire up at whatever path
- *   you're using for the footer's "Safeguarding" link (e.g. /safeguarding)
- * - The full Safeguarding Policy document lives at SAFEGUARDING_POLICY_URL
- *   below — point it at wherever you end up hosting that PDF/doc
- * - Colours are set as CSS variables at the top of the component so you
- *   can swap them for your real brand tokens in one place
- */
-
-const COMMITMENTS = [
-  "Maintain a safe environment for everyone who participates in our activities.",
-  "Respond appropriately and promptly to safeguarding concerns, disclosures and allegations.",
-  "Ensure those entrusted with relevant responsibilities are appropriately selected, supported and, where required, DBS checked.",
-  "Promote appropriate boundaries and responsible conduct among leaders, workers and volunteers.",
-  "Work with statutory safeguarding authorities and other relevant organisations when necessary.",
-  "Regularly review our safeguarding arrangements and practices.",
-];
+function Body({ text }) {
+  return parseBody(text).map((block, i) => {
+    if (block.type === "h3") {
+      return (
+        <h3 key={i} className="font-serif font-semibold mb-2">
+          {block.text}
+        </h3>
+      );
+    }
+    if (block.type === "ul") {
+      return (
+        <ul
+          key={i}
+          className="list-disc pl-5 space-y-2 mb-3 leading-relaxed"
+          style={soft}
+        >
+          {block.items.map((item, j) => (
+            <li key={j}>
+              <RichText text={item} />
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    return (
+      <p key={i} className="leading-relaxed mb-3 last:mb-0" style={soft}>
+        <RichText text={block.text} />
+      </p>
+    );
+  });
+}
 
 export default function SafeguardingPage() {
+  const intro = useSection("safeguarding.intro");
+  const urgent = useSection("safeguarding.urgent");
+  const commit = useSection("safeguarding.commitments");
+  const report = useSection("safeguarding.report");
+  const more = useSection("safeguarding.more");
+  const policy = useSection("safeguarding.policy");
+  const policyHref = safeHref(policy.file);
+
   useEffect(() => {
-    document.title = "Safeguarding — RCN Cumbria";
-  }, []);
+    document.title = `${intro.title} — RCN Cumbria`;
+  }, [intro.title]);
 
   return (
     <main
       style={{
-        // Swap these for your real brand palette
         "--sg-ink": "#20293A",
         "--sg-ink-soft": "#5C6577",
         "--sg-bg": "#FBFAF6",
@@ -53,35 +72,30 @@ export default function SafeguardingPage() {
         style={{ color: "var(--sg-ink)", backgroundColor: "var(--sg-bg)" }}
       >
         <Navbar />
+
         {/* Intro */}
         <header className="mb-12">
           <p
             className="text-sm font-medium mb-3"
             style={{ color: "var(--sg-accent)" }}
           >
-            RCN Cumbria
+            {intro.eyebrow}
           </p>
           <h1 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-6">
-            Safeguarding
+            {intro.title}
           </h1>
-          <p
-            className="leading-relaxed"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            At RCN Cumbria, we are committed to creating a safe, welcoming and
-            caring environment for everyone who attends our services, programmes
-            and activities.
-          </p>
-          <p
-            className="leading-relaxed mt-4"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            We believe that every person is made in the image of God and should
-            be treated with dignity, respect and care. Safeguarding is therefore
-            an important part of our responsibility as a Christian community.
-          </p>
+          {(intro.intro || []).map((text, i) => (
+            <p
+              key={i}
+              className={`leading-relaxed ${i ? "mt-4" : ""}`}
+              style={soft}
+            >
+              <RichText text={text} />
+            </p>
+          ))}
         </header>
-        {/* Immediate danger — urgent callout, placed early on purpose */}
+
+        {/* Immediate danger */}
         <div
           className="rounded-lg p-5 mb-12 border"
           style={{
@@ -93,62 +107,47 @@ export default function SafeguardingPage() {
             className="font-semibold mb-1.5"
             style={{ color: "var(--sg-urgent)" }}
           >
-            If someone is in immediate danger
+            {urgent.heading}
           </h2>
           <p
             className="leading-relaxed text-sm"
             style={{ color: "var(--sg-ink)" }}
           >
-            If you believe that a child or adult is in immediate danger or at
-            risk of serious harm, call{" "}
-            <a
-              href="tel:999"
-              className="font-semibold underline underline-offset-2"
-              style={{ color: "var(--sg-urgent)" }}
-            >
-              999
-            </a>
-            . Where appropriate, safeguarding concerns may also be referred to
-            the relevant local authority safeguarding service or the police.
+            <RichText text={urgent.text} linkColor="var(--sg-urgent)" />
           </p>
         </div>
+
         {/* Our commitment */}
         <section className="mb-12">
           <h2 className="font-serif text-xl font-semibold mb-4">
-            Our commitment
+            {commit.heading}
           </h2>
-          <p
-            className="leading-relaxed mb-5"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            RCN Cumbria is committed to safeguarding children, young people and
-            adults at risk. We seek to:
+          <p className="leading-relaxed mb-5" style={soft}>
+            <RichText text={commit.intro} />
           </p>
           <ul className="space-y-3">
-            {COMMITMENTS.map((item) => (
-              <li key={item} className="flex gap-3 leading-relaxed">
+            {(commit.items || []).map((item) => (
+              <li key={item.id} className="flex gap-3 leading-relaxed">
                 <span
                   aria-hidden="true"
                   className="mt-2.5 w-1.5 h-1.5 rounded-full shrink-0"
                   style={{ backgroundColor: "var(--sg-accent)" }}
                 />
-                <span>{item}</span>
+                <span>
+                  <RichText text={item.text} />
+                </span>
               </li>
             ))}
           </ul>
         </section>
+
         {/* Reporting a concern */}
         <section className="mb-12">
           <h2 className="font-serif text-xl font-semibold mb-4">
-            Reporting a safeguarding concern
+            {report.heading}
           </h2>
-          <p
-            className="leading-relaxed mb-5"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            If you are concerned about the safety or wellbeing of a child, young
-            person or adult at risk, or about something that has happened within
-            an RCN Cumbria activity, please contact our safeguarding team.
+          <p className="leading-relaxed mb-5" style={soft}>
+            <RichText text={report.intro} />
           </p>
 
           <div
@@ -163,132 +162,60 @@ export default function SafeguardingPage() {
                 className="text-xs font-semibold uppercase tracking-wide mb-1"
                 style={{ color: "var(--sg-accent)" }}
               >
-                Designated Safeguarding Team
+                {report.teamLabel}
               </p>
-              <p>Sarah Agbike</p>
-              <p>Irene Greenwood</p>
+              {(report.team || []).map((name, i) => (
+                <p key={i}>{name}</p>
+              ))}
             </div>
-
             <div>
               <p
                 className="text-xs font-semibold uppercase tracking-wide mb-1"
                 style={{ color: "var(--sg-accent)" }}
               >
-                Email
+                {report.emailLabel}
               </p>
-              {/* TODO: fill in once Bro Layò sends the safeguarding email */}
-              <p style={{ color: "var(--sg-ink-soft)" }}>
-                safeguarding.rcnCumbria@gmail.com
-              </p>
+              <p style={soft}>{report.email}</p>
             </div>
           </div>
 
-          <p
-            className="leading-relaxed mt-5 text-sm"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            You do not need to be certain that abuse or harm has occurred before
-            raising a concern. If something does not feel right, we encourage
-            you to report it.
+          <p className="leading-relaxed mt-5 text-sm" style={soft}>
+            <RichText text={report.note} />
           </p>
         </section>
-        {/* Confidentiality */}
-        <section className="mb-12">
-          <h2 className="font-serif text-xl font-semibold mb-4">
-            Confidentiality
-          </h2>
-          <p
-            className="leading-relaxed mb-3"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            Safeguarding information will be handled sensitively and shared only
-            where necessary to protect an individual, respond appropriately to a
-            concern, or fulfil our safeguarding and legal responsibilities.
-          </p>
-          <p
-            className="leading-relaxed"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            We cannot promise absolute confidentiality where someone may be at
-            risk of harm.
-          </p>
-        </section>
-        {/* Children and young people */}
-        <section className="mb-12">
-          <h2 className="font-serif text-xl font-semibold mb-4">
-            Children and young people
-          </h2>
-          <p
-            className="leading-relaxed mb-3"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            We want children and young people to participate in church life in a
-            safe and supportive environment.
-          </p>
-          <p
-            className="leading-relaxed mb-3"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            Those entrusted with responsibilities involving children and young
-            people are expected to follow our safeguarding procedures and
-            appropriate codes of conduct. Where applicable, appropriate
-            recruitment and DBS checking procedures will be followed.
-          </p>
-          <p
-            className="leading-relaxed"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            Parents and carers are encouraged to speak to a member of the team
-            if they have any questions or concerns about their child's
-            participation in our activities.
-          </p>
-        </section>
-        {/* Adults at risk */}
-        <section className="mb-12">
-          <h2 className="font-serif text-xl font-semibold mb-4">
-            Adults at risk
-          </h2>
-          <p
-            className="leading-relaxed mb-3"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            We recognise that adults can also experience abuse, exploitation,
-            neglect or other forms of harm.
-          </p>
-          <p
-            className="leading-relaxed"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            We are committed to responding appropriately to concerns while
-            respecting the dignity, wishes and circumstances of the individual
-            and fulfilling our responsibility to protect people from harm.
-          </p>
-        </section>
-        {/* Full policy link */}
 
+        {/* Other sections */}
+        {(more.items || []).map((section) => (
+          <section key={section.id} className="mb-12">
+            <h2 className="font-serif text-xl font-semibold mb-4">
+              {section.title}
+            </h2>
+            <Body text={section.body} />
+          </section>
+        ))}
+
+        {/* Full policy link */}
         <section
           className="rounded-lg p-6 border text-center"
           style={{ borderColor: "var(--sg-line)" }}
         >
           <h2 className="font-serif text-lg font-semibold mb-2">
-            Our safeguarding policy
+            {policy.heading}
           </h2>
-          <p
-            className="leading-relaxed mb-5 text-sm"
-            style={{ color: "var(--sg-ink-soft)" }}
-          >
-            Our full Safeguarding Policy sets out the procedures and
-            responsibilities that support our safeguarding arrangements.
+          <p className="leading-relaxed mb-5 text-sm" style={soft}>
+            <RichText text={policy.text} />
           </p>
-          <a
-            href={SAFEGUARDING_POLICY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-5 py-2.5 rounded-md font-medium text-sm text-white"
-            style={{ backgroundColor: "var(--sg-accent)" }}
-          >
-            View our Safeguarding Policy
-          </a>
+          {policyHref && (
+            <a
+              href={policyHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-5 py-2.5 rounded-md font-medium text-sm text-white"
+              style={{ backgroundColor: "var(--sg-accent)" }}
+            >
+              {policy.buttonLabel}
+            </a>
+          )}
         </section>
       </div>
 

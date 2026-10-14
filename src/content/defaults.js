@@ -1,3 +1,11 @@
+import { toEditableSections } from "./legalBlocks";
+import {
+  PRIVACY_INTRO,
+  PRIVACY_SECTIONS,
+  TERMS_INTRO,
+  TERMS_SECTIONS,
+} from "./legalText";
+
 const range = (prefix, from, to, ext) =>
   Array.from(
     { length: to - from + 1 },
@@ -432,5 +440,124 @@ export const defaults = {
           "Never. You're free to simply observe, worship, and listen at your own pace. We won't single you out or ask you to do anything you're not comfortable with.",
       },
     ],
+  },
+
+  // team page
+  "team.page": {
+    heading: "Leadership",
+    members: [
+      {
+        id: "1",
+        name: "Apostle Arome Osayi",
+        position: "Set Man, Remnant Christian Network Global",
+        image: "/images/leaders/AAO.jpg",
+      },
+      {
+        id: "2",
+        name: "Reverend Dinna Osayi",
+        position: "Co Pastor, Remnant Christian Network  Global",
+        image: "/images/leaders/aab.png",
+      },
+      {
+        id: "3",
+        name: "Rev. ??????",
+        position: "Point man, Remnant Christian Network Cumbria",
+        image: "/images/leaders/pke.webp",
+      },
+    ],
+  },
+
+  // legal  page
+  "legal.privacy": {
+    title: "Privacy Policy",
+    lastUpdated: "September 2026",
+    intro: PRIVACY_INTRO,
+    sections: toEditableSections(PRIVACY_SECTIONS),
+  },
+  "legal.terms": {
+    title: "Website Terms of Use",
+    lastUpdated: "September 2026",
+    intro: TERMS_INTRO,
+    sections: toEditableSections(TERMS_SECTIONS),
+  },
+
+  // safeguarding
+  "safeguarding.intro": {
+    eyebrow: "RCN Cumbria",
+    title: "Safeguarding",
+    intro: [
+      "At RCN Cumbria, we are committed to creating a safe, welcoming and caring environment for everyone who attends our services, programmes and activities.",
+      "We believe that every person is made in the image of God and should be treated with dignity, respect and care. Safeguarding is therefore an important part of our responsibility as a Christian community.",
+    ],
+  },
+  "safeguarding.urgent": {
+    heading: "If someone is in immediate danger",
+    text: "If you believe that a child or adult is in immediate danger or at risk of serious harm, call [999](tel:999). Where appropriate, safeguarding concerns may also be referred to the relevant local authority safeguarding service or the police.",
+  },
+  "safeguarding.commitments": {
+    heading: "Our commitment",
+    intro:
+      "RCN Cumbria is committed to safeguarding children, young people and adults at risk. We seek to:",
+    items: [
+      {
+        id: "1",
+        text: "Maintain a safe environment for everyone who participates in our activities.",
+      },
+      {
+        id: "2",
+        text: "Respond appropriately and promptly to safeguarding concerns, disclosures and allegations.",
+      },
+      {
+        id: "3",
+        text: "Ensure those entrusted with relevant responsibilities are appropriately selected, supported and, where required, DBS checked.",
+      },
+      {
+        id: "4",
+        text: "Promote appropriate boundaries and responsible conduct among leaders, workers and volunteers.",
+      },
+      {
+        id: "5",
+        text: "Work with statutory safeguarding authorities and other relevant organisations when necessary.",
+      },
+      {
+        id: "6",
+        text: "Regularly review our safeguarding arrangements and practices.",
+      },
+    ],
+  },
+  "safeguarding.report": {
+    heading: "Reporting a safeguarding concern",
+    intro:
+      "If you are concerned about the safety or wellbeing of a child, young person or adult at risk, or about something that has happened within an RCN Cumbria activity, please contact our safeguarding team.",
+    teamLabel: "Designated Safeguarding Team",
+    team: ["Sarah Agbike", "Irene Greenwood"],
+    emailLabel: "Email",
+    email: "safeguarding.rcnCumbria@gmail.com",
+    note: "You do not need to be certain that abuse or harm has occurred before raising a concern. If something does not feel right, we encourage you to report it.",
+  },
+  "safeguarding.more": {
+    items: [
+      {
+        id: "1",
+        title: "Confidentiality",
+        body: "Safeguarding information will be handled sensitively and shared only where necessary to protect an individual, respond appropriately to a concern, or fulfil our safeguarding and legal responsibilities.\n\nWe cannot promise absolute confidentiality where someone may be at risk of harm.",
+      },
+      {
+        id: "2",
+        title: "Children and young people",
+        body: "We want children and young people to participate in church life in a safe and supportive environment.\n\nThose entrusted with responsibilities involving children and young people are expected to follow our safeguarding procedures and appropriate codes of conduct. Where applicable, appropriate recruitment and DBS checking procedures will be followed.\n\nParents and carers are encouraged to speak to a member of the team if they have any questions or concerns about their child's participation in our activities.",
+      },
+      {
+        id: "3",
+        title: "Adults at risk",
+        body: "We recognise that adults can also experience abuse, exploitation, neglect or other forms of harm.\n\nWe are committed to responding appropriately to concerns while respecting the dignity, wishes and circumstances of the individual and fulfilling our responsibility to protect people from harm.",
+      },
+    ],
+  },
+  "safeguarding.policy": {
+    heading: "Our safeguarding policy",
+    text: "Our full Safeguarding Policy sets out the procedures and responsibilities that support our safeguarding arrangements.",
+    buttonLabel: "View our Safeguarding Policy",
+    file: "/documents/safeguarding-policy.pdf",
   },
 };
