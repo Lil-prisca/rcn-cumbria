@@ -4,7 +4,7 @@ import Footer from "../components/shared/Footer";
 // import OurCores from "../components/About/OurCores";
 // import Team from "../components/About/Team";
 import AboutHero from "../components/About/AboutHero";
-import RCNFamily from "../components/About/RCNfamily";
+import RCNFamily from "../components/About/RCNFamily";
 import LocalExpression from "../components/About/LocalExpression";
 import PrayerFocus from "../components/About/PrayerFocus";
 import OurLeadership from "../components/About/OurLeadership";
