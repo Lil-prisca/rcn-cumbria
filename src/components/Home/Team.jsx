@@ -21,13 +21,13 @@ const Team = () => {
   }, []);
   return (
     <section className=" px-0 py-5 pb-10 bg-primary/30">
-      <div className="px-5 md:px-10 max-w-7xl mx-auto">
+      <div className="px-5 md:px-10 max-w-7xl mx-auto lg:h-120">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.6 }}
-          className="mb-10 mt-4"
+          className="mb-5 mt-4 "
         >
           <h2 className=" -lg font-sans text-3xl font-bold text-headline-lg">
             Spiritual Oversight
@@ -35,14 +35,14 @@ const Team = () => {
           <div className="w-20 h-1 bg-primary mt-1"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className=" lg:h-100 grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Main Pastor */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7 }}
-            className="md:col-span-2 flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm"
+            className="md:col-span-2 flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm lg:h-110"
           >
             <div className="md:w-1/2 aspect-4/5">
               <img
@@ -72,9 +72,9 @@ const Team = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="bg-primary w-[90%] mx-auto  px-10 py-8 rounded-2xl text-white flex flex-col justify-center md:justify-end"
+            className="bg-primary w-[90%] mx-auto  px-10 py-8 rounded-2xl text-white flex flex-col justify-center md:justify-end lg:h-110"
           >
-            <div className="h-50 w-50 m-auto relative mb-2">
+            <div className="h-30 w-30 m-auto relative ">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentImg}
@@ -84,7 +84,7 @@ const Team = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="h-50 w-50 rounded-2xl object-cover absolute top-0 left-0   object-top rounded-t-2xl "
+                  className="h-30 w-30 rounded-2xl object-cover absolute top-0 left-0   object-top rounded-t-2xl "
                 />
               </AnimatePresence>
             </div>
