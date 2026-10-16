@@ -8,7 +8,7 @@ import RCNFamily from "../components/About/RCNFamily";
 import LocalExpression from "../components/About/LocalExpression";
 import PrayerFocus from "../components/About/PrayerFocus";
 import OurLeadership from "../components/About/OurLeadership";
-import YouareWelcome from "../components/About/YouareWelcome";
+import YouareWelcome from "../components/About/YouAreWelcome";
 
 const AboutPage = () => {
   return (
