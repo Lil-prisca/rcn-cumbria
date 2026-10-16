@@ -5,16 +5,22 @@ import Mission from "../components/Home/Mission";
 import LiveSection from "../components/Home/LiveSection";
 import Team from "../components/Home/Team";
 import SpotlightEvent from "../components/Home/SpotlightEvent";
+import AboutRcn from "../components/test/AboutRCN.jsx";
+import GatherWithUs from "../components/test/GatherWithUs.jsx";
+import PastorsDesk from "../components/test/PastorsDesk.jsx";
 const HomePage = () => {
   return (
     <div className="">
       <Navbar />
       <div className="w-100% max-w-400 m-auto">
         <Hero />
-        <Mission />
-        <LiveSection />
+        {/* <Mission /> */}
+        <AboutRcn />
+        <GatherWithUs />
+        {/* <LiveSection /> */}
         <Team />
-        <SpotlightEvent />
+        <PastorsDesk />
+        {/* <SpotlightEvent /> */}
       </div>
       <Footer />
     </div>

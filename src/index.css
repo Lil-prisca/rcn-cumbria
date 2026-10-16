@@ -3,6 +3,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* your existing tokens */
   --color-primary: #19143e; /* Deep Navy*/
   --color-secondary: #d02b27; /* Red*/
   --color-tertiary: #df6427; /* Orange*/
@@ -25,40 +26,18 @@
 
   --color-error: #ba1a1a;
 
+  /* RCN section colours (About, Gather With Us, Pastor's Desk) */
+  --color-rcn-red: #e5162d;
+  --color-rcn-redDark: #c91226;
+  --color-rcn-navy: #12175a;
+  --color-rcn-night: #0a1330;
+  --color-rcn-body: #64748b;
+  --color-rcn-faint: #94a3b8;
+  --color-rcn-mist: #f3f3f6;
+  --color-rcn-snow: #fbfbfd;
+  --color-rcn-cloud: #f7f7fa;
+  --color-rcn-blush: #fde7ea;
+  --color-rcn-white: #ffffff;
+
   --font-sans: "Source Sans 3", sans-serif;
-}
-
-.body-lg {
-  font-size: "18px";
-  /* lineheight: "28px"; */
-  /* fontweight: "400"; */
-}
-
-.glass-layer {
-  background: rgba(25, 20, 62, 0.4);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.glass {
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(173, 159, 159, 0.1);
-}
-.alchemist-glow {
-  background: radial-gradient(
-    circle,
-    rgba(223, 100, 39, 0.15) 0%,
-    rgba(223, 100, 39, 0) 70%
-  );
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.animate-scroll {
-  animation: scroll 30s linear infinite;
 }
