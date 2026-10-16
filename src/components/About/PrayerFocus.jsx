@@ -4,7 +4,7 @@ export default function PrayerFocus() {
       {/* image left, text right */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row lg:items-center lg:gap-[38px] lg:px-[58px]">
         <img
-          src="/images/about-carlisle.jpg"
+          src="https://images.pexels.com/photos/32504227/pexels-photo-32504227.jpeg?_gl=1*hw845t*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzU4MDIkajU5JGwwJGgw"
           alt="Carlisle at sunset"
           className="h-[183px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[420px] lg:shrink-0"
         />

@@ -4,7 +4,7 @@ export default function OurLeadership() {
       {/* text left, image right */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-[38px] lg:px-[58px]">
         <img
-          src="/images/about-pastor-kenneth.jpg"
+          src="https://images.pexels.com/photos/7218344/pexels-photo-7218344.jpeg?_gl=1*193vtte*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzU2NTYkajI3JGwwJGgw"
           alt="Pastor Kenneth Dumbiri speaking"
           className="h-[177px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[388px] lg:shrink-0"
         />

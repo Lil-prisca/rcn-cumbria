@@ -4,7 +4,7 @@ export default function LocalExpression() {
       {/* text left, image right (image first in the DOM so it stacks on top on mobile) */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-[38px] lg:px-[58px]">
         <img
-          src="/images/about-prayer-gathering.jpg"
+          src="https://images.pexels.com/photos/6860385/pexels-photo-6860385.jpeg?_gl=1*17pib3k*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzU4OTckajU5JGwwJGgw"
           alt="Believers praying together"
           className="h-[205px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[408px] lg:shrink-0"
         />

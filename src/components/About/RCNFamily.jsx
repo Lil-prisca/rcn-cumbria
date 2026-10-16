@@ -4,7 +4,7 @@ export default function RCNFamily() {
       {/* image left, text right */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row lg:gap-[38px] lg:px-[58px]">
         <img
-          src="/images/about-pastor-speaking.jpg"
+          src="https://images.pexels.com/photos/12076384/pexels-photo-12076384.jpeg?_gl=1*17mbmvh*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzYwMTYkajU5JGwwJGgw"
           alt="Minister teaching with a microphone"
           className="h-[210px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[420px] lg:shrink-0"
         />
@@ -26,9 +26,9 @@ export default function RCNFamily() {
             end of the age.
           </p>
           <p className="mt-3 text-[14px] leading-[1.55] text-rcn-body">
-            RCN is headquartered in Makurdi, Benue State, Nigeria, with apostolic
-            centres and mission outreaches across Africa, North America and
-            Europe.
+            RCN is headquartered in Makurdi, Benue State, Nigeria, with
+            apostolic centres and mission outreaches across Africa, North
+            America and Europe.
           </p>
         </div>
       </div>
