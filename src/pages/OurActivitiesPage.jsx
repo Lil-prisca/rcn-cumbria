@@ -1,9 +1,11 @@
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
-import Activity from "../components/Activity/Activity";
-import Gallery from "../components/Activity/Gallery";
+
 import ActivityHero from "../components/Activity/ActivityHero";
-import ActivityExplained from "../components/Activity/ActivityExplained";
+
+import FindYourPlace from "../components/Activity/FindYourPlace";
+import GoogleMeet from "../components/Activity/GoogleMeet";
+import UpcomingEvents from "../components/Activity/UpcomingEvents";
 
 const OurActivitiesPage = () => {
   return (
@@ -11,9 +13,9 @@ const OurActivitiesPage = () => {
       <Navbar />
       <div className="w-100% max-w-400 m-auto font-sans">
         <ActivityHero />
-        <Activity />
-        <ActivityExplained />
-        <Gallery />
+        <FindYourPlace />
+        <GoogleMeet />
+        <UpcomingEvents />
       </div>
       <Footer />
     </div>
