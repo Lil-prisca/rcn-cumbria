@@ -6,7 +6,7 @@ const AboutHero = () => {
     useSection("about.banner");
 
   return (
-    <section className="relative min-h-160 md:min-h-150 flex items-center overflow-hidden font-sans">
+    <section className="relative isolate flex min-h-[295px] items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
       <div className="absolute inset-0 z-0">
         <img
           className="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
@@ -21,7 +21,7 @@ const AboutHero = () => {
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 mt-10 leading-tight text-on-primary text-6xl md:text-7xl font-extrabold tracking-[-0.04em]"
+          className="mb-4  leading-tight text-on-primary text-3xl md:text-5xl font-extrabold tracking-[-0.04em]"
         >
           {line1} <br className="hidden md:block" /> {line2}{" "}
           <span className="text-secondary">{accent}</span>

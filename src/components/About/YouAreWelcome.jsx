@@ -1,4 +1,5 @@
-import { MessageCircle, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function YouAreWelcome({
   whatsappLink = "https://chat.whatsapp.com/your-invite-link",
@@ -37,7 +38,7 @@ export default function YouAreWelcome({
             className="mt-3 flex flex-col items-center justify-center rounded-md bg-[#0f6b38] px-5 py-2.5 text-rcn-white shadow-sm transition hover:bg-[#0c5a2f]"
           >
             <span className="flex items-center gap-3 text-[15px] font-bold">
-              <MessageCircle size={26} strokeWidth={1.6} />
+              <FaWhatsapp size={26} />
               Join Our WhatsApp Community
               <ChevronRight size={20} />
             </span>

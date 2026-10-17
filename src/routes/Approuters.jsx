@@ -10,6 +10,8 @@ import IAmNewPage from "../pages/IamnewPage";
 import SafeguardingPage from "../pages/Safeguardingpage";
 import TermsOfUse from "../pages/Termsofuse";
 import PrivacyPolicy from "../pages/Privacypolicy";
+import Resources from "../pages/Resources";
+import ArticlePage from "../pages/ArticlePage";
 import RequireAdmin from "../Admin/RequireAdmin";
 
 const AdminLogin = lazy(() => import("../Admin/AdminLogin"));
@@ -36,6 +38,8 @@ const Approuters = () => {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/safeguarding" element={<SafeguardingPage />} />
       <Route path="/terms-of-use" element={<TermsOfUse />} />
+      <Route path="/resources" element={<Resources />} />
+      <Route path="/resources/:slug" element={<ArticlePage />} />
 
       <Route
         path="/admin/login"

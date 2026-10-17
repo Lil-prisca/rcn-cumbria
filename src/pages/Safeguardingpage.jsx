@@ -1,222 +1,267 @@
 import { useEffect } from "react";
+import {
+  HeartHandshake,
+  FileText,
+  Mail,
+  RefreshCw,
+  ShieldCheck,
+  TriangleAlert,
+  Users,
+} from "lucide-react";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 import { useSection } from "../content/useSection";
-import { parseBody } from "../content/legalBlocks";
-import RichText from "../content/RichText";
-import { safeHref } from "../content/safeHref";
 
-const soft = { color: "var(--sg-ink-soft)" };
+const Eyebrow = ({ children }) => (
+  <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
+    {children}
+    <span className="h-px w-12 bg-rcn-red" />
+  </p>
+);
 
-function Body({ text }) {
-  return parseBody(text).map((block, i) => {
-    if (block.type === "h3") {
-      return (
-        <h3 key={i} className="font-serif font-semibold mb-2">
-          {block.text}
-        </h3>
-      );
-    }
-    if (block.type === "ul") {
-      return (
-        <ul
-          key={i}
-          className="list-disc pl-5 space-y-2 mb-3 leading-relaxed"
-          style={soft}
-        >
-          {block.items.map((item, j) => (
-            <li key={j}>
-              <RichText text={item} />
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    return (
-      <p key={i} className="leading-relaxed mb-3 last:mb-0" style={soft}>
-        <RichText text={block.text} />
-      </p>
-    );
-  });
-}
+const IconCircle = ({ icon: Icon, size = 50, iconSize = 22 }) => (
+  <span
+    style={{ height: size, width: size }}
+    className="flex shrink-0 items-center justify-center rounded-full bg-[#e4ebfb] text-rcn-navy"
+  >
+    <Icon size={iconSize} strokeWidth={1.7} />
+  </span>
+);
+
+const commitments = [
+  [
+    {
+      icon: ShieldCheck,
+      text: "Maintain a safe and supportive environment for everyone participating in our activities.",
+    },
+    {
+      icon: Users,
+      text: "Respond promptly and appropriately to safeguarding concerns, disclosures and allegations.",
+    },
+    {
+      icon: FileText,
+      text: "Ensure that those entrusted with safeguarding responsibilities are appropriately selected, supported and, where legally eligible and appropriate, DBS checked.",
+    },
+  ],
+  [
+    {
+      icon: Users,
+      text: "Promote responsible conduct, appropriate boundaries and accountability among ministry leaders, workers and volunteers.",
+    },
+    {
+      icon: HeartHandshake,
+      text: "Work with statutory safeguarding authorities and other relevant organisations when necessary.",
+    },
+    {
+      icon: RefreshCw,
+      text: "Review our safeguarding arrangements and practices regularly.",
+    },
+  ],
+];
+
+const columns = [
+  {
+    eyebrow: "Confidentiality",
+    title: "Confidentiality",
+    paragraphs: [
+      "We recognise the importance of handling safeguarding concerns with sensitivity and discretion.",
+      "Information shared with our safeguarding team will be handled carefully and shared only where necessary to protect an individual, respond appropriately to a concern or fulfil our safeguarding and legal responsibilities.",
+      "We cannot promise absolute confidentiality where someone may be at risk of harm.",
+    ],
+  },
+  {
+    eyebrow: "Children and Young People",
+    title: "Children and Young People",
+    paragraphs: [
+      "We want children and young people to participate in church life in a safe and supportive environment where they feel respected and valued.",
+      "Those entrusted with responsibilities involving children and young people are expected to maintain appropriate boundaries and follow our safeguarding procedures and codes of conduct. Where applicable, appropriate recruitment and DBS checking requirements will be observed.",
+      "Parents and carers are encouraged to raise any questions or concerns about their child's participation in our activities with the safeguarding team.",
+    ],
+  },
+  {
+    eyebrow: "Adults at Risk",
+    title: "Adults at Risk",
+    paragraphs: [
+      "We recognise that adults may also experience abuse, exploitation, neglect or other forms of harm.",
+      "We are committed to responding appropriately to concerns while respecting the dignity, wishes and circumstances of each individual and recognising our responsibility to protect people from harm.",
+    ],
+  },
+];
 
 export default function SafeguardingPage() {
-  const intro = useSection("safeguarding.intro");
-  const urgent = useSection("safeguarding.urgent");
-  const commit = useSection("safeguarding.commitments");
-  const report = useSection("safeguarding.report");
-  const more = useSection("safeguarding.more");
-  const policy = useSection("safeguarding.policy");
-  const policyHref = safeHref(policy.file);
+  const intro = useSection("safeguarding.intro") || {};
+  const report = useSection("safeguarding.report") || {};
+
+  const eyebrow = intro.eyebrow || "Safeguarding";
+  const title = intro.title || "Safeguarding";
+  const team = report.team?.length
+    ? report.team
+    : ["Abigael Dumbiri", "Deborah Akindina"];
+  const email = report.email || "safeguarding.rcncumbria@gmail.com";
 
   useEffect(() => {
-    document.title = `${intro.title} — RCN Cumbria`;
-  }, [intro.title]);
+    document.title = `${title} — RCN Cumbria`;
+  }, [title]);
 
   return (
-    <main
-      style={{
-        "--sg-ink": "#20293A",
-        "--sg-ink-soft": "#5C6577",
-        "--sg-bg": "#FBFAF6",
-        "--sg-line": "#E3DFD2",
-        "--sg-accent": "#8B6A32",
-        "--sg-accent-soft": "#F2EAD8",
-        "--sg-urgent": "#A23B2E",
-        "--sg-urgent-bg": "#FBEDEA",
-      }}
-      className="min-h-screen"
-    >
-      <div
-        className="max-w-2xl mx-auto px-6 py-25 md:py-24"
-        style={{ color: "var(--sg-ink)", backgroundColor: "var(--sg-bg)" }}
-      >
-        <Navbar />
+    <main className="min-h-screen bg-rcn-snow font-sans">
+      <Navbar />
 
-        {/* Intro */}
-        <header className="mb-12">
-          <p
-            className="text-sm font-medium mb-3"
-            style={{ color: "var(--sg-accent)" }}
-          >
-            {intro.eyebrow}
-          </p>
-          <h1 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-6">
-            {intro.title}
+      <div className="mx-auto max-w-[1100px] px-6 pb-12 pt-24">
+        {/* ───────── Intro ───────── */}
+        <header>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h1 className="mt-1 text-[40px] font-extrabold leading-tight text-rcn-navy">
+            {title}
           </h1>
-          {(intro.intro || []).map((text, i) => (
-            <p
-              key={i}
-              className={`leading-relaxed ${i ? "mt-4" : ""}`}
-              style={soft}
-            >
-              <RichText text={text} />
-            </p>
-          ))}
+          <p className="mt-3 text-[16px] leading-[1.5] text-rcn-body">
+            At Remnant Christian Network Cumbria (RCN Cumbria), we are committed
+            to creating a safe, welcoming and caring environment for everyone
+            who participates in our gatherings, programmes and activities,
+            whether in person or online.
+          </p>
+          <p className="mt-3 text-[16px] leading-[1.5] text-rcn-body">
+            We believe that every person is made in the image of God and
+            deserves to be treated with dignity, respect and care. Safeguarding
+            is therefore an essential part of our responsibility as a Christian
+            community.
+          </p>
         </header>
 
-        {/* Immediate danger */}
-        <div
-          className="rounded-lg p-5 mb-12 border"
-          style={{
-            backgroundColor: "var(--sg-urgent-bg)",
-            borderColor: "var(--sg-urgent)",
-          }}
-        >
-          <h2
-            className="font-semibold mb-1.5"
-            style={{ color: "var(--sg-urgent)" }}
-          >
-            {urgent.heading}
-          </h2>
-          <p
-            className="leading-relaxed text-sm"
-            style={{ color: "var(--sg-ink)" }}
-          >
-            <RichText text={urgent.text} linkColor="var(--sg-urgent)" />
-          </p>
+        {/* ───────── Immediate danger ───────── */}
+        <div className="mt-8 flex flex-col items-start gap-5 rounded-lg border border-rcn-red bg-[#fdeaec] px-6 py-6 sm:flex-row sm:items-center sm:gap-6">
+          <span className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-[#fbd3d8] text-rcn-red">
+            <TriangleAlert size={32} className="fill-rcn-red text-rcn-white" />
+          </span>
+          <div>
+            <h2 className="text-[20px] font-bold text-rcn-red">
+              If Someone Is in Immediate Danger
+            </h2>
+            <p className="mt-1.5 text-[16px] leading-[1.5] text-rcn-body">
+              If you believe that a child or adult is in immediate danger or at
+              risk of serious harm, call{" "}
+              <a href="tel:999" className="font-bold text-rcn-red underline">
+                999
+              </a>
+              .
+            </p>
+            <p className="mt-1.5 max-w-[700px] text-[16px] leading-[1.5] text-rcn-body">
+              Where appropriate, safeguarding concerns may also be reported
+              directly to the police or relevant local authority safeguarding
+              services.
+            </p>
+          </div>
         </div>
 
-        {/* Our commitment */}
-        <section className="mb-12">
-          <h2 className="font-serif text-xl font-semibold mb-4">
-            {commit.heading}
+        {/* ───────── Our Commitment ───────── */}
+        <section className="mt-8">
+          <Eyebrow>Our Commitment</Eyebrow>
+          <h2 className="mt-1 text-[36px] font-extrabold leading-tight text-rcn-navy">
+            Our Commitment
           </h2>
-          <p className="leading-relaxed mb-5" style={soft}>
-            <RichText text={commit.intro} />
+          <p className="mt-2 text-[16px] text-rcn-body">
+            RCN Cumbria is committed to safeguarding children, young people and
+            adults at risk. We seek to:
           </p>
-          <ul className="space-y-3">
-            {(commit.items || []).map((item) => (
-              <li key={item.id} className="flex gap-3 leading-relaxed">
-                <span
-                  aria-hidden="true"
-                  className="mt-2.5 w-1.5 h-1.5 rounded-full shrink-0"
-                  style={{ backgroundColor: "var(--sg-accent)" }}
-                />
-                <span>
-                  <RichText text={item.text} />
-                </span>
-              </li>
+
+          {/* Two columns side by side on desktop */}
+          <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:gap-12">
+            {commitments.map((col, i) => (
+              <ul key={i} className="flex flex-col gap-5 lg:flex-1">
+                {col.map(({ icon, text }) => (
+                  <li key={text} className="flex items-center gap-5">
+                    <IconCircle icon={icon} />
+                    <span className="text-[15px] leading-[1.4] text-rcn-body">
+                      {text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             ))}
-          </ul>
+          </div>
         </section>
 
-        {/* Reporting a concern */}
-        <section className="mb-12">
-          <h2 className="font-serif text-xl font-semibold mb-4">
-            {report.heading}
+        {/* ───────── Reporting a Safeguarding Concern ───────── */}
+        <section className="mt-9">
+          <Eyebrow>Reporting a Safeguarding Concern</Eyebrow>
+          <h2 className="mt-1 text-[36px] font-extrabold leading-tight text-rcn-navy">
+            Reporting a Safeguarding Concern
           </h2>
-          <p className="leading-relaxed mb-5" style={soft}>
-            <RichText text={report.intro} />
+          <p className="mt-2 text-[16px] leading-[1.5] text-rcn-body">
+            If you are concerned about the safety or wellbeing of a child, young
+            person or adult at risk, or about something that has happened during
+            an RCN Cumbria activity, please contact our designated safeguarding
+            team.
           </p>
 
-          <div
-            className="rounded-lg p-5 border grid gap-4 sm:grid-cols-2"
-            style={{
-              backgroundColor: "var(--sg-accent-soft)",
-              borderColor: "var(--sg-line)",
-            }}
-          >
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-wide mb-1"
-                style={{ color: "var(--sg-accent)" }}
-              >
-                {report.teamLabel}
-              </p>
-              {(report.team || []).map((name, i) => (
-                <p key={i}>{name}</p>
-              ))}
+          {/* Team + email side by side with a divider */}
+          <div className="mt-4 flex flex-col gap-6 rounded-lg bg-rcn-ice px-6 py-5 md:flex-row md:items-center md:gap-0">
+            <div className="flex items-center gap-5 md:w-1/2 md:border-r md:border-slate-300/70">
+              <IconCircle icon={Users} size={64} iconSize={30} />
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-rcn-body">
+                  Designated Safeguarding Team
+                </p>
+                {team.map((name) => (
+                  <p
+                    key={name}
+                    className="mt-1 text-[18px] font-bold leading-tight text-rcn-navy"
+                  >
+                    {name}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-wide mb-1"
-                style={{ color: "var(--sg-accent)" }}
-              >
-                {report.emailLabel}
-              </p>
-              <p style={soft}>{report.email}</p>
+
+            <div className="flex items-center gap-5 md:w-1/2 md:pl-8">
+              <IconCircle icon={Mail} size={64} iconSize={30} />
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-rcn-body">
+                  Safeguarding Email
+                </p>
+                <a
+                  href={`mailto:${email}`}
+                  className="mt-1 block break-all text-[18px] font-bold text-rcn-navy hover:underline"
+                >
+                  {email}
+                </a>
+              </div>
             </div>
           </div>
 
-          <p className="leading-relaxed mt-5 text-sm" style={soft}>
-            <RichText text={report.note} />
+          <p className="mt-4 text-[16px] leading-[1.5] text-rcn-body">
+            You do not need to be certain that abuse or harm has occurred before
+            raising a concern. If something does not feel right, we encourage
+            you to report it.
+          </p>
+          <p className="mt-3 text-[16px] leading-[1.5] text-rcn-body">
+            You may also contact the relevant local authority safeguarding
+            service or the police directly. If your concern involves a member of
+            the safeguarding team, you do not need to report it to that person.
           </p>
         </section>
 
-        {/* Other sections */}
-        {(more.items || []).map((section) => (
-          <section key={section.id} className="mb-12">
-            <h2 className="font-serif text-xl font-semibold mb-4">
-              {section.title}
-            </h2>
-            <Body text={section.body} />
-          </section>
-        ))}
-
-        {/* Full policy link */}
-        <section
-          className="rounded-lg p-6 border text-center"
-          style={{ borderColor: "var(--sg-line)" }}
-        >
-          <h2 className="font-serif text-lg font-semibold mb-2">
-            {policy.heading}
-          </h2>
-          <p className="leading-relaxed mb-5 text-sm" style={soft}>
-            <RichText text={policy.text} />
-          </p>
-          {policyHref && (
-            <a
-              href={policyHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-5 py-2.5 rounded-md font-medium text-sm text-white"
-              style={{ backgroundColor: "var(--sg-accent)" }}
-            >
-              {policy.buttonLabel}
-            </a>
-          )}
-        </section>
+        {/* ───────── Three columns ───────── */}
+        <div className="mt-9 flex flex-col gap-8 lg:flex-row lg:gap-8">
+          {columns.map(({ eyebrow: label, title: heading, paragraphs }) => (
+            <section key={heading} className="lg:flex-1">
+              <Eyebrow>{label}</Eyebrow>
+              <h2 className="mt-1 text-[26px] font-extrabold leading-tight text-rcn-navy">
+                {heading}
+              </h2>
+              <div className="mt-2 space-y-4">
+                {paragraphs.map((p) => (
+                  <p
+                    key={p}
+                    className="text-[13px] leading-[1.45] text-rcn-body"
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
 
       <Footer />

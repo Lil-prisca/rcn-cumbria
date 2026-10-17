@@ -6,7 +6,7 @@ const ContactHero = () => {
     useSection("contact.banner");
 
   return (
-    <section className="relative md:min-h-90 flex items-center overflow-hidden font-sans">
+    <section className="relative  isolate flex max-h-100 items-center overflow-hidden  mt-20 pb-20 bg-rcn-night font-sans">
       <div className="absolute inset-0 z-0">
         <img
           className="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
@@ -16,12 +16,12 @@ const ContactHero = () => {
         <div className="absolute inset-0 bg-primary/80"></div>
       </div>
       <div className="flex pt-10">
-        <div className="h-fit justify-content relative z-10 text-left px-5 py-30 md:px-20 md:py-50 max-w-4xl">
+        <div className="h-fit justify-content relative z-10 text-left px-5  md:px-20  max-w-4xl">
           <motion.h1
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-1 leading-tight text-on-primary text-5xl md:text-7xl font-extrabold tracking-[-0.04em]"
+            className="mb-1 leading-tight text-on-primary text-5xl md:text-5xl font-extrabold tracking-[-0.04em]"
           >
             {line1} <br />
             <span className="text-secondary">{accent}</span>
@@ -31,18 +31,11 @@ const ContactHero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="text-[18px] text-on-primary max-w-2xl leading-relaxed whitespace-pre-line"
+            className="text-[15px] text-on-primary max-w-2xl leading-relaxed whitespace-pre-line"
           >
             {description}
           </motion.p>
         </div>
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="hidden md:flex relative z-10 top-30 left-20 w-100 h-100"
-        />
       </div>
     </section>
   );

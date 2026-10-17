@@ -1,21 +1,38 @@
 import { useState } from "react";
 // import emailjs from "@emailjs/browser";
+import { ArrowRight, Mail, Phone, MessageCircle } from "lucide-react";
 import { useSection } from "../../content/useSection";
-import { socialIcons } from "../../content/socialIcons";
-import { safeHref } from "../../content/safeHref";
 
 const EMAILJS_SERVICE_ID = "service_piy6fyu";
 const EMAILJS_CONTACT_TEMPLATE_ID = "template_zkg3vgk";
 const EMAILJS_PUBLIC_KEY = "Lb_ogUAd-BxtvtjuV";
-const NOTIFY_EMAIL = "layodemo2@gmail.com"; //
+const NOTIFY_EMAIL = "layodemo2@gmail.com";
+
+const inputClass =
+  "mt-1.5 w-full rounded-md border border-slate-200 bg-rcn-white px-3.5 py-2.5 text-[14px] text-rcn-navy placeholder:text-rcn-faint focus:border-rcn-navy focus:outline-none focus:ring-2 focus:ring-rcn-navy/20";
+
+const labelClass = "block text-[14px] font-semibold text-rcn-navy";
+
+const Eyebrow = ({ children }) => (
+  <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
+    {children}
+    <span className="h-px w-8 bg-rcn-red" />
+  </p>
+);
 
 const ContactInfo = () => {
-  const touch = useSection("contact.touch");
-  const place = useSection("contact.location");
-  const social = useSection("contact.social");
+  const touch = useSection("contact.touch") || {};
+  const {
+    heading = "Contact Information",
+    intro = "You can reach us by email, phone or through our WhatsApp Community. We will do our best to respond as soon as possible.",
+    email = "info@rcncumbria.org",
+    phone = "+44 7XXX XXXXXXX",
+    whatsappLink = "https://chat.whatsapp.com/your-invite-link",
+  } = touch;
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,9 +43,13 @@ const ContactInfo = () => {
     gdprConsent: false,
   });
 
+  const update = (field) => (e) =>
+    setFormData({ ...formData, [field]: e.target.value });
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
+    setError("");
 
     try {
       await emailjs.send(
@@ -42,178 +63,245 @@ const ContactInfo = () => {
           contactConsent: formData.contactConsent,
           subject: formData.subject,
           message: formData.message,
+          gdprConsent: formData.gdprConsent ? "Yes" : "No",
         },
         EMAILJS_PUBLIC_KEY,
       );
+      setSubmitted(true);
     } catch (emailErr) {
       console.error("Email send error:", emailErr);
+      setError("Something went wrong. Please try again.");
+    } finally {
       setSubmitting(false);
-      return;
     }
-
-    setSubmitting(false);
-    setSubmitted(true);
   }
 
   return (
-    <section className="py-24 max-w-7xl mx-auto px-8 font-sans">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        {/* <!-- Form Area --> */}
-        <div className="lg:col-span-7">
-          <h2 className="text-4xl font-bold text-navy mb-2">{touch.heading}</h2>
-          <p className="text-on-surface-variant mb-12 text-lg whitespace-pre-line">
-            {touch.intro}
-          </p>
-
-          {submitted ? (
-            <div className="bg-black/20 p-8 rounded-2xl text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-primary"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M4 10l4 4 8-8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h4 className="text-xl font-bold mb-2 text-navy">Message Sent</h4>
-              <p className="text-on-surface-variant text-sm">
-                Thanks for reaching out — our team will get back to you within
-                24 hours.
+    <section className="bg-rcn-snow font-sans">
+      <div className="mx-auto max-w-[1200px] px-6 py-10 lg:px-[47px]">
+        {/* ───────── Row 1: Contact Information + Enquiry Form ───────── */}
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[22px]">
+          {/* PART 1: Contact Information */}
+          <div className="lg:w-[48%] lg:pt-4">
+            <div className="lg:pl-6">
+              <Eyebrow>Get in Touch</Eyebrow>
+              <h2 className="mt-1 text-[34px] font-extrabold leading-tight text-rcn-navy">
+                {heading}
+              </h2>
+              <p className="mt-2 max-w-[400px] text-[16px] leading-[1.5] text-rcn-body">
+                {intro}
               </p>
             </div>
-          ) : (
-            <form
-              className="  bg-black/20 p-5 px-6  rounded-2xl space-y-6"
-              onSubmit={handleSubmit}
-            >
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-on-surface-variant">
-                  FULL NAME
-                </label>
-                <input
-                  className="w-full bg-surface-container border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
+
+            <div className="mt-6 space-y-4">
+              {/* Email */}
+              <div className="flex items-center gap-5 rounded-lg bg-rcn-cloud px-6 py-6">
+                <span className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-[#e3e8f4] text-rcn-navy">
+                  <Mail size={30} strokeWidth={1.7} />
+                </span>
+                <div>
+                  <h3 className="text-[20px] font-bold text-rcn-navy">Email</h3>
+                  <p className="mt-1 text-[15px] leading-[1.4] text-rcn-body">
+                    Send us an email for general enquiries or specific
+                    questions.
+                  </p>
+                  <p className="mt-1.5 text-[15px]">
+                    <a
+                      href={`mailto:${email}`}
+                      className="font-medium text-rcn-link hover:underline"
+                    >
+                      {email}
+                    </a>{" "}
+                    <span className="text-rcn-body">(placeholder)</span>
+                  </p>
+                </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* email */}
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-on-surface-variant">
-                    EMAIL ADDRESS
+
+              {/* Telephone */}
+              <div className="flex items-center gap-5 rounded-lg bg-rcn-cloud px-6 py-6">
+                <span className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-[#e3e8f4] text-rcn-navy">
+                  <Phone size={30} strokeWidth={1.7} />
+                </span>
+                <div>
+                  <h3 className="text-[20px] font-bold text-rcn-navy">
+                    Telephone
+                  </h3>
+                  <p className="mt-1 text-[15px] leading-[1.4] text-rcn-body">
+                    Give us a call during our working hours.
+                  </p>
+                  <p className="mt-1.5 text-[15px]">
+                    <a
+                      href={`tel:${phone.replace(/\s/g, "")}`}
+                      className="font-semibold text-rcn-link hover:underline"
+                    >
+                      {phone}
+                    </a>{" "}
+                    <span className="text-rcn-body">(placeholder)</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* WhatsApp */}
+              <div className="flex items-center gap-5 rounded-lg bg-rcn-cloud px-6 py-6">
+                <span className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-[#1da851] text-rcn-white">
+                  <MessageCircle size={32} strokeWidth={1.7} />
+                </span>
+                <div>
+                  <h3 className="text-[20px] font-bold text-rcn-navy">
+                    WhatsApp Community
+                  </h3>
+                  <p className="mt-1 text-[15px] leading-[1.4] text-rcn-body">
+                    Join our WhatsApp Community for updates, announcements and
+                    more.
+                  </p>
+                  <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1.5 inline-flex items-center gap-2 text-[15px] font-medium text-rcn-link hover:underline"
+                  >
+                    Join Our WhatsApp Community
+                    <ArrowRight size={16} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* PART 2: Enquiry Form */}
+          <div className="rounded-xl bg-rcn-cloud px-6 pb-6 pt-7 lg:flex-1">
+            <Eyebrow>Send Us a Message</Eyebrow>
+            <h2 className="mt-1 text-[30px] font-extrabold leading-tight text-rcn-navy">
+              Enquiry Form
+            </h2>
+            <p className="mt-2 max-w-[360px] text-[16px] leading-[1.5] text-rcn-body">
+              Fill in the form below and we will get back to you as soon as
+              possible.
+            </p>
+
+            {submitted ? (
+              <div className="mt-6 rounded-lg bg-rcn-white p-8 text-center">
+                <h4 className="text-xl font-bold text-rcn-navy">
+                  Message Sent
+                </h4>
+                <p className="mt-2 text-[14px] text-rcn-body">
+                  Thanks for reaching out — our team will get back to you as
+                  soon as possible.
+                </p>
+              </div>
+            ) : (
+              <form className="mt-5 space-y-4" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="name" className={labelClass}>
+                    Full Name <span className="text-rcn-red">*</span>
                   </label>
                   <input
-                    className="w-full bg-surface-container border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+                    id="name"
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className={inputClass}
+                    value={formData.name}
+                    onChange={update("name")}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className={labelClass}>
+                    Email Address <span className="text-rcn-red">*</span>
+                  </label>
+                  <input
+                    id="email"
                     type="email"
                     required
+                    placeholder="Enter your email address"
+                    className={inputClass}
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    onChange={update("email")}
                   />
                 </div>
-                {/* watapp */}
+
                 <div>
-                  <label className="text-sm font-semibold text-on-surface-variant">
-                    Phone Number(WhatsApp Preferred)
+                  <label htmlFor="phone" className={labelClass}>
+                    Phone Number
                   </label>
                   <input
+                    id="phone"
                     type="tel"
-                    className="w-full bg-surface-container border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+                    placeholder="Enter your phone number"
+                    className={inputClass}
                     value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
+                    onChange={update("phone")}
                   />
                 </div>
-              </div>
-              {/* contact-permission */}
-              <div>
-                <label className="text-black/60 text-xs font-medium mb-2 block">
-                  Would you like us to contact you?
-                </label>
 
-                <div className="flex items-center gap-6">
-                  <label className="flex items-center gap-2 text-black">
-                    <input
-                      type="radio"
-                      name="contactConsent"
-                      value="yes"
-                      checked={formData.contactConsent === "yes"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          contactConsent: e.target.value,
-                        })
-                      }
-                    />
-                    Yes
-                  </label>
-
-                  <label className="flex items-center gap-2 text-black">
-                    <input
-                      type="radio"
-                      name="contactConsent"
-                      value="no"
-                      checked={formData.contactConsent === "no"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          contactConsent: e.target.value,
-                        })
-                      }
-                    />
-                    No
-                  </label>
+                {/* Contact permission */}
+                <div>
+                  <span className={labelClass}>
+                    Would you like us to contact you?{" "}
+                    <span className="text-rcn-red">*</span>
+                  </span>
+                  <div className="mt-2 flex items-center gap-6">
+                    {["yes", "no"].map((value) => (
+                      <label
+                        key={value}
+                        className="flex cursor-pointer items-center gap-2 text-[14px] text-rcn-navy"
+                      >
+                        <input
+                          type="radio"
+                          name="contactConsent"
+                          value={value}
+                          required
+                          checked={formData.contactConsent === value}
+                          onChange={update("contactConsent")}
+                          className="h-4 w-4 accent-rcn-red"
+                        />
+                        {value === "yes" ? "Yes" : "No"}
+                      </label>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-on-surface-variant">
-                  SUBJECT
-                </label>
-                <select
-                  className="w-full bg-surface-container border-none rounded-lg p-4 pr-2 focus:ring-2 focus:ring-primary"
-                  value={formData.subject}
-                  onChange={(e) =>
-                    setFormData({ ...formData, subject: e.target.value })
-                  }
-                >
-                  <option>General Inquiry</option>
-                  <option>Prayer Request</option>
-                  <option>Volunteer Opportunities</option>
-                  <option>Giving Support</option>
-                  <option>Testimonies</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-on-surface-variant">
-                  MESSAGE
-                </label>
-                <textarea
-                  className="w-full bg-surface-container border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
-                  rows="5"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                ></textarea>
-              </div>
-              <div>
-                <label className="flex items-start gap-3 text-black/60 text-xs">
+
+                {/* Subject */}
+                <div>
+                  <label htmlFor="subject" className={labelClass}>
+                    Subject
+                  </label>
+                  <select
+                    id="subject"
+                    className={inputClass}
+                    value={formData.subject}
+                    onChange={update("subject")}
+                  >
+                    <option>General Inquiry</option>
+                    <option>Prayer Request</option>
+                    <option>Volunteer Opportunities</option>
+                    <option>Giving Support</option>
+                    <option>Testimonies</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className={labelClass}>
+                    Message <span className="text-rcn-red">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    rows="4"
+                    required
+                    placeholder="How can we help you?"
+                    className={`${inputClass} h-[98px] resize-y`}
+                    value={formData.message}
+                    onChange={update("message")}
+                  />
+                </div>
+
+                {/* GDPR consent */}
+                <label className="flex cursor-pointer items-start gap-3 text-[12px] leading-[1.5] text-rcn-body">
                   <input
                     type="checkbox"
-                    className="mt-1"
+                    required
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-rcn-red"
                     checked={formData.gdprConsent}
                     onChange={(e) =>
                       setFormData({
@@ -222,79 +310,58 @@ const ContactInfo = () => {
                       })
                     }
                   />
-
                   <span>
                     I agree to my data being processed in line with GDPR. We
                     respect your privacy and will only use this information for
                     RCN Cumbria updates.
                   </span>
                 </label>
-              </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="bg-primary text-white hover:bg-on-primary hover:text-primary px-10 py-4 rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {submitting ? "Sending…" : "Send Message"}
-              </button>
-            </form>
-          )}
+                {error && (
+                  <p className="text-[13px] font-medium text-rcn-red">
+                    {error}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex w-full items-center justify-center gap-3 rounded-md bg-rcn-red py-3.5 text-[14px] font-bold text-rcn-white shadow-sm transition hover:bg-rcn-redDark disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {submitting ? "Sending…" : "Send Message"}
+                  {!submitting && <ArrowRight size={18} />}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
 
-        {/* <!-- Info Area & Map --> */}
-        <div className="lg:col-span-5 flex flex-col gap-8">
-          <div className="bg-surface-container-high rounded-3xl p-8 overflow-hidden relative group">
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-navy mb-4">
-                {place.heading}
-              </h3>
-              <p className="text-on-surface-variant mb-6">
-                {(place.address || []).map((line, i) => (
-                  <span key={i} className="block">
-                    {line}
-                  </span>
-                ))}
-              </p>
-              {/* <div className="flex items-center gap-4 text-primary font-semibold group-hover:translate-x-2 transition-transform">
-                <span className="material-symbols-outlined">directions</span>
-                Get Directions
-              </div> */}
-            </div>
-            {/* <!-- Decorative Map Background --> */}
-            <div className="absolute inset-0 opacity-50 pointer-events-none grayscale">
-              <img
-                alt="Map location"
-                className="w-full h-full object-cover"
-                // swap for "/images/contact/map.jpg" once you've saved the image into public/
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmydlBtb2oiWTblwFpCZeIo5ReGJPIBom_-q1BcHgThWiOYVGUBYgQey2cDImIFuKN7mEXnI6ClB0bylUPV3RagjTpKWTFkugK7Dcsz09crqLuAPsgGMLdU1uhCYAqK_kPhrad4HdPz6A6nEEQNG4nRDNYQRXPbMZxJh9lshDHgMYR16ohSePgwxeHsF3DFwxBxKMyosNDzhuW-v4ERW8cFM2mWxJEWNmyWEjILQXNvFApuOFHVrowBd5WbLYJ1zFs4QwuonhEcRw"
-              />
-            </div>
+        {/* ───────── Row 2: Be Part of Our Community ───────── */}
+        <div className="mt-14 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pl-[10px]">
+          <div className="lg:w-[46%]">
+            <Eyebrow>Join Us</Eyebrow>
+            <h2 className="mt-1 text-[34px] font-extrabold leading-tight text-rcn-navy">
+              Be Part of Our Community
+            </h2>
+            <p className="mt-3 text-[16px] leading-[1.55] text-rcn-body">
+              We would love for you to join us at our gatherings and be part of
+              what God is doing in Cumbria. Explore our upcoming events and
+              activities to find out how you can get involved.
+            </p>
+            <a
+              href="/activities"
+              className="mt-6 inline-flex items-center gap-3 rounded-md bg-rcn-navy px-8 py-4 text-[15px] font-bold text-rcn-white shadow-sm transition hover:bg-rcn-night"
+            >
+              View Our Activities
+              <ArrowRight size={18} />
+            </a>
           </div>
 
-          <div className="bg-navy rounded-3xl p-8 text-primary flex-1">
-            <h3 className="text-2xl font-bold mb-6 text-secondary">
-              {social.heading}
-            </h3>
-            <div className="space-y-6">
-              {(social.links || []).map((l) => {
-                const href = safeHref(l.url);
-                if (!href) return null;
-                return (
-                  <a
-                    key={l.id}
-                    className="flex items-center gap-4 hover:opacity-70 transition-opacity"
-                    href={href}
-                  >
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                      <span>{socialIcons[l.platform]}</span>
-                    </div>
-                    <span className="font-bold">{l.label}</span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
+          <img
+            src="/images/community-conversation.jpg"
+            alt="Two people smiling in conversation"
+            className="h-[209px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[435px] lg:shrink-0"
+          />
         </div>
       </div>
     </section>
