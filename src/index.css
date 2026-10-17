@@ -41,3 +41,8 @@
 
   --font-sans: "Source Sans 3", sans-serif;
 }
+.glass-layer {
+  background: rgba(25, 20, 62, 0.4);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
