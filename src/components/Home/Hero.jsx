@@ -7,13 +7,15 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[70vh] mt-20 py-15 flex items-center overflow-hidden bg-[#19143E] font-sans">
-      {/* hero background image */}
+      {/* hero background image (only drawn when one is set) */}
       <div className="absolute inset-0 z-0">
-        <img
-          className="w-full h-full object-cover opacity-40"
-          alt={b.imageAlt || ""}
-          src={b.image}
-        />
+        {b.image && (
+          <img
+            className="w-full h-full object-cover opacity-40"
+            alt={b.imageAlt || ""}
+            src={b.image}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-[#19143E] via-[#19143E]/60 to-transparent"></div>
       </div>
 
@@ -25,8 +27,20 @@ const Hero = () => {
             transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-white text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[0.95] mb-8"
           >
-            {b.lead} <span className="text-secondary">{b.accent}</span> {b.tail}
+            {b.line1} {b.line2}{" "}
+            <span className="text-secondary">{b.accent}</span>
           </motion.h1>
+
+          {b.subtitle && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.7 }}
+              className="text-white/90 text-lg md:text-xl font-semibold mx-auto max-w-xl mb-3"
+            >
+              {b.subtitle}
+            </motion.p>
+          )}
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}

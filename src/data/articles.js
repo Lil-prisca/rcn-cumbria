@@ -5,7 +5,7 @@
 const PLACEHOLDER_IMAGE =
   "https://images.pexels.com/photos/20620850/pexels-photo-20620850.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
-export const articles = [
+const rawArticles = [
   {
     id: 1,
     slug: "standing-firm",
@@ -103,6 +103,56 @@ export const articles = [
     ],
   },
 ];
+
+// ── Automatic fields ────────────────────────────────────────────────
+// Works for both dummy data (body = array) and admin data (body = one
+// textarea string with blank lines between paragraphs).
+
+export function slugify(text = "") {
+  return String(text)
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const toParagraphs = (body) =>
+  Array.isArray(body)
+    ? body.filter(Boolean)
+    : String(body || "")
+        .split(/\n\s*\n/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+
+// First few lines of the article, cut cleanly at a word boundary
+export function makeExcerpt(paragraphs, max = 140) {
+  const text = paragraphs.join(" ").replace(/\s+/g, " ").trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max).replace(/\s+\S*$/, "");
+  return `${cut.replace(/[.,;:!?-]+$/, "")}…`;
+}
+
+// Fills in slug, href, excerpt and body array. Anything set by hand wins.
+export function normalizeArticles(list = []) {
+  const used = new Set();
+  return list.map((a, i) => {
+    const body = toParagraphs(a.body);
+    let slug = a.slug || slugify(a.title) || `article-${a.id ?? i + 1}`;
+    if (used.has(slug)) slug = `${slug}-${a.id ?? i + 1}`; // keep unique
+    used.add(slug);
+    return {
+      ...a,
+      body,
+      slug,
+      href: `/resources/${slug}`,
+      excerpt: a.excerpt || makeExcerpt(body),
+    };
+  });
+}
+
+export const articles = normalizeArticles(rawArticles);
 
 const MONTHS = [
   "JAN",

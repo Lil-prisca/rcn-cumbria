@@ -2,8 +2,8 @@ import { ExternalLink } from "lucide-react";
 import { FaTelegram, FaYoutube } from "react-icons/fa";
 
 export default function TeachingsMessages({
-  telegramLink = "https://t.me/your-channel",
-  youtubeLink = "https://www.youtube.com/@RCNManchester",
+  telegramLink = "https://t.me/rcncarlisle",
+  youtubeLink = "https://www.youtube.com/",
 }) {
   return (
     <section className="bg-rcn-snow font-sans">

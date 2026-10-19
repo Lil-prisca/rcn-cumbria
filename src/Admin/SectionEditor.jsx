@@ -3,6 +3,34 @@ import { supabase } from "../lib/supabase";
 import { defaults } from "../content/defaults";
 import { invalidateContent } from "../content/useSection";
 import { Field, ListField } from "./fields";
+import MasterDetailList from "./MasterDetailList";
+
+// Saved content can be older or hand-edited (e.g. a "lines" field stored as one
+// string). Coerce those to arrays so the editor never crashes on them.
+function toLines(v) {
+  if (Array.isArray(v))
+    return v.map((x) => (typeof x === "string" ? x : String(x ?? "")));
+  if (typeof v === "string") return v.split(/\r?\n/).filter((l) => l.trim());
+  return [];
+}
+
+function normalize(content, section) {
+  const out = { ...content };
+  (section.fields || []).forEach((f) => {
+    if (f.type === "lines") out[f.name] = toLines(out[f.name]);
+  });
+  if (section.list) {
+    const { name, itemFields } = section.list;
+    out[name] = (Array.isArray(out[name]) ? out[name] : []).map((item, i) => {
+      const copy = { ...item, id: item?.id ?? String(Date.now() + i) };
+      itemFields.forEach((f) => {
+        if (f.type === "lines") copy[f.name] = toLines(copy[f.name]);
+      });
+      return copy;
+    });
+  }
+  return out;
+}
 
 function clean(content, section) {
   const trim = (arr) => (arr || []).map((s) => s.trim()).filter(Boolean);
@@ -29,7 +57,9 @@ const stampNow = () =>
   new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
 export default function SectionEditor({ section }) {
-  const { key, label, fields = [], list, stamp, history } = section;
+  const { key, label, fields = [], list, stamp, history, notice } = section;
+  const ListEditor =
+    list?.layout === "master-detail" ? MasterDetailList : ListField;
   const base = defaults[key];
   const folder = key.replace(/\./g, "/");
 
@@ -52,7 +82,7 @@ export default function SectionEditor({ section }) {
             type: "error",
             message: "Could not load this section.",
           });
-        const merged = { ...base, ...data?.content };
+        const merged = normalize({ ...base, ...data?.content }, section);
         setOriginal(merged);
         setDraft(merged);
         setStatus({ type: "idle" });
@@ -142,7 +172,7 @@ export default function SectionEditor({ section }) {
         type: "error",
         message: "Could not load that version.",
       });
-    setDraft({ ...base, ...data.content });
+    setDraft(normalize({ ...base, ...data.content }, section));
     setHistoryOpen(false);
     setStatus({ type: "idle" });
   }
@@ -165,6 +195,12 @@ export default function SectionEditor({ section }) {
         <div className="px-5 pb-5 space-y-4 border-t border-neutral-100 pt-4">
           {status.type === "loading" && <p>Loading…</p>}
 
+          {notice && (
+            <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-800">
+              {notice}
+            </p>
+          )}
+
           {draft && (
             <>
               {stamp && draft[stamp] && (
@@ -184,7 +220,7 @@ export default function SectionEditor({ section }) {
                 />
               ))}
               {list && (
-                <ListField
+                <ListEditor
                   def={list}
                   items={draft[list.name]}
                   onChange={(v) => set(list.name, v)}
