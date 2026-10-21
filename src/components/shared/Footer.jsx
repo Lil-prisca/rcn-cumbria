@@ -1,4 +1,4 @@
-import Logo from "../../assets/rcn-mark.webp";
+import Logo from "../../assets/RCN Cumbria2.png";
 import {
   FaFacebookF,
   FaInstagram,
@@ -60,11 +60,10 @@ const Footer = () => {
         {/* curc Infoo */}
         <div className="  w-{90%} md:w-100  px-5">
           <Link to="/">
-            <div className="flex gap-2 items-center ">
-              <div className=" w-5 h-12">
+            <div className="flex gap-2 items-center  ">
+              <div className=" w-25 h-13">
                 <img src={Logo} alt="" />
               </div>
-              <p className=" flex h-fit text-xl  ">RCN Cumbria</p>
             </div>
           </Link>
           <p className="text-on-primary font-body-md max-w-md mb-5 lg:mb-2 ">

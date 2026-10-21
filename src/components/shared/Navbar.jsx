@@ -1,4 +1,4 @@
-import Logo from "../../assets/rcn-mark.webp";
+import Logo from "../../assets/RCN Cumbria1.png";
 import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -17,12 +17,9 @@ const Navbar = () => {
       <div className="  w-[100%] max-w-500 mx-auto px-6 lg:px-10 flex items-center justify-between h-20 ">
         {/* Logo */}
         <Link to="/" className="flex gap-2 items-center ">
-          <div className=" w-5 h-12">
+          <div className=" w-25 h-12">
             <img src={Logo} alt="" />
           </div>
-          <p className=" hidden md:flex h-fit mt-1 text-secondary text-xl font-bold  ">
-            RCN <span className="text-primary ml-1"> Cumbria </span>
-          </p>
         </Link>
 
         {/* NavLinks */}
