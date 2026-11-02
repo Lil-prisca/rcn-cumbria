@@ -1,12 +1,7 @@
 import { useState } from "react";
-// import emailjs from "@emailjs/browser";
 import { ArrowRight, Mail, Phone, MessageCircle } from "lucide-react";
 import { useSection } from "../../content/useSection";
-
-const EMAILJS_SERVICE_ID = "service_piy6fyu";
-const EMAILJS_CONTACT_TEMPLATE_ID = "template_zkg3vgk";
-const EMAILJS_PUBLIC_KEY = "Lb_ogUAd-BxtvtjuV";
-const NOTIFY_EMAIL = "layodemo2@gmail.com";
+import { sendEmail } from "../../lib/sendEmail";
 
 const inputClass =
   "mt-1.5 w-full rounded-md border border-slate-200 bg-rcn-white px-3.5 py-2.5 text-[14px] text-rcn-navy placeholder:text-rcn-faint focus:border-rcn-navy focus:outline-none focus:ring-2 focus:ring-rcn-navy/20";
@@ -52,21 +47,19 @@ const ContactInfo = () => {
     setError("");
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_CONTACT_TEMPLATE_ID,
-        {
-          to_email: NOTIFY_EMAIL,
-          from_name: formData.name,
-          from_email: formData.email,
-          phone: formData.phone,
-          contactConsent: formData.contactConsent,
-          subject: formData.subject,
-          message: formData.message,
-          gdprConsent: formData.gdprConsent ? "Yes" : "No",
-        },
-        EMAILJS_PUBLIC_KEY,
-      );
+      await sendEmail("contact", {
+        fromName: formData.name,
+        fromEmail: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        contactConsent:
+          formData.contactConsent === "yes"
+            ? "Yes"
+            : formData.contactConsent === "no"
+              ? "No"
+              : "",
+      });
       setSubmitted(true);
     } catch (emailErr) {
       console.error("Email send error:", emailErr);

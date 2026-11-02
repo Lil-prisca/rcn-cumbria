@@ -1,18 +1,12 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import emailjs from "@emailjs/browser";
 
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 import { useSection } from "../content/useSection";
 import { valueIcons } from "../content/valueIcons";
-
-// EmailJS config — from your EmailJS dashboard
-const EMAILJS_SERVICE_ID = "service_piy6fyu";
-const EMAILJS_TEMPLATE_ID = "template_78i6cab";
-const EMAILJS_PUBLIC_KEY = "Lb_ogUAd-BxtvtjuV";
-const NOTIFY_EMAIL = "layodemo2@gmail.com"; // where you want submissions delivered
+import { sendEmail } from "../lib/sendEmail";
 
 const IAmNewPage = () => {
   const banner = useSection("iamnew.banner");
@@ -21,6 +15,7 @@ const IAmNewPage = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,23 +29,26 @@ const IAmNewPage = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
+    setError("");
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          to_email: NOTIFY_EMAIL,
-          from_name: formData.name,
-          from_email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-          contactConsent: formData.contactConsent,
-        },
-        EMAILJS_PUBLIC_KEY,
-      );
+      await sendEmail("firstTimer", {
+        fromName: formData.name,
+        fromEmail: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        contactConsent:
+          formData.contactConsent === "yes"
+            ? "Yes"
+            : formData.contactConsent === "no"
+              ? "No"
+              : "",
+      });
     } catch (emailErr) {
       console.error("Email send error:", emailErr);
+      setError(
+        "Sorry, your details could not be sent. Please try again in a moment.",
+      );
       setSubmitting(false);
       return;
     }
@@ -346,6 +344,12 @@ const IAmNewPage = () => {
                     </span>
                   </label>
                 </div>
+
+                {error && (
+                  <p role="alert" className="text-sm text-red-300">
+                    {error}
+                  </p>
+                )}
 
                 <motion.button
                   type="submit"
