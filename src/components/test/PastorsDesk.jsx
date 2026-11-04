@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import {
-  articles as allArticles,
-  formatDate,
-  getLatestArticles,
-} from "../../data/articles";
+import { formatDate, useLatestArticles } from "../../data/articles";
 
-// Home page: shows the 3 latest articles automatically.
-// Pass `articles` to override (e.g. data from your CMS / API).
-export default function PastorsDesk({ articles = allArticles }) {
-  const latest = getLatestArticles(3, articles);
+// Home page: shows the 3 latest articles automatically (from Supabase).
+export default function PastorsDesk() {
+  const { articles: latest } = useLatestArticles(3);
 
   return (
     <section className="bg-rcn-cloud py-8 h-fit lg:h-70 ">
@@ -37,18 +32,23 @@ export default function PastorsDesk({ articles = allArticles }) {
 
         {/* PART 2: articles side by side */}
         <div className="flex flex-1 flex-col gap-4 sm:flex-row">
-          {latest.map(({ id, date, title, image, href }) => (
+          {latest.map(({ id, slug, date, title, image, alt, href }) => (
             <Link
               key={id}
-              to={href}
+              // TODO: change "/resources/" if your article route is different
+              to={href || `/resources/${slug}`}
               className="group flex-1 overflow-hidden rounded-md bg-rcn-white shadow-[0_2px_10px_rgba(15,23,42,0.10)] transition hover:-translate-y-0.5"
             >
               <div className="h-40 overflow-hidden">
-                <img
-                  src={image}
-                  alt={title}
-                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                />
+                {image ? (
+                  <img
+                    src={image}
+                    alt={alt || title}
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-rcn-ice" />
+                )}
               </div>
               <div className="px-3 h-20 pb-3 pt-5">
                 <time className="block text-[9px] text-rcn-faint">

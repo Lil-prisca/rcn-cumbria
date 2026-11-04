@@ -246,6 +246,10 @@ export const defaults = {
     image: "/images/activities/save-the-date.jpg",
     imageAlt: "Save the date calendar with a pen",
   },
+  "activities.gallery": {
+    heading: "Gallery",
+    items: [],
+  },
 
   /* ───────────────────────────── GIVE ───────────────────────────── */
   "give.banner": {

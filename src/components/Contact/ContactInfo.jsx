@@ -105,7 +105,6 @@ const ContactInfo = () => {
                     >
                       {email}
                     </a>{" "}
-                    <span className="text-rcn-body">(placeholder)</span>
                   </p>
                 </div>
               </div>
@@ -129,7 +128,6 @@ const ContactInfo = () => {
                     >
                       {phone}
                     </a>{" "}
-                    <span className="text-rcn-body">(placeholder)</span>
                   </p>
                 </div>
               </div>

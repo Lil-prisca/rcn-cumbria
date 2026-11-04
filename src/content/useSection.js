@@ -25,10 +25,15 @@ export function invalidateContent() {
   request = null;
 }
 
-export function useSection(key) {
+export function useSectionStatus(key) {
   const [saved, setSaved] = useState(cache);
   useEffect(() => {
     if (!cache) loadAll().then(setSaved);
   }, []);
-  return { ...defaults[key], ...saved?.[key] };
+  return {
+    data: { ...defaults[key], ...saved?.[key] },
+    loading: saved === null,
+  };
 }
+
+export const useSection = (key) => useSectionStatus(key).data;

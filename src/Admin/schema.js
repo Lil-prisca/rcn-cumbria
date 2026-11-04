@@ -370,6 +370,17 @@ export const adminPages = {
           alt("imageAlt"),
         ],
       },
+      {
+        key: "activities.gallery",
+        label: "Photo gallery",
+        fields: [{ name: "heading", label: "Heading", type: "text" }],
+        list: {
+          name: "items",
+          itemLabel: "Photo",
+          bulk: "image",
+          itemFields: [{ name: "image", label: "Photo", type: "image" }, alt()],
+        },
+      },
     ],
   },
 

@@ -1,20 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpenText } from "lucide-react";
-import {
-  articles as allArticles,
-  formatDate,
-  getLatestArticles,
-} from "../../data/articles";
+import { formatDate, useArticles } from "../../data/articles";
 
-// Resources page: shows every article, newest first.
-// Pass `articles` to override (e.g. data from your CMS / API).
-// With an empty list it falls back to the "articles will appear here" note.
+// Resources page: shows every article, newest first (from Supabase).
+// Shows the "articles will appear here" note only when loading has finished
+// and there are no articles.
 export default function ResourcesPastorsDesk({
   image = "/images/pastor-writing.jpg",
-  articles = allArticles,
 }) {
-  const list = getLatestArticles(undefined, articles);
+  const { articles: list, loading } = useArticles();
   const hasArticles = list.length > 0;
+  const showEmpty = !loading && !hasArticles;
 
   return (
     <section className="bg-rcn-snow font-sans">
@@ -32,7 +28,7 @@ export default function ResourcesPastorsDesk({
             </p>
 
             {/* Empty-state note (matches the design) */}
-            {!hasArticles && (
+            {showEmpty && (
               <div className="mt-6 flex items-center gap-5 rounded-xl bg-[#eef0fb] px-7 py-6">
                 <BookOpenText
                   size={56}
@@ -59,41 +55,47 @@ export default function ResourcesPastorsDesk({
         {/* Articles list */}
         {hasArticles && (
           <div className="mt-10 flex flex-wrap gap-5">
-            {list.map(({ id, date, title, excerpt, image: cover, href }) => (
-              <Link
-                key={id}
-                to={href}
-                className="group flex w-full flex-col overflow-hidden rounded-lg bg-rcn-white shadow-[0_2px_10px_rgba(15,23,42,0.10)] transition hover:-translate-y-0.5 sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
-              >
-                <div className="h-44 overflow-hidden">
-                  <img
-                    src={cover}
-                    alt={title}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col px-4 pb-4 pt-4">
-                  <time className="text-[10px] font-medium text-rcn-faint">
-                    {formatDate(date)}
-                  </time>
-                  <h3 className="mt-1 text-[17px] font-bold leading-snug text-rcn-navy">
-                    {title}
-                  </h3>
-                  {excerpt && (
-                    <p className="mt-2 line-clamp-2 text-[13px] leading-[1.5] text-rcn-body">
-                      {excerpt}
-                    </p>
-                  )}
-                  <span className="mt-3 inline-flex items-center gap-2 pt-1 text-[13px] font-semibold text-rcn-red">
-                    Read article
-                    <ArrowRight
-                      size={14}
-                      className="transition group-hover:translate-x-1"
-                    />
-                  </span>
-                </div>
-              </Link>
-            ))}
+            {list.map(
+              ({ id, slug, date, title, excerpt, image: cover, alt }) => (
+                <Link
+                  key={id}
+                  to={`/resources/${slug}`}
+                  className="group flex w-full flex-col overflow-hidden rounded-lg bg-rcn-white shadow-[0_2px_10px_rgba(15,23,42,0.10)] transition hover:-translate-y-0.5 sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
+                >
+                  <div className="h-44 overflow-hidden">
+                    {cover ? (
+                      <img
+                        src={cover}
+                        alt={alt || title}
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-rcn-ice" />
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col px-4 pb-4 pt-4">
+                    <time className="text-[10px] font-medium text-rcn-faint">
+                      {formatDate(date)}
+                    </time>
+                    <h3 className="mt-1 text-[17px] font-bold leading-snug text-rcn-navy">
+                      {title}
+                    </h3>
+                    {excerpt && (
+                      <p className="mt-2 line-clamp-2 text-[13px] leading-[1.5] text-rcn-body">
+                        {excerpt}
+                      </p>
+                    )}
+                    <span className="mt-3 inline-flex items-center gap-2 pt-1 text-[13px] font-semibold text-rcn-red">
+                      Read article
+                      <ArrowRight
+                        size={14}
+                        className="transition group-hover:translate-x-1"
+                      />
+                    </span>
+                  </div>
+                </Link>
+              ),
+            )}
           </div>
         )}
 

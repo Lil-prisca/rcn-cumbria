@@ -5,22 +5,41 @@ import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 import {
   formatDate,
-  getArticleBySlug,
   getReadTime,
-  getRelatedArticles,
+  paragraphsOf,
+  useArticle,
+  useRelatedArticles,
 } from "../data/articles";
 
 export default function ArticlePage() {
   const { slug } = useParams();
-  const article = getArticleBySlug(slug);
-  const related = getRelatedArticles(slug, 3);
+  // Hooks must run before any early return below.
+  const { article, loading } = useArticle(slug);
+  const related = useRelatedArticles(article, 3);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    document.title = article
-      ? `${article.title} — RCN Cumbria`
-      : "Article not found — RCN Cumbria";
-  }, [slug, article]);
+    if (loading) {
+      document.title = "Loading… — RCN Cumbria";
+    } else {
+      document.title = article
+        ? `${article.title} — RCN Cumbria`
+        : "Article not found — RCN Cumbria";
+    }
+  }, [slug, article, loading]);
+
+  /* ───────── Loading ───────── */
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-rcn-snow font-sans">
+        <Navbar />
+        <div className="mx-auto max-w-[620px] px-6 pb-24 pt-36 text-center">
+          <p className="text-[16px] text-rcn-body">Loading article…</p>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
 
   /* ───────── Not found ───────── */
   if (!article) {
@@ -48,7 +67,8 @@ export default function ArticlePage() {
     );
   }
 
-  const { title, date, author, image, body = [] } = article;
+  const { title, date, author, image, alt } = article;
+  const paragraphs = paragraphsOf(article);
 
   return (
     <main className="min-h-screen bg-rcn-snow font-sans">
@@ -85,21 +105,24 @@ export default function ArticlePage() {
             )}
             <span className="inline-flex items-center gap-1.5">
               <Clock size={14} />
-              {getReadTime(article)} min read
+              {/* getReadTime already returns "N min read" */}
+              {getReadTime(article)}
             </span>
           </div>
         </header>
 
         {/* Cover image */}
-        <img
-          src={image}
-          alt={title}
-          className="mx-auto mt-6 block aspect-20/10 w-full max-w-full rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)] md:w-[50vw]"
-        />
+        {image && (
+          <img
+            src={image}
+            alt={alt || title}
+            className="mx-auto mt-6 block aspect-20/10 w-full max-w-full rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)] md:w-[50vw]"
+          />
+        )}
 
         {/* Body */}
         <div className="mt-8 space-y-7">
-          {body.map((paragraph, i) => (
+          {paragraphs.map((paragraph, i) => (
             <p
               key={i}
               className="text-[17px] leading-[1.8] text-rcn-navy/85 first:first-letter:float-left first:first-letter:mr-2 first:first-letter:text-[56px] first:first-letter:font-extrabold first:first-letter:leading-[0.9] first:first-letter:text-rcn-red"
@@ -110,15 +133,17 @@ export default function ArticlePage() {
         </div>
 
         {/* Sign-off */}
-        <div className="mt-10 flex items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
-          <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#d6e5fb] text-rcn-navy">
-            <User size={24} />
-          </span>
-          <div>
-            <p className="text-[16px] font-bold text-rcn-navy">{author}</p>
-            <p className="text-[13px] text-rcn-body">Pointman, RCN Cumbria</p>
+        {author && (
+          <div className="mt-10 flex items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
+            <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#d6e5fb] text-rcn-navy">
+              <User size={24} />
+            </span>
+            <div>
+              <p className="text-[16px] font-bold text-rcn-navy">{author}</p>
+              <p className="text-[13px] text-rcn-body">Pointman, RCN Cumbria</p>
+            </div>
           </div>
-        </div>
+        )}
       </article>
 
       {/* ───────── More articles ───────── */}
@@ -145,11 +170,15 @@ export default function ArticlePage() {
                 className="group flex-1 overflow-hidden rounded-lg bg-rcn-white shadow-[0_2px_10px_rgba(15,23,42,0.10)] transition hover:-translate-y-0.5"
               >
                 <div className="h-36 overflow-hidden">
-                  <img
-                    src={a.image}
-                    alt={a.title}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                  />
+                  {a.image ? (
+                    <img
+                      src={a.image}
+                      alt={a.alt || a.title}
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-rcn-ice" />
+                  )}
                 </div>
                 <div className="p-4">
                   <time className="text-[10px] font-medium text-rcn-faint">

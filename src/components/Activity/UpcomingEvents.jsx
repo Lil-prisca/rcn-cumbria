@@ -1,7 +1,13 @@
 import { CalendarDays } from "lucide-react";
+import { useSection } from "../../content/useSection";
 import safe from "../../assets/Activity/save_a_date.png";
 
+// Text and image come from the admin section "activities.events".
+// The bundled image is used if no image has been set.
 export default function UpcomingEvents() {
+  const { eyebrow, heading, description, image, imageAlt } =
+    useSection("activities.events");
+
   return (
     <section className="bg-rcn-snow px-6 py-10 lg:px-[47px]">
       {/* Text + image side by side */}
@@ -15,14 +21,13 @@ export default function UpcomingEvents() {
           />
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-rcn-red">
-              Upcoming Events
+              {eyebrow}
             </p>
             <h2 className="mt-1 text-[24px] font-extrabold leading-tight text-rcn-navy">
-              Keep an Eye Out
+              {heading}
             </h2>
             <p className="mt-2 max-w-[340px] text-[13px] leading-[1.5] text-rcn-body">
-              We also host special events, conferences and programmes throughout
-              the year. Check back regularly for updates.
+              {description}
             </p>
           </div>
         </div>
@@ -30,8 +35,8 @@ export default function UpcomingEvents() {
         {/* PART 2: image that fades in from the text side */}
         <div className="relative h-[140px] md:h-auto md:w-1/2">
           <img
-            src={safe}
-            alt="Save the date calendar with pen"
+            src={image || safe}
+            alt={imageAlt || ""}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-rcn-ice via-rcn-ice/10 to-transparent md:from-rcn-ice/80 md:via-transparent" />

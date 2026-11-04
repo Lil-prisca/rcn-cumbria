@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Link2, Video, Copy, Check } from "lucide-react";
+import { useSection } from "../../content/useSection";
 
+// Text, link and meeting details come from the admin section "activities.meet".
 export default function GoogleMeet({
-  meetLink = "meet.google.com/xxx-xxxx-xxx",
-  meetingId = "xxx xxx xxx",
-  passcode = "xxxxx",
   logoSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFrKch4EoKz0vdLskhMBb5aYqAzdt-O9mQc-SFJr2og&s=10",
 }) {
+  const {
+    eyebrow,
+    heading,
+    highlight,
+    description,
+    meetLink = "",
+    meetingId,
+    passcode,
+  } = useSection("activities.meet");
   const [copied, setCopied] = useState(false);
 
   const copyDetails = async () => {
@@ -33,17 +41,15 @@ export default function GoogleMeet({
           />
           <div>
             <p className="text-[12px] font-bold uppercase tracking-[0.08em] text-rcn-red">
-              Join Our Online Gatherings
+              {eyebrow}
             </p>
             <h2 className="mt-1 text-[30px] font-extrabold leading-tight text-rcn-navy">
-              Google Meet
+              {heading}
             </h2>
             <p className="mt-2 text-[13px] font-bold text-rcn-navy/85">
-              Our daily online prayer meetings take place on Google Meet.
+              {highlight}
             </p>
-            <p className="mt-1.5 text-[13px] text-rcn-body">
-              Click the button below to join or copy the meeting details.
-            </p>
+            <p className="mt-1.5 text-[13px] text-rcn-body">{description}</p>
           </div>
         </div>
 

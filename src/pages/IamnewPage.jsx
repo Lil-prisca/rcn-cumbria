@@ -231,7 +231,6 @@ const IAmNewPage = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    // placeholder="e.g. John Doe"
                     className="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm rounded-xl px-4 py-3 outline-none focus:border-secondary transition-colors"
                   />
                 </div>
@@ -247,7 +246,6 @@ const IAmNewPage = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      // placeholder="you@email.com"
                       className="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm rounded-xl px-4 py-3 outline-none focus:border-secondary transition-colors"
                     />
                   </div>
@@ -261,7 +259,6 @@ const IAmNewPage = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
-                      // placeholder="+44 7000 000000"
                       className="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm rounded-xl px-4 py-3 outline-none focus:border-secondary transition-colors"
                     />
                   </div>

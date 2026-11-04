@@ -1,9 +1,12 @@
 import { ChevronRight, UsersRound } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { useSectionStatus } from "../../content/useSection";
 
-export default function StayConnected({
-  whatsappLink = "https://chat.whatsapp.com/DQ1vPaiDpk7IOhZubaaw1q",
-}) {
+// All text and the link come from the admin section "resources.connect".
+export default function StayConnected() {
+  const { data } = useSectionStatus("resources.connect");
+  const { heading, description, buttonLabel, whatsappLink } = data || {};
+
   return (
     <section className="bg-[#e9e8fb] font-sans">
       {/* Text block + button side by side on desktop */}
@@ -17,25 +20,26 @@ export default function StayConnected({
           <span className="hidden h-[78px] w-[2px] shrink-0 bg-rcn-navy sm:block" />
           <div>
             <h2 className="text-[26px] font-extrabold leading-tight text-rcn-navy">
-              Stay Connected with RCN Cumbria
+              {heading}
             </h2>
             <p className="mt-1.5 max-w-[470px] text-[16px] leading-[1.45] text-rcn-navy">
-              Join our WhatsApp community for updates about our gatherings,
-              prayer meetings and more.
+              {description}
             </p>
           </div>
         </div>
 
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#0f6b38] px-7 py-5 text-[15px] font-bold text-rcn-white shadow-sm transition hover:bg-[#0c5a2f]"
-        >
-          <FaWhatsapp size={34} />
-          Join Our WhatsApp Community
-          <ChevronRight size={18} />
-        </a>
+        {whatsappLink && (
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-[#0f6b38] px-7 py-5 text-[15px] font-bold text-rcn-white shadow-sm transition hover:bg-[#0c5a2f]"
+          >
+            <FaWhatsapp size={34} />
+            {buttonLabel}
+            <ChevronRight size={18} />
+          </a>
+        )}
       </div>
     </section>
   );
