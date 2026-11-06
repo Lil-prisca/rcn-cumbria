@@ -4,8 +4,8 @@ import {
   FaInstagram,
   FaYoutube,
   FaWhatsapp,
-  FaTwitter,
-} from "react-icons/fa";
+  FaXTwitter,
+} from "react-icons/fa6";
 
 import { Link } from "react-router-dom";
 const Navigations = [
@@ -29,7 +29,7 @@ const socials = [
     label: "Facebook",
   },
   {
-    icon: FaTwitter,
+    icon: FaXTwitter,
     href: "https://x.com/rcncarlisle",
     color: "#1DA1F2",
     label: "Twitter",

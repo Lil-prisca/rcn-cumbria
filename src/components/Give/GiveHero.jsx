@@ -1,26 +1,45 @@
 import { useSection } from "../../content/useSection";
+import { motion } from "framer-motion";
 
 const GiveHero = () => {
   const { heading, description, image, imageAlt } = useSection("give.banner");
 
   return (
-    <section className="font-sans">
-      <div className="bg-primary w-full h-100 mt-20 relative  md:mt-5 overflow-hidden px-5 py-10 md:px-15 md:py-15 text-white">
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <img
-            className="w-full h-full object-cover"
-            alt={imageAlt || ""}
-            src={image}
-          />
-        </div>
-        <div className="relative z-10 max-w-2xl md:px-15 md:pt-20 my-auto">
-          <h1 className="text-7xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
-            {heading}
-          </h1>
-          <p className="text-lg md:text-xl text-white/80 leading-relaxed whitespace-pre-line">
-            {description}
-          </p>
-        </div>
+    <section className="relative isolate flex min-h-[300px]  items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <img
+          className="w-full h-full object-cover"
+          alt={imageAlt || ""}
+          src={image}
+        />
+      </div>
+      
+      <div className="relative z-10 max-w-2xl md:px-15  my-auto">
+         
+          <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-[16px] font-bold uppercase tracking-[0.12em] text-rcn-red"
+        >
+         Give
+        </motion.p>
+         <motion.h1
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4  leading-tight text-on-primary text-3xl md:text-5xl font-extrabold tracking-[-0.04em]"
+        >
+          {heading}
+        </motion.h1>
+          <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="text-[18px] text-on-primary max-w-2xl whitespace-pre-line"
+        >
+          {description}
+        </motion.p>
       </div>
     </section>
   );

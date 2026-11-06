@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 export default function YouAreWelcome({
-  whatsappLink = "https://chat.whatsapp.com/your-invite-link",
+  whatsappLink = "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
 }) {
   return (
     <section className="bg-rcn-snow py-5 pb-8">

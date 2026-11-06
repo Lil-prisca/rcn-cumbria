@@ -1,4 +1,5 @@
 import { useSectionStatus } from "../../content/useSection";
+import { motion } from "framer-motion";
 
 // All text and the image come from the admin section "resources.banner".
 export default function ResourcesHero() {
@@ -6,7 +7,7 @@ export default function ResourcesHero() {
   const { eyebrow, title, description, image, imageAlt } = data || {};
 
   return (
-    <section className="relative isolate flex min-h-[395px] items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
+    <section className="relative isolate flex min-h-[300px]  items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
       {/* Bible photo on the right */}
       {image && (
         <img
@@ -20,18 +21,34 @@ export default function ResourcesHero() {
 
       <div className="w-full px-6 py-12 md:px-[64px]">
         {eyebrow && (
-          <p className="flex items-center gap-3 text-[17px] font-bold uppercase tracking-wide text-rcn-red">
-            {eyebrow}
-            <span className="h-px w-8 bg-rcn-red" />
-          </p>
+          <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-[16px] font-bold uppercase tracking-[0.12em] text-rcn-red"
+        >
+          {eyebrow}
+        </motion.p>
         )}
-        <h1 className="mt-2 text-[56px] font-extrabold leading-none tracking-[-0.02em] text-rcn-white md:text-[72px]">
+         <motion.h1
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4  leading-tight text-on-primary text-3xl md:text-5xl font-extrabold tracking-[-0.04em]"
+        >
+          
           {title}
-        </h1>
+        </motion.h1>
+        
         {description && (
-          <p className="mt-4 text-[20px] text-rcn-white md:text-[22px]">
-            {description}
-          </p>
+           <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="text-[18px] text-on-primary max-w-2xl whitespace-pre-line"
+        >
+          {description}
+        </motion.p>
         )}
       </div>
     </section>

@@ -22,7 +22,7 @@ const ActivityHero = () => {
       {/* Navy fade from the left so the text stays readable */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-30% via-rcn-night/75 via-55% to-transparent" />
 
-      <div className="relative z-10 w-full px-6 py-12 md:px-[58px]">
+      <div className="relative z-10 text-left px-5 md:px-20 max-w-4xl">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ const ActivityHero = () => {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 text-4xl font-extrabold leading-[1.1] tracking-[-0.02em] text-rcn-white md:text-[42px]"
+          className="mb-4  leading-tight text-on-primary text-3xl md:text-5xl font-extrabold tracking-[-0.04em]"
         >
           {line1} <br className="hidden sm:block" />
           {line2}
@@ -46,7 +46,7 @@ const ActivityHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
-          className="mt-5 max-w-[370px] text-[17px] leading-[1.5] text-rcn-white"
+          className="text-[18px] text-on-primary max-w-2xl whitespace-pre-line"
         >
           {description}
         </motion.p>

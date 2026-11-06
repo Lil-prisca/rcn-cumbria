@@ -20,9 +20,9 @@ const ContactInfo = () => {
   const {
     heading = "Contact Information",
     intro = "You can reach us by email, phone or through our WhatsApp Community. We will do our best to respond as soon as possible.",
-    email = "info@rcncumbria.org",
-    phone = "+44 7XXX XXXXXXX",
-    whatsappLink = "https://chat.whatsapp.com/your-invite-link",
+    email = "info@rcncumbria.uk",
+    phone = "+44 7350153033",
+    whatsappLink = "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
   } = touch;
 
   const [submitted, setSubmitted] = useState(false);
@@ -216,6 +216,7 @@ const ContactInfo = () => {
                   <label htmlFor="phone" className={labelClass}>
                     Phone Number
                   </label>
+                  <p className= "text-[12px] ">Whatsapp Number Preferred</p>
                   <input
                     id="phone"
                     type="tel"

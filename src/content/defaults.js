@@ -170,7 +170,7 @@ export const defaults = {
     whatsappLabel: "Join Our WhatsApp Community",
     whatsappNote:
       "Connect with us and stay informed about upcoming gatherings.",
-    whatsappLink: "https://whatsapp.com/channel/0029VbC2WZW5vKAHVkYWha1m",
+    whatsappLink: "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
     image: "/images/about/welcome.jpg",
     imageAlt: "Open Bible on a table",
   },
@@ -311,9 +311,9 @@ export const defaults = {
     heading: "Contact Information",
     intro:
       "You can reach us by email, phone or through our WhatsApp Community. We will do our best to respond as soon as possible.",
-    email: "info@rcncumbria.org",
-    phone: "+44 7XXX XXXXXXX",
-    whatsappLink: "https://whatsapp.com/channel/0029VbC2WZW5vKAHVkYWha1m",
+    email: "info@rcncumbria.uk",
+    phone: "+44 7350153033",
+    whatsappLink: "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
   },
   "contact.form": {
     eyebrow: "Send Us a Message",
@@ -442,7 +442,7 @@ export const defaults = {
     description:
       "Join our WhatsApp community for updates about our gatherings, prayer meetings and more.",
     buttonLabel: "Join Our WhatsApp Community",
-    whatsappLink: "https://whatsapp.com/channel/0029VbC2WZW5vKAHVkYWha1m",
+    whatsappLink: "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
   },
 
   /* ──────────────────────────── I AM NEW ────────────────────────── */
