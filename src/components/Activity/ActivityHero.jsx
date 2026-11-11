@@ -13,14 +13,17 @@ const ActivityHero = () => {
 
   return (
     <section className=" mt-20 relative isolate flex min-h-[300px] items-center overflow-hidden bg-rcn-night font-sans">
-      {/* Background photo (woman praying, sits on the right) */}
-      <img
-        src={image}
-        alt=""
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-right"
-      />
-      {/* Navy fade from the left so the text stays readable */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-30% via-rcn-night/75 via-55% to-transparent" />
+      <div className="absolute inset-0 z-0">
+        {/* Background photo (woman praying, sits on the right) */}
+        <img
+          alt={imageAlt || ""}
+          src={image}
+          className="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+        />
+        {/* Navy fade from the left so the text stays readable */}
+        {/* <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-30% via-rcn-night/75 via-55% to-transparent" /> */}
+        <div className="absolute inset-0 bg-primary/80"></div>
+      </div>
 
       <div className="relative z-10 text-left px-5 md:px-20 max-w-4xl">
         <motion.p
@@ -51,6 +54,10 @@ const ActivityHero = () => {
           {description}
         </motion.p>
       </div>
+
+      {/* Ambient Glows */}
+      <div className="absolute -bottom-1/4 -left-1/4 w-150 h-150 alchemist-glow blur-[100px] rounded-full"></div>
+      <div className="absolute top-1/4 -right-1/4 w-100 h-100 alchemist-glow blur-[100px] rounded-full opacity-50"></div>
     </section>
   );
 };

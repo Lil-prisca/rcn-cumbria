@@ -63,12 +63,12 @@ export default function FindYourPlace() {
                   className="flex min-h-[370px] w-[calc(50%-8px)] flex-col overflow-hidden rounded-lg shadow-[0_6px_18px_rgba(10,19,48,0.18)] max-sm:w-full lg:w-auto lg:flex-1"
                 >
                   {/* Photo */}
-                  <div className="h-[141px] shrink-0 overflow-hidden bg-rcn-ice">
+                  <div className="h-[200px] shrink-0 overflow-hidden bg-rcn-ice">
                     {image && (
                       <img
                         src={image}
                         alt={alt || title}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-cover "
                       />
                     )}
                   </div>
