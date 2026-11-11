@@ -29,6 +29,8 @@ export const defaults = {
     primaryLabel: "About Us",
     secondaryLabel: "I am New",
     photos: collage,
+    //  image: "/images/resources/hero.jpg",
+    imageAlt: "Open Bible on a wooden table",
   },
   "home.about": {
     eyebrow: "About RCN",

@@ -2,20 +2,73 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSection } from "../../content/useSection";
 
+// Tailwind needs full class names, so each layout is spelled out
+const LAYOUTS = {
+  1: { grid: "grid-cols-1 grid-rows-1 ", cells: [""] },
+  2: { grid: "grid-cols-2 grid-rows-1", cells: ["", ""] },
+  3: { grid: "grid-cols-2 grid-rows-2", cells: ["row-span-2", "", ""] },
+  4: { grid: "grid-cols-2 grid-rows-2", cells: ["", "", "", ""] },
+  5: {
+    grid: "grid-cols-4 grid-rows-2",
+    cells: ["col-span-2 row-span-2", "", "", "", ""],
+  },
+  6: { grid: "grid-cols-3 grid-rows-2", cells: ["", "", "", "", "", ""] },
+};
+
+const MAX_PHOTOS = 6;
+
+// 1. helper goes here, outside Hero
+const toPhotoList = (b) => {
+  let p = b.photos ?? b.images ?? b.collage ?? [];
+  if (typeof p === "string") p = p.split(/[\n,]+/);
+  return p
+    .map((x) => (typeof x === "string" ? x.trim() : x?.url || x?.src || x?.image))
+    .filter(Boolean);
+};
+
+
+ 
+
+const HeroCollage = ({ photos = [] }) => {
+  const list = photos.filter(Boolean).slice(0, MAX_PHOTOS);
+  if (!list.length) return null;
+
+  const layout = LAYOUTS[list.length];
+
+  return (
+    <div className={`grid h-full w-full gap-1 ${layout.grid}`}>
+      {list.map((src, i) => (
+        <div key={src + i} className={`overflow-hidden ${layout.cells[i]}`}>
+          <img src={src} alt="" className="h-full w-full object-cover object-top" />
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Hero = () => {
   const b = useSection("home.banner");
+  
+   const photos = toPhotoList(b);
+  console.log("banner:", b);
 
   return (
     <section className="relative min-h-[70vh] mt-20 py-15 flex items-center overflow-hidden bg-[#19143E] font-sans">
-      {/* hero background image (only drawn when one is set) */}
-      <div className="absolute inset-0 z-0">
-        {b.image && (
-          <img
-            className="w-full h-full object-cover opacity-40"
-            alt={b.imageAlt || ""}
-            src={b.image}
-          />
-        )}
+      {/* hero background: collage if photos are set, otherwise single image */}
+         <div className="absolute inset-0 z-0">
+        <div className="h-full w-full opacity-40">
+          {photos.length ? (
+            <HeroCollage photos={photos} />
+          ) : (
+            b.image && (
+              <img
+                className="h-full w-full object-cover object-top"
+                alt={b.imageAlt || ""}
+                src={b.image}
+              />
+            )
+          )}
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#19143E] via-[#19143E]/60 to-transparent"></div>
       </div>
 

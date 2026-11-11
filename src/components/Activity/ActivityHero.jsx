@@ -12,11 +12,11 @@ const ActivityHero = () => {
   } = useSection("activities.banner") || {};
 
   return (
-    <section className=" mt-15 relative isolate flex min-h-[300px] items-center overflow-hidden bg-rcn-night font-sans">
+    <section className=" mt-20 relative isolate flex min-h-[300px] items-center overflow-hidden bg-rcn-night font-sans">
       {/* Background photo (woman praying, sits on the right) */}
       <img
         src={image}
-        alt={imageAlt}
+        alt=""
         className="absolute inset-0 -z-20 h-full w-full object-cover object-right"
       />
       {/* Navy fade from the left so the text stays readable */}
