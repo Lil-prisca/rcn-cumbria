@@ -6,7 +6,7 @@ import ActivityHero from "../components/Activity/ActivityHero";
 import FindYourPlace from "../components/Activity/FindYourPlace";
 import GoogleMeet from "../components/Activity/GoogleMeet";
 import UpcomingEvents from "../components/Activity/UpcomingEvents";
-import Gallery from "../components/Activity/Gallery";
+// import Gallery from "../components/Activity/Gallery";
 
 const OurActivitiesPage = () => {
   return (

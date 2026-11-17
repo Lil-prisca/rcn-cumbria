@@ -1,4 +1,5 @@
 import { ArrowRight, Globe, Users, Expand, UserRound } from "lucide-react";
+import Logo from "../../assets/rcn-mark.webp";
 
 const highlights = [
   { icon: Globe, label: "Global\nMinistry" },
@@ -38,7 +39,7 @@ export default function AboutRCN() {
             href="/about"
             className="mt-5 inline-flex items-center gap-3 rounded-md bg-rcn-red px-6 py-3 text-[14px] font-semibold text-rcn-white shadow-sm transition hover:bg-rcn-redDark"
           >
-            About RCN
+            About RCN Cumbria
             <ArrowRight size={16} />
           </a>
         </div>
@@ -47,7 +48,7 @@ export default function AboutRCN() {
         <div className="lg:w-1/2">
           <div className="flex items-center gap-8 rounded-xl bg-rcn-mist bg-[url('/images/world-map.svg')] bg-contain bg-left bg-no-repeat px-8 py-8 lg:px-10">
             <img
-              src="https://images.pexels.com/photos/20620850/pexels-photo-20620850.jpeg?_gl=1*1muubgy*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNjMyNTEkbzEkZzEkdDE3OTIxNjM4MDQkajYwJGwwJGgw"
+              src={Logo}
               alt="Remnant Christian Network logo"
               className="h-[88px] w-auto shrink-0"
             />

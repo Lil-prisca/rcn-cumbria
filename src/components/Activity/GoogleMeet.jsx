@@ -74,10 +74,10 @@ export default function GoogleMeet({
                   </a>
                 </p>
                 <p className="mt-1.5">
-                  Meeting ID: <span className="ml-1">{meetingId}</span>
+                  {/* Meeting ID: <span className="ml-1">{meetingId}</span> */}
                 </p>
                 <p className="mt-1.5">
-                  Passcode: <span className="ml-2">{passcode}</span>
+                  {/* Passcode: <span className="ml-2">{passcode}</span> */}
                 </p>
               </div>
             </div>
