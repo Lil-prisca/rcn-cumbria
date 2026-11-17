@@ -17,7 +17,7 @@ const OurActivitiesPage = () => {
         <FindYourPlace />
         <GoogleMeet />
         <UpcomingEvents />
-        <Gallery />
+        {/* <Gallery /> */}
       </div>
       <Footer />
     </div>
