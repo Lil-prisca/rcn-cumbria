@@ -11,13 +11,13 @@ const activities = [
     icon: Laptop,
     title: "Online Prayer",
     text: "Join us daily as we pray together online.",
-    times: ["12:00 PM – 1:00 PM", "11:00 PM – 12:00 AM"],
+    times: [],
   },
   {
     icon: Users,
     title: "Prayer Marathon",
     text: "A monthly time of intensive prayer in person.",
-    times: ["8:00 AM – 6:00 PM"],
+    times: [],
   },
   {
     icon: BookOpen,
