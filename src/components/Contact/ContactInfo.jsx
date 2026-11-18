@@ -216,11 +216,11 @@ const ContactInfo = () => {
                   <label htmlFor="phone" className={labelClass}>
                     Phone Number
                   </label>
-                  <p className= "text-[12px] ">Whatsapp Number Preferred</p>
+                  {/* <p className= "text-[12px] "></p> */}
                   <input
                     id="phone"
                     type="tel"
-                    placeholder="Enter your phone number"
+                    placeholder="Whatsapp Number Preferred"
                     className={inputClass}
                     value={formData.phone}
                     onChange={update("phone")}

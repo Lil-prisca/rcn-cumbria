@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useSection } from "../../content/useSection";
 
 const ContactHero = () => {
-  const { line1, accent, description, image, imageAlt } =
+  const { line1, line2, description, image, imageAlt } =
     useSection("contact.banner");
 
   return (
@@ -17,14 +17,14 @@ const ContactHero = () => {
       </div>
       <div className="flex pt-10">
         <div className="h-fit justify-content relative z-10 text-left px-5  md:px-20  max-w-4xl">
-           <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-[16px] font-bold uppercase tracking-[0.12em] text-rcn-red"
-        >
-          Contact Us
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-[16px] font-bold uppercase tracking-[0.12em] text-rcn-red"
+          >
+            Contact Us
+          </motion.p>
           <motion.h1
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -32,15 +32,15 @@ const ContactHero = () => {
             className="mb-4  leading-tight text-on-primary text-3xl md:text-5xl font-extrabold tracking-[-0.04em]"
           >
             {line1} <br />
-            <span className="text-secondary">{accent}</span>
+            <span className="text-secondary">{line2}</span>
           </motion.h1>
 
-            <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="text-[18px] text-on-primary max-w-2xl whitespace-pre-line"
-        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="text-[18px] text-on-primary max-w-2xl whitespace-pre-line"
+          >
             {description}
           </motion.p>
         </div>
