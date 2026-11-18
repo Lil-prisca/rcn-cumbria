@@ -141,7 +141,7 @@ const IAmNewPage = () => {
         </div>
         <div className="bg-primary max-w-8xl">
           {/* FAQ */}
-          <section className=" bg-primary  py-10 max-w-4xl mx-auto px-6 lg:px-10">
+          <section className=" bg-primary  text-white py-10 max-w-4xl mx-auto px-6 lg:px-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ const IAmNewPage = () => {
             </div>
           </section>
         </div>
-        <div className="bg-[#bdd5e7] max-w-8xl text-black">
+        <div className="bg-white max-w-8xl text-black">
           {/* Connect card form */}
           <section className="  py-10 max-w-3xl mx-auto px-6 lg:px-10 text-black">
             <motion.div
