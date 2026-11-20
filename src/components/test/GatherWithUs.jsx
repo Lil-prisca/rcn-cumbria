@@ -5,7 +5,7 @@ import {
   BookOpen,
   CalendarDays,
 } from "lucide-react";
-
+import gather from "../../assets/home-pic/gather-with-us.png";
 const activities = [
   {
     icon: Laptop,
@@ -40,7 +40,7 @@ export default function GatherWithUs() {
       {/* PART 1: image background with text on top */}
       <div className="relative isolate flex min-h-[260px] items-center overflow-hidden bg-rcn-night px-8 py-10 lg:min-h-[242px] lg:w-[47.5%] lg:shrink-0 lg:px-[52px]">
         <img
-          src="https://images.pexels.com/photos/20620850/pexels-photo-20620850.jpeg?_gl=1*1muubgy*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNjMyNTEkbzEkZzEkdDE3OTIxNjM4MDQkajYwJGwwJGgw"
+          src={gather}
           alt=""
           className="absolute inset-y-0 right-0 -z-20 h-full w-[100%] object-cover object-center"
         />

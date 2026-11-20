@@ -1,17 +1,20 @@
+import { useSection } from "../../content/useSection";
+
 export default function OurLeadership() {
+  const { eyebrow, image, imageAlt } = useSection("about.leadership");
   return (
     <section className="bg-rcn-snow py-5">
       {/* text left, image right */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-[38px] lg:px-[58px]">
         <img
-          src="https://images.pexels.com/photos/7218344/pexels-photo-7218344.jpeg?_gl=1*193vtte*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzU2NTYkajI3JGwwJGgw"
-          alt="Pastor Kenneth Dumbiri speaking"
+          src={image}
+          alt={imageAlt}
           className="h-[177px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[388px] lg:shrink-0"
         />
 
         <div className="max-w-[470px] flex-1">
           <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
-            Our Leadership
+            {eyebrow}
             <span className="h-px w-6 bg-rcn-red" />
           </p>
           <h2 className="mt-1 text-[28px] font-extrabold leading-tight text-rcn-navy">

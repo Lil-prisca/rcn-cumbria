@@ -1,26 +1,28 @@
 import { ChevronRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
+import { useSection } from "../../content/useSection";
 export default function YouAreWelcome({
   whatsappLink = "https://chat.whatsapp.com/E1qn1XPEDw5lqJ5htWj6PY",
 }) {
+  const { eyebrow, heading, image, imageAlt } = useSection("about.welcome");
   return (
     <section className="bg-rcn-snow py-5 pb-8">
       {/* image left, text right */}
       <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-6 lg:flex-row lg:items-center lg:gap-[38px] lg:px-[58px]">
         <img
-          src="https://images.pexels.com/photos/15382607/pexels-photo-15382607.jpeg?_gl=1*9a9vd3*_ga*MTY4MTc4ODExOC4xNzkyMTYzMjUx*_ga_8JE65Q40S6*czE3OTIxNzU1NjAkbzIkZzEkdDE3OTIxNzU1NjAkajYwJGwwJGgw"
-          alt="Open Bible on a table"
+          src={image}
+          alt={imageAlt}
           className="h-[175px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[420px] lg:shrink-0"
         />
 
         <div className="flex-1">
           <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
-            A Place to Belong and Grow
+            {eyebrow}
             <span className="h-px w-6 bg-rcn-red" />
           </p>
           <h2 className="mt-1 text-[26px] font-extrabold leading-tight text-rcn-navy">
-            You Are Welcome
+            {heading}
           </h2>
           <p className="mt-2 text-[14px] leading-[1.5] text-rcn-body">
             Whether you are exploring the Christian faith, returning to
