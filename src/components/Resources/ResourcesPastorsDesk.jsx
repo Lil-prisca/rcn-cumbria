@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpenText } from "lucide-react";
 import { formatDate, useArticles } from "../../data/articles";
+import { useSection } from "../../content/useSection";
 
 // Resources page: shows every article, newest first (from Supabase).
 // Shows the "articles will appear here" note only when loading has finished
 // and there are no articles.
-export default function ResourcesPastorsDesk({
-  image = "/images/pastor-writing.jpg",
-}) {
+export default function ResourcesPastorsDesk() {
+  const { description, heading, image, imageAlt } =
+    useSection("resources.desk");
   const { articles: list, loading } = useArticles();
   const hasArticles = list.length > 0;
   const showEmpty = !loading && !hasArticles;
@@ -20,11 +21,10 @@ export default function ResourcesPastorsDesk({
           {/* PART 1: text */}
           <div className="lg:w-[48%]">
             <h2 className="text-[36px] font-extrabold leading-tight text-rcn-navy">
-              From the Pastor's Desk
+              {heading}
             </h2>
             <p className="mt-4 text-[19px] leading-[1.45] text-rcn-navy">
-              Articles and written reflections from Pastor Kenneth Dumbiri on
-              Scripture, prayer and Christian living.
+              {description}
             </p>
 
             {/* Empty-state note (matches the design) */}
@@ -47,7 +47,7 @@ export default function ResourcesPastorsDesk({
           {/* PART 2: image */}
           <img
             src={image}
-            alt="Hand writing in a journal beside a Bible"
+            alt={imageAlt}
             className="h-[250px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:flex-1"
           />
         </div>
