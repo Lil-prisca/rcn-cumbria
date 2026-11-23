@@ -11,6 +11,101 @@ import {
   useRelatedArticles,
 } from "../data/articles";
 
+/* ───────── Body helpers ───────── */
+
+// Turns pasted HTML entities like &#39; into real characters.
+const clean = (s = "") =>
+  s
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .trim();
+
+const SECTION_LABELS = ["Reflect and Pray", "Personal reflection", "Prayer"];
+
+// Decides how each paragraph should be drawn.
+const blockType = (text) => {
+  if (SECTION_LABELS.includes(text)) return "label";
+  if (/^[“"].+[”"]\s*[—-]/.test(text)) return "quote";
+  if (/^[•\u2022\uF0B7\uF0A7-]\s*\S/.test(text) || /^[\uF000-\uF8FF]/.test(text))
+    return "bullet";
+  if (
+    /^(\d+\.\s+|Conclusion:)/.test(text) &&
+    text.length < 90 &&
+    !text.endsWith("?")
+  )
+    return "heading";
+  return "paragraph";
+};
+
+const stripBullet = (text) => text.replace(/^[•\u2022\-\s]+|^[\uF000-\uF8FF]\s*/, "");
+
+function ArticleBody({ paragraphs }) {
+  return (
+    <div className="mx-auto mt-8 w-full max-w-[720px] space-y-5">
+      {paragraphs.map((raw, i) => {
+        const text = clean(raw);
+        if (!text) return null;
+
+        switch (blockType(text)) {
+          case "heading":
+            return (
+              <h2
+                key={i}
+                className="pt-4 text-[24px] font-extrabold leading-snug text-rcn-navy"
+              >
+                {text}
+              </h2>
+            );
+
+          case "label":
+            return (
+              <h3
+                key={i}
+                className="pt-2 text-[18px] font-bold text-rcn-red"
+              >
+                {text}
+              </h3>
+            );
+
+          case "quote":
+            return (
+              <blockquote
+                key={i}
+                className="border-l-4 border-rcn-red pl-4 text-[17px] italic leading-[1.75] text-rcn-navy/90"
+              >
+                {text}
+              </blockquote>
+            );
+
+          case "bullet":
+            return (
+              <p
+                key={i}
+                className="flex gap-3 pl-2 text-[17px] leading-[1.75] text-rcn-navy/85"
+              >
+                <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-rcn-red" />
+                <span>{stripBullet(text)}</span>
+              </p>
+            );
+
+          default:
+            return (
+              <p
+                key={i}
+                className="text-[17px] leading-[1.75] text-rcn-navy/85"
+              >
+                {text}
+              </p>
+            );
+        }
+      })}
+    </div>
+  );
+}
+
+/* ───────── Page ───────── */
+
 export default function ArticlePage() {
   const { slug } = useParams();
   // Hooks must run before any early return below.
@@ -75,66 +170,59 @@ export default function ArticlePage() {
       <Navbar />
 
       <article className="mx-auto max-w-[1200px] px-6 pb-10 pt-28">
-        <Link
-          to="/resources"
-          className="inline-flex items-center gap-2 text-[14px] font-semibold text-rcn-red transition hover:gap-3"
-        >
-          <ArrowLeft size={16} />
-          Back to Resources
-        </Link>
+        <div className="mx-auto w-full max-w-[720px]">
+          <Link
+            to="/resources"
+            className="inline-flex items-center gap-2 text-[14px] font-semibold text-rcn-red transition hover:gap-3"
+          >
+            <ArrowLeft size={16} />
+            Back to Resources
+          </Link>
 
-        {/* Header */}
-        <header className="mt-6">
-          <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
-            From the Pastor's Desk
-            <span className="h-px w-10 bg-rcn-red" />
-          </p>
-          <h1 className="mt-2 text-[34px] font-extrabold leading-[1.15] text-rcn-navy md:text-[44px]">
-            {title}
-          </h1>
+          {/* Header */}
+          <header className="mt-6">
+            <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide text-rcn-red">
+              From the Pastor's Desk
+              <span className="h-px w-10 bg-rcn-red" />
+            </p>
+            <h1 className="mt-2 text-[34px] font-extrabold leading-[1.15] text-rcn-navy md:text-[44px]">
+              {title}
+            </h1>
 
-          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-rcn-body">
-            <time className="font-semibold tracking-wide text-rcn-faint">
-              {formatDate(date)}
-            </time>
-            {author && (
+            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-rcn-body">
+              <time className="font-semibold tracking-wide text-rcn-faint">
+                {formatDate(date)}
+              </time>
+              {author && (
+                <span className="inline-flex items-center gap-1.5">
+                  <User size={14} />
+                  {author}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5">
-                <User size={14} />
-                {author}
+                <Clock size={14} />
+                {/* getReadTime already returns "N min read" */}
+                {getReadTime(article)}
               </span>
-            )}
-            <span className="inline-flex items-center gap-1.5">
-              <Clock size={14} />
-              {/* getReadTime already returns "N min read" */}
-              {getReadTime(article)}
-            </span>
-          </div>
-        </header>
+            </div>
+          </header>
+        </div>
 
         {/* Cover image */}
         {image && (
           <img
             src={image}
             alt={alt || title}
-            className="mx-auto mt-6 block aspect-20/10 w-full max-w-full rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)] md:w-[50vw]"
+            className="mx-auto mt-6 block aspect-[20/10] w-full max-w-[720px] rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)]"
           />
         )}
 
         {/* Body */}
-        <div className="mt-8 space-y-7">
-          {paragraphs.map((paragraph, i) => (
-            <p
-              key={i}
-              className="text-[17px] leading-[1.8] text-rcn-navy/85 first:first-letter:float-left first:first-letter:mr-2 first:first-letter:text-[56px] first:first-letter:font-extrabold first:first-letter:leading-[0.9] first:first-letter:text-rcn-red"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        <ArticleBody paragraphs={paragraphs} />
 
         {/* Sign-off */}
         {author && (
-          <div className="mt-10 flex items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
+          <div className="mx-auto mt-10 flex w-full max-w-[720px] items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
             <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#d6e5fb] text-rcn-navy">
               <User size={24} />
             </span>

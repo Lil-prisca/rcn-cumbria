@@ -7,7 +7,7 @@ export default function PastorsDesk() {
   const { articles: latest } = useLatestArticles(3);
 
   return (
-    <section className="bg-rcn-cloud py-8 h-fit lg:h-70 ">
+    <section className="bg-rcn-cloud py-8 h-fit lg:h-80 ">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-6 px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-[52px]">
         {/* PART 1: Latest Articles heading */}
         <div className="lg:w-[320px] lg:shrink-0">
@@ -39,7 +39,7 @@ export default function PastorsDesk() {
               to={href || `/resources/${slug}`}
               className="group flex-1 overflow-hidden rounded-md bg-rcn-white shadow-[0_2px_10px_rgba(15,23,42,0.10)] transition hover:-translate-y-0.5"
             >
-              <div className="h-40 overflow-hidden">
+              <div className="h-35 overflow-hidden">
                 {image ? (
                   <img
                     src={image}
@@ -50,7 +50,7 @@ export default function PastorsDesk() {
                   <div className="h-full w-full bg-rcn-ice" />
                 )}
               </div>
-              <div className="px-3 h-20 pb-3 pt-5">
+              <div className="px-3 h-30 pb-3 pt-5">
                 <time className="block text-[9px] text-rcn-faint">
                   {formatDate(date)}
                 </time>

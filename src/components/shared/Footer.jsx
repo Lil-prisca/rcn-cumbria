@@ -67,9 +67,8 @@ const Footer = () => {
             </div>
           </Link>
           <p className="text-on-primary font-body-md max-w-md mb-5 lg:mb-2 ">
-            Remnant Christian Network Cumbria is a community of believers
-            dedicated to the pursuit of the authentic apostolic life and the
-            restoration of God's fire in the hearts of men.
+            RCN cumbria is a community of believers committed to the rebirth of aposttolic cristianity. Rooted in prayer, God,s word and fellowship, we stand as watchmen and gatekepers  seeking God's purpose for charlisle and the wider Cumbria region.
+           
           </p>
           <div className=" flex md:hidden mt-3  items-center gap-3 mb-3">
             {socials.map((social) => {

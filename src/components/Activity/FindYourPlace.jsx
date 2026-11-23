@@ -1,40 +1,37 @@
-import { HandHeart, Flame, BookOpen, Church } from "lucide-react";
+import {
+  HandHeart,
+  Flame,
+  Church,
+  Zap,
+  Moon,
+  CalendarDays,
+  Clock,
+  MapPin,
+  Monitor,
+} from "lucide-react";
 import { useSection } from "../../content/useSection";
 
-// The admin only edits the text, tags and photos. The icon and panel colour
-// are decorative, so they are picked by position (1st, 2nd, 3rd, 4th, then repeat).
+// The admin edits text, details, tags and photos. Icon and panel colour are
+// decorative, so they are picked by position (1st to 6th, then repeat).
 const styles = [
-  {
-    icon: HandHeart,
-    panel: "from-[#0f2468] to-[#0a1740]",
-    iconBg: "bg-rcn-red",
-  },
-  {
-    icon: Flame,
-    panel: "from-[#8a2447] to-[#5a1530]",
-    iconBg: "bg-rcn-red",
-    fillIcon: true,
-  },
-  {
-    icon: BookOpen,
-    panel: "from-[#0b4170] to-[#082a52]",
-    iconBg: "bg-[#0a2a58]",
-  },
-  {
-    icon: Church,
-    panel: "from-[#56408a] to-[#3b2a63]",
-    iconBg: "bg-[#6f5bb0]",
-  },
+  { icon: HandHeart, panel: "from-[#0f2468] to-[#0a1740]", iconBg: "bg-rcn-red" },
+  { icon: Flame, panel: "from-[#8a2447] to-[#5a1530]", iconBg: "bg-rcn-red", fillIcon: true },
+  { icon: Church, panel: "from-[#56408a] to-[#3b2a63]", iconBg: "bg-[#6f5bb0]" },
+  { icon: Zap, panel: "from-[#56408a] to-[#3b2a63]", iconBg: "bg-[#6f5bb0]", fillIcon: true },
+  { icon: Moon, panel: "from-[#0f2468] to-[#0a1740]", iconBg: "bg-[#1f3a9a]", fillIcon: true },
+  { icon: CalendarDays, panel: "from-[#56408a] to-[#3b2a63]", iconBg: "bg-rcn-red" },
 ];
 
-// Text and cards come from the admin section "activities.regular".
+// Detail rows pick their icon from the "type" the admin sets.
+const detailIcons = {
+  date: CalendarDays,
+  time: Clock,
+  place: MapPin,
+  online: Monitor,
+};
+
 export default function FindYourPlace() {
-  const {
-    eyebrow,
-    heading,
-    intro,
-    items = [],
-  } = useSection("activities.regular");
+  const { eyebrow, heading, intro, items = [] } = useSection("activities.regular");
 
   return (
     <section className="bg-rcn-snow px-6 py-10 lg:px-[47px]">
@@ -47,33 +44,26 @@ export default function FindYourPlace() {
         </h2>
         <p className="mt-2 text-[15px] text-rcn-navy/70">{intro}</p>
 
-        <div className="mt-6 flex flex-wrap gap-4 lg:flex-nowrap">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(
-            ({ id, title, text, tagType, tagFrequency, image, alt }, i) => {
-              const {
-                icon: Icon,
-                panel,
-                iconBg,
-                fillIcon,
-              } = styles[i % styles.length];
+            ({ id, title, text, details = [], tagType, tagFrequency, image, alt }, i) => {
+              const { icon: Icon, panel, iconBg, fillIcon } = styles[i % styles.length];
 
               return (
                 <article
                   key={id ?? title}
-                  className="flex min-h-[370px] w-[calc(50%-8px)] flex-col overflow-hidden rounded-lg shadow-[0_6px_18px_rgba(10,19,48,0.18)] max-sm:w-full lg:w-auto lg:flex-1"
+                  className="flex min-h-[370px] flex-col overflow-hidden rounded-lg shadow-[0_6px_18px_rgba(10,19,48,0.18)]"
                 >
-                  {/* Photo */}
                   <div className="h-[200px] shrink-0 overflow-hidden bg-rcn-ice">
                     {image && (
                       <img
                         src={image}
                         alt={alt || title}
-                        className="h-full w-full object-cover "
+                        className="h-full w-full object-cover"
                       />
                     )}
                   </div>
 
-                  {/* Coloured panel */}
                   <div
                     className={`relative flex flex-1 flex-col bg-gradient-to-b ${panel} px-[22px] pb-5 pt-[42px] text-rcn-white`}
                   >
@@ -87,21 +77,38 @@ export default function FindYourPlace() {
                       />
                     </span>
 
-                    <h3 className="text-[24px] font-bold leading-[1.1]">
-                      {title}
-                    </h3>
-                    <p className="mt-3 text-[14px] leading-[1.5] text-rcn-white/85">
+                    <h3 className="text-[24px] font-bold leading-[1.1]">{title}</h3>
+                    <p className="mt-3 whitespace-pre-line text-[14px] leading-[1.5] text-rcn-white/85">
                       {text}
                     </p>
 
+                    {details.length > 0 && (
+                      <ul className="mt-4 space-y-2.5">
+                        {details.map(({ type, label, note }, d) => {
+                          const DIcon = detailIcons[type] || CalendarDays;
+                          return (
+                            <li key={d} className="flex items-start gap-3">
+                              <DIcon size={20} strokeWidth={1.6} className="mt-0.5 shrink-0" />
+                              <div className="text-[13px] leading-snug">
+                                <p className="font-bold">{label}</p>
+                                {note && (
+                                  <p className="text-[12px] text-rcn-white/80">{note}</p>
+                                )}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+
                     {(tagType || tagFrequency) && (
-                      <span className="mt-auto inline-flex w-fit items-center gap-2 rounded-md border border-rcn-white/60 px-3 py-1.5 pt-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        {tagType}
-                        {tagType && tagFrequency && (
-                          <span className="text-[8px]">●</span>
-                        )}
-                        {tagFrequency}
-                      </span>
+                      <div className="mt-auto pt-4">
+                        <span className="inline-flex w-fit items-center gap-2 rounded-md border border-rcn-white/60 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider">
+                          {tagType}
+                          {tagType && tagFrequency && <span className="text-[8px]">●</span>}
+                          {tagFrequency}
+                        </span>
+                      </div>
                     )}
                   </div>
                 </article>
