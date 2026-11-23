@@ -276,9 +276,9 @@ export const defaults = {
     eyebrow: "Join Our Online Gatherings",
     heading: "Google Meet",
     highlight: "Our daily online prayer meetings take place on Google Meet.",
-    description: "Click the button below to join or copy the meeting details.",
+    description: "Click the button  to join or copy the meeting details.",
     meetLink: "meet.google.com/xxx-xxxx-xxx",
-    meetingId: "xxx xxx xxx",
+    meetingId: "(GB) +44 20 3937 4988",
     passcode: "xxxxx",
   },
   "activities.events": {

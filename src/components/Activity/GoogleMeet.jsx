@@ -73,11 +73,13 @@ export default function GoogleMeet({
                     {meetLink}
                   </a>
                 </p>
+                
+                 <h3 className="text-[15px] font-bold mt-5">Join by Phone</h3>
                 <p className="mt-1.5">
-                  {/* Meeting ID: <span className="ml-1">{meetingId}</span> */}
+                   <span className="ml-1">{meetingId}</span>
                 </p>
                 <p className="mt-1.5">
-                  {/* Passcode: <span className="ml-2">{passcode}</span> */}
+                  <span className="ml-1"> PIN: {passcode}</span>
                 </p>
               </div>
             </div>

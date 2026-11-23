@@ -18,7 +18,7 @@ const ActivityHero = () => {
         <img
           alt={imageAlt || ""}
           src={image}
-          className="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+          className="w-full h-full object-cover  opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
         />
         {/* Navy fade from the left so the text stays readable */}
         {/* <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-30% via-rcn-night/75 via-55% to-transparent" /> */}
