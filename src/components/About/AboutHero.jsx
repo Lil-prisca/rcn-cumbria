@@ -8,11 +8,13 @@ const AboutHero = () => {
     <section className="relative isolate flex min-h-[300px] items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
       <div className="absolute inset-0 z-0">
         <img
-          className="w-full h-full object-cover  opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+          // className="w-full h-full object-cover  opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-right"
           alt={imageAlt || ""}
           src={image}
         />
-        <div className="absolute inset-0 bg-primary/60"></div>
+        {/* <div className="absolute inset-0 bg-primary/60"></div> */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-35% via-rcn-night/80 via-55% to-transparent" />
       </div>
 
       <div className="relative z-10 text-left px-5 md:px-20 max-w-4xl">
