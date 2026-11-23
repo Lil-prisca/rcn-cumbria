@@ -213,7 +213,7 @@ export default function ArticlePage() {
           <img
             src={image}
             alt={alt || title}
-            className="mx-auto mt-6 block aspect-[20/10] w-full max-w-[720px] rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)]"
+            className="mx-auto mt-6 block aspect-[5/5] w-full max-w-[720px] rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)]"
           />
         )}
 

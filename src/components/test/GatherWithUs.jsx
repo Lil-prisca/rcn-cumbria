@@ -6,6 +6,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import gather from "../../assets/home-pic/gather-with-us.png";
+import gather2 from "../../assets/home-pic/Home gather.avif";
 const activities = [
   {
     icon: Laptop,
