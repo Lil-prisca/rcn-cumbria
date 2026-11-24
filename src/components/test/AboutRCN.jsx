@@ -36,7 +36,7 @@ export default function AboutRCN() {
           </p>
 
           <a
-            href="/about"
+            href="/about-us"
             className="mt-5 inline-flex items-center gap-3 rounded-md bg-rcn-red px-6 py-3 text-[14px] font-semibold text-rcn-white shadow-sm transition hover:bg-rcn-redDark"
           >
             About RCN Cumbria

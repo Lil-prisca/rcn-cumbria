@@ -17,6 +17,7 @@ const Eyebrow = ({ children }) => (
 
 const ContactInfo = () => {
   const touch = useSection("contact.touch") || {};
+  const { image, imageAlt } = useSection("contact.community");
   const {
     heading = "Contact Information",
     intro = "You can reach us by email, phone or through our WhatsApp Community. We will do our best to respond as soon as possible.",
@@ -341,7 +342,7 @@ const ContactInfo = () => {
               activities to find out how you can get involved.
             </p>
             <a
-              href="/activities"
+              href="/our-activities"
               className="mt-6 inline-flex items-center gap-3 rounded-md bg-rcn-navy px-8 py-4 text-[15px] font-bold text-rcn-white shadow-sm transition hover:bg-rcn-night"
             >
               View Our Activities
@@ -350,8 +351,8 @@ const ContactInfo = () => {
           </div>
 
           <img
-            src="/images/community-conversation.jpg"
-            alt="Two people smiling in conversation"
+            src={image}
+            alt={imageAlt}
             className="h-[209px] w-full rounded-lg object-cover shadow-[0_2px_10px_rgba(15,23,42,0.12)] lg:w-[435px] lg:shrink-0"
           />
         </div>

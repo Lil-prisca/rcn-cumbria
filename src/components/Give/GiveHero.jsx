@@ -12,19 +12,19 @@ const GiveHero = () => {
           alt={imageAlt || ""}
           src={image}
         />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-35% via-rcn-night/80 via-55% to-transparent" />
       </div>
-      
+
       <div className="relative z-10 max-w-2xl md:px-15  my-auto">
-         
-          <motion.p
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-[16px] font-bold uppercase tracking-[0.12em] text-rcn-red"
         >
-         Give
+          Give
         </motion.p>
-         <motion.h1
+        <motion.h1
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -32,7 +32,7 @@ const GiveHero = () => {
         >
           {heading}
         </motion.h1>
-          <motion.p
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}

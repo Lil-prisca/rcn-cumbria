@@ -5,8 +5,9 @@ import {
   BookOpen,
   CalendarDays,
 } from "lucide-react";
-import gather from "../../assets/home-pic/gather-with-us.png";
-import gather2 from "../../assets/home-pic/Home gather.avif";
+import { useSection } from "../../content/useSection";
+// import gather from "../../assets/home-pic/gather-with-us.png";
+// import gather2 from "../../assets/home-pic/Home gather.avif";
 const activities = [
   {
     icon: Laptop,
@@ -35,17 +36,18 @@ const activities = [
 ];
 
 export default function GatherWithUs() {
+  const { image, imageAlt } = useSection("home.gather");
   return (
     // Two parts side by side on desktop
     <section className="flex flex-col bg-rcn-cloud lg:flex-row">
       {/* PART 1: image background with text on top */}
       <div className="relative isolate flex min-h-[260px] items-center overflow-hidden bg-rcn-night px-8 py-10 lg:min-h-[242px] lg:w-[47.5%] lg:shrink-0 lg:px-[52px]">
         <img
-          src={gather}
-          alt=""
+          src={image}
+          alt={imageAlt}
           className="absolute inset-y-0 right-0 -z-20 h-full w-[100%] object-cover object-center"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-35% via-rcn-night/70 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-35% via-rcn-night/80 via-55% to-transparent" />
 
         <div className="max-w-[330px] text-rcn-white">
           <p className="text-[13px] font-bold uppercase tracking-wide text-rcn-red">
@@ -60,7 +62,7 @@ export default function GatherWithUs() {
             other believers.
           </p>
           <a
-            href="/activities"
+            href="/our-activities"
             className="mt-4 inline-flex items-center gap-3 rounded-md bg-rcn-red px-6 py-3 text-[14px] font-semibold text-rcn-white shadow-sm transition hover:bg-rcn-redDark"
           >
             View Our Activities
