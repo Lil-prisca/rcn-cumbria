@@ -27,8 +27,7 @@ const SECTION_LABELS = ["Reflect and Pray", "Personal reflection", "Prayer"];
 const blockType = (text) => {
   if (SECTION_LABELS.includes(text)) return "label";
   if (/^[“"].+[”"]\s*[—-]/.test(text)) return "quote";
-  if (/^[•\u2022\uF0B7\uF0A7-]\s*\S/.test(text) || /^[\uF000-\uF8FF]/.test(text))
-    return "bullet";
+  if (/^[••-]\s*\S/.test(text) || /^[-]/.test(text)) return "bullet";
   if (
     /^(\d+\.\s+|Conclusion:)/.test(text) &&
     text.length < 90 &&
@@ -38,11 +37,18 @@ const blockType = (text) => {
   return "paragraph";
 };
 
-const stripBullet = (text) => text.replace(/^[•\u2022\-\s]+|^[\uF000-\uF8FF]\s*/, "");
+const stripBullet = (text) => text.replace(/^[••\-\s]+|^[-]\s*/, "");
 
 function ArticleBody({ paragraphs }) {
+  // Index of the first normal paragraph (skips headings, quotes, bullets).
+  // That one gets the big red first letter.
+  const firstParaIndex = paragraphs.findIndex((raw) => {
+    const t = clean(raw);
+    return t && blockType(t) === "paragraph";
+  });
+
   return (
-    <div className="mx-auto mt-8 w-full max-w-[720px] space-y-5">
+    <div className="mx-auto mt-8 w-full max-w-[720px] md:max-w-[800px] space-y-5 text-[17px] leading-[1.8] text-rcn-navy/85">
       {paragraphs.map((raw, i) => {
         const text = clean(raw);
         if (!text) return null;
@@ -60,10 +66,7 @@ function ArticleBody({ paragraphs }) {
 
           case "label":
             return (
-              <h3
-                key={i}
-                className="pt-2 text-[18px] font-bold text-rcn-red"
-              >
+              <h3 key={i} className="pt-2 text-[18px] font-bold text-rcn-red">
                 {text}
               </h3>
             );
@@ -93,7 +96,11 @@ function ArticleBody({ paragraphs }) {
             return (
               <p
                 key={i}
-                className="text-[17px] leading-[1.75] text-rcn-navy/85"
+                className={
+                  i === firstParaIndex
+                    ? "text-[17px] leading-[1.75] text-rcn-navy/85 first-letter:float-left first-letter:mr-2 first-letter:text-[56px] first-letter:font-extrabold first-letter:leading-[0.9] first-letter:text-rcn-red"
+                    : "text-[17px] leading-[1.75] text-rcn-navy/85"
+                }
               >
                 {text}
               </p>
@@ -213,7 +220,7 @@ export default function ArticlePage() {
           <img
             src={image}
             alt={alt || title}
-            className="mx-auto mt-6 block aspect-[5/5] w-full max-w-[720px] rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)]"
+            className="mx-auto mt-6 block aspect-[5/3] md:aspect-[6/3] w-full max-w-[720px] md:max-w-[800px] rounded-xl object-cover shadow-[0_2px_12px_rgba(15,23,42,0.12)]"
           />
         )}
 
@@ -222,7 +229,7 @@ export default function ArticlePage() {
 
         {/* Sign-off */}
         {author && (
-          <div className="mx-auto mt-10 flex w-full max-w-[720px] items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
+          <div className="mx-auto mt-10 flex w-full max-w-[720px] md:max-w-[1040px] items-center gap-4 rounded-xl bg-rcn-ice px-6 py-5">
             <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#d6e5fb] text-rcn-navy">
               <User size={24} />
             </span>
