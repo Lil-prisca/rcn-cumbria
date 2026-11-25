@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSection } from "../../content/useSection";
+import FadeImage from "../shared/FadeImage"; // adjust the path to where you put it
 
 // Tailwind needs full class names, so each layout is spelled out
 const LAYOUTS = {
@@ -17,17 +18,16 @@ const LAYOUTS = {
 
 const MAX_PHOTOS = 6;
 
-// 1. helper goes here, outside Hero
+// Turns the banner's photo data into a plain list of image URLs.
 const toPhotoList = (b) => {
   let p = b.photos ?? b.images ?? b.collage ?? [];
   if (typeof p === "string") p = p.split(/[\n,]+/);
   return p
-    .map((x) => (typeof x === "string" ? x.trim() : x?.url || x?.src || x?.image))
+    .map((x) =>
+      typeof x === "string" ? x.trim() : x?.url || x?.src || x?.image,
+    )
     .filter(Boolean);
 };
-
-
- 
 
 const HeroCollage = ({ photos = [] }) => {
   const list = photos.filter(Boolean).slice(0, MAX_PHOTOS);
@@ -38,9 +38,15 @@ const HeroCollage = ({ photos = [] }) => {
   return (
     <div className={`grid h-full w-full gap-1 ${layout.grid}`}>
       {list.map((src, i) => (
-        <div key={src + i} className={`overflow-hidden ${layout.cells[i]}`}>
-          <img src={src} alt="" className="h-full w-full object-cover object-top" />
-        </div>
+        <FadeImage
+          key={src + i}
+          src={src}
+          priority
+          delay={i * 120}
+          bgClassName="bg-[#19143E]"
+          wrapperClassName={layout.cells[i]}
+          className="h-full w-full object-cover object-top"
+        />
       ))}
     </div>
   );
@@ -48,23 +54,24 @@ const HeroCollage = ({ photos = [] }) => {
 
 const Hero = () => {
   const b = useSection("home.banner");
-  
-   const photos = toPhotoList(b);
-  console.log("banner:", b);
+  const photos = toPhotoList(b);
 
   return (
     <section className="relative min-h-[70vh] mt-20 py-15 flex items-center overflow-hidden bg-[#19143E] font-sans">
       {/* hero background: collage if photos are set, otherwise single image */}
-         <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         <div className="h-full w-full opacity-40">
           {photos.length ? (
             <HeroCollage photos={photos} />
           ) : (
             b.image && (
-              <img
-                className="h-full w-full object-cover object-top"
-                alt={b.imageAlt || ""}
+              <FadeImage
                 src={b.image}
+                alt={b.imageAlt || ""}
+                priority
+                bgClassName="bg-[#19143E]"
+                wrapperClassName="h-full w-full"
+                className="h-full w-full object-cover object-top"
               />
             )
           )}
