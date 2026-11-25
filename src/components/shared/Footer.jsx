@@ -67,8 +67,10 @@ const Footer = () => {
             </div>
           </Link>
           <p className="text-on-primary font-body-md max-w-md mb-5 lg:mb-2 ">
-            RCN cumbria is a community of believers committed to the rebirth of apostolic christianity. Rooted in prayer, God's word and fellowship, we stand as watchmen and gatekepers  seeking God's purpose for carlisle and the wider Cumbria region.
-           
+            RCN Cumbria is a community of believers committed to the rebirth of
+            apostolic christianity. Rooted in prayer, God's word and fellowship,
+            we stand as watchmen and gatekepers seeking God's purpose for
+            Carlisle and the wider Cumbria region.
           </p>
           <div className=" flex md:hidden mt-3  items-center gap-3 mb-3">
             {socials.map((social) => {
