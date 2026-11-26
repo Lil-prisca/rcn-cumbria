@@ -8,7 +8,7 @@ const GiveHero = () => {
     <section className="relative isolate flex min-h-[300px]  items-center overflow-hidden  mt-20 bg-rcn-night font-sans">
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <img
-          className="w-full h-full object-cover"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-right"
           alt={imageAlt || ""}
           src={image}
         />
