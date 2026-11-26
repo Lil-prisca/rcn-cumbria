@@ -15,6 +15,7 @@ const ContactHero = () => {
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rcn-night from-30% via-rcn-night/75 via-55% to-transparent" />
       </div>
+
       <div className="flex pt-10">
         <div className="h-fit justify-content relative z-10 text-left px-5  md:px-20  max-w-4xl">
           <motion.p
